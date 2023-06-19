@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'com.hakan'
+version '0.0.1'
+sourceCompatibility = 8
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.codemc.org/repository/nms/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+
+    implementation 'com.google.inject:guice:7.0.0'
+    implementation 'org.reflections:reflections:0.10.2'
+}
+
+shadowJar {
+    relocate 'javassist', 'com.hakan.injection.shadow.javassist'
+    relocate 'com.google', 'com.hakan.injection.shadow.com.google'
+    relocate 'jakarta.inject', 'com.hakan.injection.shadow.jakarta.inject'
+    relocate 'javax.annotation', 'com.hakan.injection.shadow.javax.annotation'
+
+    relocate 'org.slf4j', 'com.hakan.injection.shadow.org.slf4j'
+    relocate 'org.aopalliance', 'com.hakan.injection.shadow.org.aopalliance'
+    relocate 'org.reflections', 'com.hakan.injection.shadow.org.reflections'
+    relocate 'org.checkerframework', 'com.hakan.injection.shadow.org.checkerframework'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            version = project.version
+            artifactId = project.name
+            from components.java
+        }
+    }
+}
+
+artifacts.archives(tasks.shadowJar)
+
+tasks.jar {
+    enabled = false
+}
+
+tasks.shadowJar {
+    archiveFileName.set(rootProject.name + ".jar")
+}
