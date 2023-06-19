@@ -99,9 +99,9 @@ public class MyCommand {
             description = "test command"
     )
     public void execute(CommandSender executor,
-                        @Param Player target,
-                        @Param String message,
-                        @Param int amount) {
+                        @Parameter Player target,
+                        @Parameter String message,
+                        @Parameter int amount) {
         for (int i = 0; i < amount; i++) {
             this.myService.sendMessage(target, message);
         }
