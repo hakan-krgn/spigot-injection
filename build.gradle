@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.hakan'
-version '0.0.2'
+version '0.0.2.1'
 sourceCompatibility = 8
 compileJava.options.encoding = 'UTF-8'
 
@@ -47,9 +47,9 @@ publishing {
 artifacts.archives(tasks.shadowJar)
 
 tasks.jar {
-    enabled = false
+    enabled = true
 }
 
 tasks.shadowJar {
-    archiveFileName.set(rootProject.name + "-" + rootProject.version + ".jar")
+    archiveFileName.set(project.name + "-" + project.version + ".jar")
 }

@@ -23,7 +23,7 @@ for dependency injection.
 <dependency>
     <groupId>com.github.hakan-krgn.hCore</groupId>
     <artifactId>spigot-injection</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.2.1</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -37,7 +37,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.hakan-krgn.hCore:spigot-injection:0.0.2'
+    implementation 'com.github.hakan-krgn.hCore:spigot-injection:0.0.2.1'
 }
 ```
 
