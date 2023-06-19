@@ -8,12 +8,26 @@ import org.reflections.Reflections;
 import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 
+/**
+ * ClassModule registers classes
+ * that are annotated with the annotation.
+ *
+ * @param <A> annotation type
+ */
 public abstract class ClassModule<A extends Annotation> extends SpigotModule {
 
     protected final Injector injector;
     protected final Reflections reflections;
     protected final Class<A> annotationClass;
 
+    /**
+     * Constructor of ClassModule.
+     *
+     * @param plugin          plugin
+     * @param injector        injector
+     * @param reflections     reflections
+     * @param annotationClass annotation
+     */
     public ClassModule(@Nonnull Plugin plugin,
                        @Nonnull Injector injector,
                        @Nonnull Reflections reflections,
@@ -24,6 +38,9 @@ public abstract class ClassModule<A extends Annotation> extends SpigotModule {
         this.annotationClass = annotationClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure() {
         for (Class<?> clazz : this.reflections.getTypesAnnotatedWith(this.annotationClass)) {
@@ -35,6 +52,15 @@ public abstract class ClassModule<A extends Annotation> extends SpigotModule {
     }
 
 
+    /**
+     * Returns all class that are
+     * annotated with the annotation
+     * step by step.
+     *
+     * @param clazz      class
+     * @param instance   class of class
+     * @param annotation annotation of class
+     */
     public abstract void onRegister(@Nonnull Class<?> clazz,
                                     @Nonnull Object instance,
                                     @Nonnull A annotation);

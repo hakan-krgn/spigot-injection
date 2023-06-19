@@ -11,11 +11,23 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+/**
+ * Command executor to
+ * listen bukkit commands and
+ * invoke related method.
+ */
 public class CommandExecutor extends BukkitCommand {
 
     private final Object instance;
     private final Method method;
 
+    /**
+     * Constructor of {@link CommandExecutor}.
+     *
+     * @param command  annotation
+     * @param instance class instance
+     * @param method   method
+     */
     public CommandExecutor(@Nonnull Command command,
                            @Nonnull Object instance,
                            @Nonnull Method method) {
@@ -24,6 +36,14 @@ public class CommandExecutor extends BukkitCommand {
         this.method = method;
     }
 
+    /**
+     * Executes the command, returning its success.
+     *
+     * @param sender the sender of the command
+     * @param label  the command label
+     * @param args   the command arguments
+     * @return true if the command was successful
+     */
     @Override
     public boolean execute(@Nonnull CommandSender sender,
                            @Nonnull String label,

@@ -9,12 +9,26 @@ import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
+/**
+ * FieldModule registers fields
+ * that are annotated with the annotation.
+ *
+ * @param <A> annotation type
+ */
 public abstract class FieldModule<A extends Annotation> extends SpigotModule {
 
     protected final Injector injector;
     protected final Reflections reflections;
     protected final Class<A> annotationClass;
 
+    /**
+     * Constructor of FieldModule.
+     *
+     * @param plugin          plugin
+     * @param injector        injector
+     * @param reflections     reflections
+     * @param annotationClass annotation
+     */
     public FieldModule(@Nonnull Plugin plugin,
                        @Nonnull Injector injector,
                        @Nonnull Reflections reflections,
@@ -25,6 +39,9 @@ public abstract class FieldModule<A extends Annotation> extends SpigotModule {
         this.annotationClass = annotationClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure() {
         for (Field field : this.reflections.getFieldsAnnotatedWith(this.annotationClass)) {
@@ -38,6 +55,15 @@ public abstract class FieldModule<A extends Annotation> extends SpigotModule {
     }
 
 
+    /**
+     * Returns all field that are
+     * annotated with the annotation
+     * step by step.
+     *
+     * @param field      field
+     * @param instance   class of field
+     * @param annotation annotation of field
+     */
     public abstract void onRegister(@Nonnull Field field,
                                     @Nonnull Object instance,
                                     @Nonnull A annotation);

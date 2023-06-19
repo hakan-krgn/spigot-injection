@@ -9,12 +9,26 @@ import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 
+/**
+ * ConstructorModule registers constructors
+ * that are annotated with the annotation.
+ *
+ * @param <A> annotation type
+ */
 public abstract class ConstructorModule<A extends Annotation> extends SpigotModule {
 
     protected final Injector injector;
     protected final Reflections reflections;
     protected final Class<A> annotationClass;
 
+    /**
+     * Constructor of ConstructorModule.
+     *
+     * @param plugin          plugin
+     * @param injector        injector
+     * @param reflections     reflections
+     * @param annotationClass annotation
+     */
     public ConstructorModule(@Nonnull Plugin plugin,
                              @Nonnull Injector injector,
                              @Nonnull Reflections reflections,
@@ -25,6 +39,9 @@ public abstract class ConstructorModule<A extends Annotation> extends SpigotModu
         this.annotationClass = annotationClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure() {
         for (Constructor<?> constructor : this.reflections.getConstructorsAnnotatedWith(this.annotationClass)) {
@@ -38,6 +55,15 @@ public abstract class ConstructorModule<A extends Annotation> extends SpigotModu
     }
 
 
+    /**
+     * Returns all constructor that are
+     * annotated with the annotation
+     * step by step.
+     *
+     * @param constructor constructor
+     * @param instance    class of constructor
+     * @param annotation  annotation of constructor
+     */
     public abstract void onRegister(@Nonnull Constructor<?> constructor,
                                     @Nonnull Object instance,
                                     @Nonnull A annotation);

@@ -8,6 +8,11 @@ import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ParameterSuppliers class to
+ * get, register and convert
+ * parameter to the desired type.
+ */
 @SuppressWarnings({"unchecked"})
 public class ParameterSuppliers {
 
@@ -29,11 +34,26 @@ public class ParameterSuppliers {
 
     private static final Map<Class<?>, ParameterSupplier<?>> suppliers = new HashMap<>();
 
+    /**
+     * Applies a parameter supplier.
+     *
+     * @param clazz     The class of the parameter.
+     * @param parameter The parameter.
+     * @param <T>       The type of the parameter.
+     * @return The parameter.
+     */
     public static @Nonnull <T> T apply(@Nonnull Class<T> clazz,
                                        @Nonnull String parameter) {
         return (T) suppliers.get(clazz).get(parameter);
     }
 
+    /**
+     * Registers a parameter supplier.
+     *
+     * @param clazz    The class of the parameter.
+     * @param supplier The supplier.
+     * @param <T>      The type of the parameter.
+     */
     public static <T> void register(@Nonnull Class<T> clazz,
                                     @Nonnull ParameterSupplier<T> supplier) {
         suppliers.put(clazz, supplier);

@@ -11,15 +11,28 @@ import org.reflections.Reflections;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 
+/**
+ * ListenerModule registers event listeners.
+ */
 @SuppressWarnings({"unchecked"})
 public class ListenerModule extends MethodModule<Listener> {
 
+    /**
+     * Constructor of ListenerModule.
+     *
+     * @param plugin      plugin
+     * @param injector    injector
+     * @param reflections reflections
+     */
     public ListenerModule(@Nonnull Plugin plugin,
                           @Nonnull Injector injector,
                           @Nonnull Reflections reflections) {
         super(plugin, injector, reflections, Listener.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onRegister(@Nonnull Method method,
                            @Nonnull Object instance,

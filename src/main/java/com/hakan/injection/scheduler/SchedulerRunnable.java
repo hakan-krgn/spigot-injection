@@ -8,6 +8,10 @@ import org.reflections.ReflectionUtils;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 
+/**
+ * SchedulerRunnable is a class that
+ * executes scheduler method.
+ */
 public class SchedulerRunnable extends BukkitRunnable {
 
     private final Plugin plugin;
@@ -18,6 +22,14 @@ public class SchedulerRunnable extends BukkitRunnable {
     private final Object instance;
     private final Method method;
 
+    /**
+     * Constructor of SchedulerRunnable.
+     *
+     * @param plugin    plugin
+     * @param scheduler scheduler annotation
+     * @param instance  instance
+     * @param method    method
+     */
     public SchedulerRunnable(@Nonnull Plugin plugin,
                              @Nonnull Scheduler scheduler,
                              @Nonnull Object instance,
@@ -31,6 +43,9 @@ public class SchedulerRunnable extends BukkitRunnable {
         this.method = method;
     }
 
+    /**
+     * Starts scheduler.
+     */
     public void start() {
         if (this.period == 0 && this.async) {
             this.runTaskLaterAsynchronously(this.plugin, this.delay);
@@ -43,6 +58,9 @@ public class SchedulerRunnable extends BukkitRunnable {
         }
     }
 
+    /**
+     * Executes scheduler method.
+     */
     @Override
     public void run() {
         ReflectionUtils.invoke(this.method, this.instance);

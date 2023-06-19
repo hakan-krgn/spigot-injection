@@ -7,6 +7,10 @@ import org.reflections.scanners.Scanners;
 
 import javax.annotation.Nonnull;
 
+/**
+ * ReflectionUtils is a utility class
+ * for Reflections library.
+ */
 public class ReflectionUtils {
 
     private static final Scanners[] SCANNERS = new Scanners[]{
@@ -16,6 +20,12 @@ public class ReflectionUtils {
             Scanners.MethodsAnnotated,
     };
 
+    /**
+     * Creates a new Reflections instance.
+     *
+     * @param plugin plugin
+     * @return reflections
+     */
     public static @Nonnull Reflections createFrom(@Nonnull Plugin plugin) {
         Scanner scanner = plugin.getClass().getAnnotation(Scanner.class);
 
