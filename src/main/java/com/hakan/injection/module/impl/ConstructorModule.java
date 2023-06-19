@@ -64,7 +64,9 @@ public abstract class ConstructorModule<A extends Annotation> extends SpigotModu
      * @param instance    class of constructor
      * @param annotation  annotation of constructor
      */
-    public abstract void onRegister(@Nonnull Constructor<?> constructor,
-                                    @Nonnull Object instance,
-                                    @Nonnull A annotation);
+    public abstract void onRegister(
+            @Nonnull Constructor<?> constructor,
+            @Nonnull Object instance,
+            @Nonnull A annotation
+    );
 }

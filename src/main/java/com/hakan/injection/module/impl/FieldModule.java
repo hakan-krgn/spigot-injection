@@ -64,7 +64,9 @@ public abstract class FieldModule<A extends Annotation> extends SpigotModule {
      * @param instance   class of field
      * @param annotation annotation of field
      */
-    public abstract void onRegister(@Nonnull Field field,
-                                    @Nonnull Object instance,
-                                    @Nonnull A annotation);
+    public abstract void onRegister(
+            @Nonnull Field field,
+            @Nonnull Object instance,
+            @Nonnull A annotation
+    );
 }

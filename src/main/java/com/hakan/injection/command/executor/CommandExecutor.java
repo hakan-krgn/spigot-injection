@@ -1,13 +1,16 @@
-package com.hakan.injection.command;
+package com.hakan.injection.command.executor;
 
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.Parameter;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.reflections.ReflectionUtils;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -35,6 +38,29 @@ public class CommandExecutor extends BukkitCommand {
         this.instance = instance;
         this.method = method;
     }
+
+    /**
+     * Registers the command to
+     * bukkit command map and routes
+     * the command to this executor.
+     */
+    public void register() {
+        try {
+            Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+            bukkitCommandMap.setAccessible(true);
+
+            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            org.bukkit.command.Command command = commandMap.getCommand(this.getName());
+
+            if (command != null && command.isRegistered())
+                return;
+
+            commandMap.register(this.getName(), this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Executes the command, returning its success.

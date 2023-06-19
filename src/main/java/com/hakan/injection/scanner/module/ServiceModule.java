@@ -1,8 +1,8 @@
-package com.hakan.injection.scanner;
+package com.hakan.injection.scanner.module;
 
 import com.google.inject.Injector;
-import com.google.inject.Singleton;
 import com.hakan.injection.module.impl.ClassModule;
+import com.hakan.injection.scanner.annotations.Service;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * ScannerModule registers classes
  * that are annotated with Singleton.
  */
-public class ScannerModule extends ClassModule<Singleton> {
+public class ServiceModule extends ClassModule<Service> {
 
     /**
      * Constructor of ScannerModule.
@@ -21,10 +21,10 @@ public class ScannerModule extends ClassModule<Singleton> {
      * @param injector    injector
      * @param reflections reflections
      */
-    public ScannerModule(@Nonnull Plugin plugin,
+    public ServiceModule(@Nonnull Plugin plugin,
                          @Nonnull Injector injector,
                          @Nonnull Reflections reflections) {
-        super(plugin, injector, reflections, Singleton.class);
+        super(plugin, injector, reflections, Service.class);
     }
 
     /**
@@ -33,7 +33,7 @@ public class ScannerModule extends ClassModule<Singleton> {
     @Override
     public void onRegister(@Nonnull Class<?> clazz,
                            @Nonnull Object instance,
-                           @Nonnull Singleton annotation) {
+                           @Nonnull Service annotation) {
         this.bind(clazz);
     }
 }

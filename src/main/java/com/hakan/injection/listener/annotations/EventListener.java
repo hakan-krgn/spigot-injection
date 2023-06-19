@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Listener {
+public @interface EventListener {
 
     /**
      * Gets event priority of annotation.

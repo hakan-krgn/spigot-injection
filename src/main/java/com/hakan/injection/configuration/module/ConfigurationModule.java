@@ -1,4 +1,4 @@
-package com.hakan.injection.configuration;
+package com.hakan.injection.configuration.module;
 
 import com.google.inject.Injector;
 import com.hakan.injection.configuration.annotations.Configuration;

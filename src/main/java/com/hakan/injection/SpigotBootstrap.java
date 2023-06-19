@@ -3,11 +3,12 @@ package com.hakan.injection;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.hakan.injection.command.CommandModule;
-import com.hakan.injection.listener.ListenerModule;
+import com.hakan.injection.command.module.CommandModule;
+import com.hakan.injection.listener.module.ListenerModule;
 import com.hakan.injection.module.SpigotModule;
-import com.hakan.injection.scanner.ScannerModule;
-import com.hakan.injection.scheduler.SchedulerModule;
+import com.hakan.injection.scanner.module.ComponentModule;
+import com.hakan.injection.scanner.module.ServiceModule;
+import com.hakan.injection.scheduler.module.SchedulerModule;
 import com.hakan.injection.utils.ReflectionUtils;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
@@ -32,7 +33,8 @@ public class SpigotBootstrap extends AbstractModule {
     public static @Nonnull SpigotBootstrap run(@Nonnull Plugin plugin) {
         SpigotBootstrap bootstrap = new SpigotBootstrap(plugin);
 
-        bootstrap.register(new ScannerModule(plugin, bootstrap.injector, bootstrap.reflections));
+        bootstrap.register(new ServiceModule(plugin, bootstrap.injector, bootstrap.reflections));
+        bootstrap.register(new ComponentModule(plugin, bootstrap.injector, bootstrap.reflections));
         bootstrap.register(new CommandModule(plugin, bootstrap.injector, bootstrap.reflections));
         bootstrap.register(new ListenerModule(plugin, bootstrap.injector, bootstrap.reflections));
         bootstrap.register(new SchedulerModule(plugin, bootstrap.injector, bootstrap.reflections));
@@ -91,6 +93,7 @@ public class SpigotBootstrap extends AbstractModule {
      * @return injector
      */
     public @Nonnull Injector register(@Nonnull SpigotModule module) {
+        this.install(module);
         return Guice.createInjector(module);
     }
 
@@ -101,5 +104,11 @@ public class SpigotBootstrap extends AbstractModule {
     @Override
     protected void configure() {
         this.bind(Plugin.class).toInstance(this.plugin);
+
+        this.install(this.injector.getInstance(ServiceModule.class));
+        this.install(this.injector.getInstance(ComponentModule.class));
+        this.install(this.injector.getInstance(CommandModule.class));
+        this.install(this.injector.getInstance(ListenerModule.class));
+        this.install(this.injector.getInstance(SchedulerModule.class));
     }
 }

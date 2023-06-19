@@ -1,4 +1,4 @@
-package com.hakan.injection.scheduler;
+package com.hakan.injection.scheduler.executor;
 
 import com.hakan.injection.scheduler.annotations.Scheduler;
 import org.bukkit.plugin.Plugin;
@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * SchedulerRunnable is a class that
  * executes scheduler method.
  */
-public class SchedulerRunnable extends BukkitRunnable {
+public class SchedulerExecutor extends BukkitRunnable {
 
     private final Plugin plugin;
     private final long delay;
@@ -30,7 +30,7 @@ public class SchedulerRunnable extends BukkitRunnable {
      * @param instance  instance
      * @param method    method
      */
-    public SchedulerRunnable(@Nonnull Plugin plugin,
+    public SchedulerExecutor(@Nonnull Plugin plugin,
                              @Nonnull Scheduler scheduler,
                              @Nonnull Object instance,
                              @Nonnull Method method) {
@@ -46,7 +46,7 @@ public class SchedulerRunnable extends BukkitRunnable {
     /**
      * Starts scheduler.
      */
-    public void start() {
+    public void register() {
         if (this.period == 0 && this.async) {
             this.runTaskLaterAsynchronously(this.plugin, this.delay);
         } else if (this.period == 0) {
@@ -57,6 +57,7 @@ public class SchedulerRunnable extends BukkitRunnable {
             this.runTaskTimer(this.plugin, this.delay, this.period);
         }
     }
+
 
     /**
      * Executes scheduler method.

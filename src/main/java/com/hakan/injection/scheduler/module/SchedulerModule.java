@@ -1,8 +1,9 @@
-package com.hakan.injection.scheduler;
+package com.hakan.injection.scheduler.module;
 
 import com.google.inject.Injector;
 import com.hakan.injection.module.impl.MethodModule;
 import com.hakan.injection.scheduler.annotations.Scheduler;
+import com.hakan.injection.scheduler.executor.SchedulerExecutor;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
@@ -40,6 +41,6 @@ public class SchedulerModule extends MethodModule<Scheduler> {
         if (method.getReturnType() != void.class)
             throw new RuntimeException("scheduler method must have void return type!");
 
-        new SchedulerRunnable(super.plugin, annotation, instance, method).start();
+        new SchedulerExecutor(super.plugin, annotation, instance, method).register();
     }
 }

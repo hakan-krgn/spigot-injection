@@ -9,6 +9,9 @@ for dependency injection.
 
 ### How to use?
 
+You can check the example test plugin from here 
+[Click to go](https://github.com/hakan-krgn/spigot-injection/tree/master/src/test/java/com/hakan/test)
+
 #### 1. Add dependency
 
 #### Maven
@@ -65,18 +68,20 @@ That's all. Now you can use injection in your classes.
 
 ```java
 
-@Singleton
+@Service
 public class MyService {
+
+    private String serviceMessage;
 
     @Inject
     public MyService() {
-
+        this.serviceMessage = "Hello World!";
     }
 
-    public void sendMessage(Player player, 
-                            String message) {
+    public void sendMessage(Player player, String message) {
         player.sendMessage(message);
         System.out.println(message);
+        System.out.println(this.serviceMessage);
     }
 }
 ```
@@ -86,7 +91,7 @@ public class MyService {
 
 ```java
 
-@Singleton
+@Component
 public class MyCommand {
 
     @Inject
@@ -114,7 +119,7 @@ public class MyCommand {
 
 ```java
 
-@Singleton
+@Component
 public class MyListener {
 
     private final MyService myService;
@@ -136,7 +141,7 @@ public class MyListener {
 
 ```java
 
-@Singleton
+@Component
 public class MyScheduler {
 
     private final MyService myService;

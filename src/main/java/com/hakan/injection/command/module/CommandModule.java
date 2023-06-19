@@ -1,9 +1,9 @@
-package com.hakan.injection.command;
+package com.hakan.injection.command.module;
 
 import com.google.inject.Injector;
 import com.hakan.injection.command.annotations.Command;
+import com.hakan.injection.command.executor.CommandExecutor;
 import com.hakan.injection.module.impl.MethodModule;
-import com.hakan.injection.utils.CommandUtils;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
@@ -38,6 +38,6 @@ public class CommandModule extends MethodModule<Command> {
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 
-        CommandUtils.register(new CommandExecutor(command, instance, method));
+        new CommandExecutor(command, instance, method).register();
     }
 }

@@ -1,9 +1,9 @@
-package com.hakan.injection.listener;
+package com.hakan.injection.listener.module;
 
 import com.google.inject.Injector;
-import com.hakan.injection.listener.annotations.Listener;
+import com.hakan.injection.listener.annotations.EventListener;
+import com.hakan.injection.listener.executor.ListenerExecutor;
 import com.hakan.injection.module.impl.MethodModule;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * ListenerModule registers event listeners.
  */
 @SuppressWarnings({"unchecked"})
-public class ListenerModule extends MethodModule<Listener> {
+public class ListenerModule extends MethodModule<EventListener> {
 
     /**
      * Constructor of ListenerModule.
@@ -27,7 +27,7 @@ public class ListenerModule extends MethodModule<Listener> {
     public ListenerModule(@Nonnull Plugin plugin,
                           @Nonnull Injector injector,
                           @Nonnull Reflections reflections) {
-        super(plugin, injector, reflections, Listener.class);
+        super(plugin, injector, reflections, EventListener.class);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ListenerModule extends MethodModule<Listener> {
     @Override
     public void onRegister(@Nonnull Method method,
                            @Nonnull Object instance,
-                           @Nonnull Listener listener) {
+                           @Nonnull EventListener listener) {
         Class<?> clazz = method.getParameters()[0].getType();
 
         if (!Event.class.isAssignableFrom(clazz))
@@ -46,16 +46,6 @@ public class ListenerModule extends MethodModule<Listener> {
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 
-
-        ListenerExecutor listenerExecutor = new ListenerExecutor(instance, method);
-
-        Bukkit.getPluginManager().registerEvent(
-                (Class<? extends Event>) clazz,
-                listenerExecutor,
-                listener.priority(),
-                listenerExecutor,
-                super.plugin,
-                false
-        );
+        new ListenerExecutor(this.plugin, listener, (Class<? extends Event>) clazz, instance, method).register();
     }
 }

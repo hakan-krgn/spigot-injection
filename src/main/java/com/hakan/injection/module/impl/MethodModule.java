@@ -64,7 +64,9 @@ public abstract class MethodModule<A extends Annotation> extends SpigotModule {
      * @param instance   class of method
      * @param annotation annotation of method
      */
-    public abstract void onRegister(@Nonnull Method method,
-                                    @Nonnull Object instance,
-                                    @Nonnull A annotation);
+    public abstract void onRegister(
+            @Nonnull Method method,
+            @Nonnull Object instance,
+            @Nonnull A annotation
+    );
 }

@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+    testCompileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
 
     implementation 'com.google.inject:guice:7.0.0'
     implementation 'org.reflections:reflections:0.10.2'
