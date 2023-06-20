@@ -1,5 +1,6 @@
 package com.hakan.injection.listener.executor;
 
+import com.hakan.injection.SpigotExecutor;
 import com.hakan.injection.listener.annotations.EventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
@@ -15,7 +16,8 @@ import java.lang.reflect.Method;
  * ListenerExecutor is a class that
  * executes event listener method.
  */
-public class ListenerExecutor implements Listener, EventExecutor {
+@SuppressWarnings({"unchecked"})
+public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor {
 
     private final Plugin plugin;
     private final Method method;
@@ -26,27 +28,28 @@ public class ListenerExecutor implements Listener, EventExecutor {
     /**
      * Constructor of ListenerExecutor.
      *
+     * @param plugin   plugin
+     * @param listener listener
      * @param method   method
      * @param instance instance
-     * @param clazz    class of event
      */
     public ListenerExecutor(@Nonnull Plugin plugin,
                             @Nonnull EventListener listener,
-                            @Nonnull Class<? extends Event> clazz,
                             @Nonnull Object instance,
                             @Nonnull Method method) {
         this.plugin = plugin;
-        this.clazz = clazz;
         this.method = method;
         this.instance = instance;
         this.listener = listener;
+        this.clazz = (Class<? extends Event>) method.getParameters()[0].getType();
     }
 
     /**
      * Registers listener to bukkit and
      * connects events to method.
      */
-    public void register() {
+    @Override
+    public void execute() {
         Bukkit.getPluginManager().registerEvent(
                 this.clazz,
                 this,

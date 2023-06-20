@@ -1,19 +1,19 @@
 package com.hakan.injection;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.hakan.injection.command.module.CommandModule;
-import com.hakan.injection.listener.module.ListenerModule;
-import com.hakan.injection.module.SpigotModule;
-import com.hakan.injection.scanner.module.ComponentModule;
-import com.hakan.injection.scanner.module.ServiceModule;
-import com.hakan.injection.scheduler.module.SchedulerModule;
+import com.hakan.injection.command.registerer.CommandRegisterer;
+import com.hakan.injection.configuration.registerer.ConfigurationRegisterer;
+import com.hakan.injection.listener.registerer.ListenerRegisterer;
+import com.hakan.injection.scanner.module.PluginModule;
+import com.hakan.injection.scanner.module.ScannerModule;
+import com.hakan.injection.scheduler.registerer.SchedulerRegisterer;
 import com.hakan.injection.utils.ReflectionUtils;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 /**
  * SpigotBootstrap is bootstrap class
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  * all classes that are specified
  * in modules.
  */
-public class SpigotBootstrap extends AbstractModule {
+public class SpigotBootstrap {
 
     /**
      * Starts automatic injection.
@@ -31,15 +31,7 @@ public class SpigotBootstrap extends AbstractModule {
      * @return bootstrap
      */
     public static @Nonnull SpigotBootstrap run(@Nonnull Plugin plugin) {
-        SpigotBootstrap bootstrap = new SpigotBootstrap(plugin);
-
-        bootstrap.register(new ServiceModule(plugin, bootstrap.injector, bootstrap.reflections));
-        bootstrap.register(new ComponentModule(plugin, bootstrap.injector, bootstrap.reflections));
-        bootstrap.register(new CommandModule(plugin, bootstrap.injector, bootstrap.reflections));
-        bootstrap.register(new ListenerModule(plugin, bootstrap.injector, bootstrap.reflections));
-        bootstrap.register(new SchedulerModule(plugin, bootstrap.injector, bootstrap.reflections));
-
-        return bootstrap;
+        return new SpigotBootstrap(plugin);
     }
 
 
@@ -54,9 +46,27 @@ public class SpigotBootstrap extends AbstractModule {
      * @param plugin plugin instance
      */
     private SpigotBootstrap(@Nonnull Plugin plugin) {
+        this(plugin, Guice.createInjector(new PluginModule(plugin)));
+    }
+
+    /**
+     * Constructor of SpigotBootstrap.
+     *
+     * @param plugin   plugin instance
+     * @param injector injector instance
+     */
+    private SpigotBootstrap(@Nonnull Plugin plugin,
+                            @Nonnull Injector injector) {
         this.plugin = plugin;
-        this.injector = Guice.createInjector(this);
         this.reflections = ReflectionUtils.createFrom(plugin);
+        this.injector = Guice.createInjector(new ScannerModule(injector, this.reflections));
+
+        this.register(
+                new CommandRegisterer(plugin, this.injector, this.reflections),
+                new ListenerRegisterer(plugin, this.injector, this.reflections),
+                new SchedulerRegisterer(plugin, this.injector, this.reflections),
+                new ConfigurationRegisterer(plugin, this.injector, this.reflections)
+        );
     }
 
     /**
@@ -87,28 +97,11 @@ public class SpigotBootstrap extends AbstractModule {
     }
 
     /**
-     * Registers a module.
+     * Creates a registerer.
      *
-     * @param module module
-     * @return injector
+     * @param registerers registerers
      */
-    public @Nonnull Injector register(@Nonnull SpigotModule module) {
-        this.install(module);
-        return Guice.createInjector(module);
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void configure() {
-        this.bind(Plugin.class).toInstance(this.plugin);
-
-        this.install(this.injector.getInstance(ServiceModule.class));
-        this.install(this.injector.getInstance(ComponentModule.class));
-        this.install(this.injector.getInstance(CommandModule.class));
-        this.install(this.injector.getInstance(ListenerModule.class));
-        this.install(this.injector.getInstance(SchedulerModule.class));
+    public void register(@Nonnull SpigotRegisterer<?, ?>... registerers) {
+        Arrays.stream(registerers).forEach(SpigotRegisterer::register);
     }
 }

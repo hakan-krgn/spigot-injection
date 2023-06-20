@@ -1,16 +1,13 @@
-package com.hakan.injection.scanner.annotations;
+package com.hakan.injection.configuration.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Component annotation to inject
- * component classes automatically.
- */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Component {
+public @interface ConfigFile {
+
 
 }

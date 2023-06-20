@@ -1,4 +1,4 @@
-package com.hakan.injection.annotations;
+package com.hakan.injection.scanner.annotations;
 
 import javax.annotation.Nonnull;
 import java.lang.annotation.ElementType;

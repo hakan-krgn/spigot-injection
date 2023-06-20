@@ -1,6 +1,6 @@
 package com.hakan.injection.utils;
 
-import com.hakan.injection.annotations.Scanner;
+import com.hakan.injection.scanner.annotations.Scanner;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;

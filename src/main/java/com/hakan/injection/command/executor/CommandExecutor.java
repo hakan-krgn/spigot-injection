@@ -1,5 +1,6 @@
 package com.hakan.injection.command.executor;
 
+import com.hakan.injection.SpigotExecutor;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.Parameter;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
@@ -19,7 +20,7 @@ import java.util.Arrays;
  * listen bukkit commands and
  * invoke related method.
  */
-public class CommandExecutor extends BukkitCommand {
+public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
     private final Object instance;
     private final Method method;
@@ -44,7 +45,8 @@ public class CommandExecutor extends BukkitCommand {
      * bukkit command map and routes
      * the command to this executor.
      */
-    public void register() {
+    @Override
+    public void execute() {
         try {
             Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             bukkitCommandMap.setAccessible(true);
