@@ -1,3 +1,4 @@
 dependencies {
-    implementation project(":injection-core")
+    implementation project(':injection-core')
+    testImplementation project(':injection-core')
 }

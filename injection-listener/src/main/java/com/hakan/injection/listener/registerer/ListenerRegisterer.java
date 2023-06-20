@@ -45,6 +45,6 @@ public class ListenerRegisterer extends SpigotRegisterer<Method, EventListener> 
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 
-        new ListenerExecutor(this.plugin, listener, instance, method).execute();
+        new ListenerExecutor(this.plugin, instance, method, listener).execute();
     }
 }

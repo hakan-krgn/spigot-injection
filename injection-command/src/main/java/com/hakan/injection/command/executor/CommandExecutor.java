@@ -2,7 +2,7 @@ package com.hakan.injection.command.executor;
 
 import com.hakan.injection.SpigotExecutor;
 import com.hakan.injection.command.annotations.Command;
-import com.hakan.injection.command.annotations.Parameter;
+import com.hakan.injection.command.annotations.CommandParam;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -13,6 +13,7 @@ import org.reflections.ReflectionUtils;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 /**
@@ -28,13 +29,13 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     /**
      * Constructor of {@link CommandExecutor}.
      *
-     * @param command  annotation
      * @param instance class instance
      * @param method   method
+     * @param command  annotation
      */
-    public CommandExecutor(@Nonnull Command command,
-                           @Nonnull Object instance,
-                           @Nonnull Method method) {
+    public CommandExecutor(@Nonnull Object instance,
+                           @Nonnull Method method,
+                           @Nonnull Command command) {
         super(command.name(), command.description(), command.usage(), Arrays.asList(command.aliases()));
         this.instance = instance;
         this.method = method;
@@ -76,13 +77,13 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     public boolean execute(@Nonnull CommandSender sender,
                            @Nonnull String label,
                            @Nonnull String[] args) {
-        java.lang.reflect.Parameter[] parameters = this.method.getParameters();
+        Parameter[] parameters = this.method.getParameters();
         Object[] objects = new Object[parameters.length];
 
         objects[0] = sender;
 
         for (int i = 1; i < parameters.length; i++) {
-            if (!parameters[i].isAnnotationPresent(Parameter.class))
+            if (!parameters[i].isAnnotationPresent(CommandParam.class))
                 throw new RuntimeException("parameter must be annotated with @CommandParameter!");
 
 

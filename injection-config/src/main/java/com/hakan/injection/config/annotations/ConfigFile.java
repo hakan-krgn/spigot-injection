@@ -1,4 +1,4 @@
-package com.hakan.injection.configuration.annotations;
+package com.hakan.injection.config.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

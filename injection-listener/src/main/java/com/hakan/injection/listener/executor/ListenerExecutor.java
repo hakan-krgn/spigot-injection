@@ -34,9 +34,9 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
      * @param instance instance
      */
     public ListenerExecutor(@Nonnull Plugin plugin,
-                            @Nonnull EventListener listener,
                             @Nonnull Object instance,
-                            @Nonnull Method method) {
+                            @Nonnull Method method,
+                            @Nonnull EventListener listener) {
         this.plugin = plugin;
         this.method = method;
         this.instance = instance;

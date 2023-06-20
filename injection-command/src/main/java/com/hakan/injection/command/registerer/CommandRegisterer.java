@@ -38,6 +38,6 @@ public class CommandRegisterer extends SpigotRegisterer<Method, Command> {
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 
-        new CommandExecutor(command, instance, method).execute();
+        new CommandExecutor(instance, method, command).execute();
     }
 }
