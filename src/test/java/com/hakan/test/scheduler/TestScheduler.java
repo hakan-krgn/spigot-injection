@@ -1,6 +1,7 @@
 package com.hakan.test.scheduler;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.hakan.injection.scanner.annotations.Component;
 import com.hakan.injection.scheduler.annotations.Scheduler;
 import com.hakan.test.service.TestService;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
 
+@Singleton
 @Component
 public class TestScheduler {
 

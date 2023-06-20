@@ -1,6 +1,7 @@
 package com.hakan.test.command;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.Parameter;
 import com.hakan.injection.scanner.annotations.Component;
@@ -8,6 +9,7 @@ import com.hakan.test.service.TestService;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@Singleton
 @Component
 public class TestCommand {
 
