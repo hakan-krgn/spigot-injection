@@ -1,9 +1,9 @@
-package com.hakan.injection.listener.module;
+package com.hakan.injection.listener.registerer;
 
 import com.google.inject.Injector;
+import com.hakan.injection.SpigotRegisterer;
 import com.hakan.injection.listener.annotations.EventListener;
 import com.hakan.injection.listener.executor.ListenerExecutor;
-import com.hakan.injection.module.impl.MethodModule;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
@@ -14,8 +14,7 @@ import java.lang.reflect.Method;
 /**
  * ListenerModule registers event listeners.
  */
-@SuppressWarnings({"unchecked"})
-public class ListenerModule extends MethodModule<EventListener> {
+public class ListenerRegisterer extends SpigotRegisterer<Method, EventListener> {
 
     /**
      * Constructor of ListenerModule.
@@ -24,18 +23,18 @@ public class ListenerModule extends MethodModule<EventListener> {
      * @param injector    injector
      * @param reflections reflections
      */
-    public ListenerModule(@Nonnull Plugin plugin,
-                          @Nonnull Injector injector,
-                          @Nonnull Reflections reflections) {
-        super(plugin, injector, reflections, EventListener.class);
+    public ListenerRegisterer(@Nonnull Plugin plugin,
+                              @Nonnull Injector injector,
+                              @Nonnull Reflections reflections) {
+        super(plugin, injector, reflections, Method.class, EventListener.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onRegister(@Nonnull Method method,
-                           @Nonnull Object instance,
+    public void onRegister(@Nonnull Object instance,
+                           @Nonnull Method method,
                            @Nonnull EventListener listener) {
         Class<?> clazz = method.getParameters()[0].getType();
 
@@ -46,6 +45,6 @@ public class ListenerModule extends MethodModule<EventListener> {
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 
-        new ListenerExecutor(this.plugin, listener, (Class<? extends Event>) clazz, instance, method).register();
+        new ListenerExecutor(this.plugin, listener, instance, method).execute();
     }
 }
