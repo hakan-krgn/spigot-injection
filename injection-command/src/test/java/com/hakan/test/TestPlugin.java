@@ -4,7 +4,7 @@ import com.hakan.injection.SpigotBootstrap;
 import com.hakan.injection.annotations.Scanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@Scanner("test")
+@Scanner("com.hakan.test")
 public class TestPlugin extends JavaPlugin {
 
     @Override
