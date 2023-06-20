@@ -1,0 +1,4 @@
+name: 'TestCore'
+author: 'Hakan'
+version: '0.0.3'
+main: 'com.hakan.test.TestPlugin'

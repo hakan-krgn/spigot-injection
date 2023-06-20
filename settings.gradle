@@ -1,2 +1,8 @@
 rootProject.name = 'spigot-injection'
 
+include 'injection-command'
+include 'injection-configuration'
+include 'injection-core'
+include 'injection-database'
+include 'injection-listener'
+include 'injection-scheduler'
