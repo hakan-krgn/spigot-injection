@@ -1,12 +1,13 @@
 package com.hakan.injection.config.registerer;
 
 import com.google.inject.Injector;
-import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.config.annotations.ConfigFile;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @SuppressWarnings({"rawtypes"})
 public class ConfigRegisterer extends SpigotRegisterer<Class, ConfigFile> {
@@ -19,7 +20,7 @@ public class ConfigRegisterer extends SpigotRegisterer<Class, ConfigFile> {
 
 
     @Override
-    public void onRegister(@Nonnull Object instance,
+    public void onRegister(@Nullable Object instance,
                            @Nonnull Class target,
                            @Nonnull ConfigFile annotation) {
 

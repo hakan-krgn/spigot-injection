@@ -1,13 +1,14 @@
 package com.hakan.injection.command.registerer;
 
 import com.google.inject.Injector;
-import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.executor.CommandExecutor;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 
 /**
@@ -32,9 +33,11 @@ public class CommandRegisterer extends SpigotRegisterer<Method, Command> {
      * {@inheritDoc}
      */
     @Override
-    public void onRegister(@Nonnull Object instance,
+    public void onRegister(@Nullable Object instance,
                            @Nonnull Method method,
                            @Nonnull Command command) {
+        if (instance == null)
+            throw new RuntimeException("event listener instance cannot be null!");
         if (method.getReturnType() != void.class)
             throw new RuntimeException("event listener method must have void return type!");
 

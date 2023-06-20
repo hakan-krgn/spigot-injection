@@ -1,6 +1,6 @@
 package com.hakan.injection.scheduler.executor;
 
-import com.hakan.injection.SpigotExecutor;
+import com.hakan.injection.executor.SpigotExecutor;
 import com.hakan.injection.scheduler.annotations.Scheduler;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;

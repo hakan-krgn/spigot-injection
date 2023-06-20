@@ -1,6 +1,6 @@
 package com.hakan.injection.listener.executor;
 
-import com.hakan.injection.SpigotExecutor;
+import com.hakan.injection.executor.SpigotExecutor;
 import com.hakan.injection.listener.annotations.EventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;

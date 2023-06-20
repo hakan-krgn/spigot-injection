@@ -2,7 +2,7 @@ package com.hakan.injection.modules;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
-import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.annotations.Component;
 import com.hakan.injection.annotations.Service;
 import org.bukkit.plugin.Plugin;

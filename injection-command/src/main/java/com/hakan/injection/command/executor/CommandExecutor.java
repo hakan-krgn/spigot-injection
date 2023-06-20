@@ -1,9 +1,9 @@
 package com.hakan.injection.command.executor;
 
-import com.hakan.injection.SpigotExecutor;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.CommandParam;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
+import com.hakan.injection.executor.SpigotExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;

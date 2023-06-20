@@ -1,13 +1,14 @@
 package com.hakan.injection.scheduler.registerer;
 
 import com.google.inject.Injector;
-import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.scheduler.annotations.Scheduler;
 import com.hakan.injection.scheduler.executor.SchedulerExecutor;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 
 /**
@@ -33,9 +34,11 @@ public class SchedulerRegisterer extends SpigotRegisterer<Method, Scheduler> {
      * {@inheritDoc}
      */
     @Override
-    public void onRegister(@Nonnull Object instance,
+    public void onRegister(@Nullable Object instance,
                            @Nonnull Method method,
                            @Nonnull Scheduler scheduler) {
+        if (instance == null)
+            throw new RuntimeException("event listener instance cannot be null!");
         if (method.getParameterCount() != 0)
             throw new RuntimeException("scheduler method must have no parameters!");
         if (method.getReturnType() != void.class)

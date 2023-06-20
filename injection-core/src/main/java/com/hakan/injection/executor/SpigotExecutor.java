@@ -1,4 +1,4 @@
-package com.hakan.injection;
+package com.hakan.injection.executor;
 
 /**
  * Base interface for executors

@@ -1,7 +1,7 @@
 package com.hakan.injection.listener.registerer;
 
 import com.google.inject.Injector;
-import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.listener.annotations.EventListener;
 import com.hakan.injection.listener.executor.ListenerExecutor;
 import org.bukkit.event.Event;
@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 
 /**
@@ -33,11 +34,13 @@ public class ListenerRegisterer extends SpigotRegisterer<Method, EventListener> 
      * {@inheritDoc}
      */
     @Override
-    public void onRegister(@Nonnull Object instance,
+    public void onRegister(@Nullable Object instance,
                            @Nonnull Method method,
                            @Nonnull EventListener listener) {
         Class<?> clazz = method.getParameters()[0].getType();
 
+        if (instance == null)
+            throw new RuntimeException("event listener instance cannot be null!");
         if (!Event.class.isAssignableFrom(clazz))
             throw new RuntimeException("event listener method parameter must be a subclass of org.bukkit.event.Event!");
         if (method.getParameterCount() != 1)

@@ -1,10 +1,11 @@
-package com.hakan.injection;
+package com.hakan.injection.registerer;
 
 import com.google.inject.Injector;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -125,7 +126,13 @@ public abstract class SpigotRegisterer<T, A extends Annotation> {
      */
     private void registerClass(Class<?> clazz) {
         A annotation = clazz.getAnnotation(this.annotation);
-        Object instance = this.injector.getInstance(clazz);
+        Object instance;
+
+        try {
+            instance = this.injector.getInstance(clazz);
+        } catch (Exception ignored) {
+            instance = null;
+        }
 
         this.onRegister(instance, (T) clazz, annotation);
     }
@@ -139,9 +146,10 @@ public abstract class SpigotRegisterer<T, A extends Annotation> {
      * @param instance   instance of target class
      * @param target     target class
      * @param annotation wanted annotation
+     * @apiNote instance will be null if the class is an interface.
      */
     public abstract void onRegister(
-            @Nonnull Object instance,
+            @Nullable Object instance,
             @Nonnull T target,
             @Nonnull A annotation
     );

@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.hakan.injection.modules.PluginModule;
 import com.hakan.injection.modules.ScannerModule;
+import com.hakan.injection.registerer.SpigotRegisterer;
 import com.hakan.injection.utils.ReflectionUtils;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
