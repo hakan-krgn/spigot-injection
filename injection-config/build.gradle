@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':injection-core')
+    testImplementation project(':injection-core')
+}

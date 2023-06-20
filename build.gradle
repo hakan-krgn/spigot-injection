@@ -9,48 +9,59 @@ version '0.0.3'
 sourceCompatibility = 8
 compileJava.options.encoding = 'UTF-8'
 
-repositories {
-    mavenCentral()
-    maven { url 'https://repo.codemc.org/repository/nms/' }
+tasks.jar {
+    enabled = false
 }
 
-dependencies {
-    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    testCompileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
-    implementation 'com.google.inject:guice:7.0.0'
-    implementation 'org.reflections:reflections:0.10.2'
-}
+    group rootProject.group
+    version rootProject.version
+    sourceCompatibility = 8
+    compileJava.options.encoding = 'UTF-8'
 
-shadowJar {
-    relocate 'javassist', 'com.hakan.injection.shadow.javassist'
-    relocate 'com.google', 'com.hakan.injection.shadow.com.google'
-    relocate 'jakarta.inject', 'com.hakan.injection.shadow.jakarta.inject'
-    relocate 'javax.annotation', 'com.hakan.injection.shadow.javax.annotation'
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.codemc.org/repository/nms/' }
+    }
 
-    relocate 'org.slf4j', 'com.hakan.injection.shadow.org.slf4j'
-    relocate 'org.aopalliance', 'com.hakan.injection.shadow.org.aopalliance'
-    relocate 'org.reflections', 'com.hakan.injection.shadow.org.reflections'
-    relocate 'org.checkerframework', 'com.hakan.injection.shadow.org.checkerframework'
-}
+    dependencies {
+        compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+        testCompileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = project.group
-            version = project.version
-            artifactId = project.name
-            from components.java
+        implementation 'com.google.inject:guice:7.0.0'
+        implementation 'org.reflections:reflections:0.10.2'
+    }
+
+    shadowJar {
+        relocate 'javassist', 'com.hakan.injection.shadow.javassist'
+        relocate 'com.google', 'com.hakan.injection.shadow.com.google'
+        relocate 'jakarta.inject', 'com.hakan.injection.shadow.jakarta.inject'
+        relocate 'javax.annotation', 'com.hakan.injection.shadow.javax.annotation'
+
+        relocate 'org.slf4j', 'com.hakan.injection.shadow.org.slf4j'
+        relocate 'org.aopalliance', 'com.hakan.injection.shadow.org.aopalliance'
+        relocate 'org.reflections', 'com.hakan.injection.shadow.org.reflections'
+        relocate 'org.checkerframework', 'com.hakan.injection.shadow.org.checkerframework'
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = project.group
+                version = project.version
+                artifactId = project.name
+                from components.java
+            }
         }
     }
-}
 
-artifacts.archives(tasks.shadowJar)
+    artifacts.archives(tasks.shadowJar)
 
-tasks.jar {
-    enabled = true
-}
-
-tasks.shadowJar {
-    archiveFileName.set(project.name + "-" + project.version + ".jar")
+    tasks.jar {
+        enabled = true
+    }
 }
