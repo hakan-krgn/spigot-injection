@@ -1,8 +1,8 @@
 package com.hakan.injection.configuration.registerer;
 
 import com.google.inject.Injector;
-import com.hakan.injection.configuration.annotations.ConfigFile;
 import com.hakan.injection.SpigotRegisterer;
+import com.hakan.injection.configuration.annotations.ConfigFile;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 

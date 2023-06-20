@@ -9,7 +9,7 @@ for dependency injection.
 
 ### How to use?
 
-You can check the example test plugin from here 
+You can check the example test plugin from here
 [Click to go](https://github.com/hakan-krgn/spigot-injection/tree/master/src/test/java/com/hakan/test)
 
 #### 1. Add dependency
@@ -44,7 +44,6 @@ dependencies {
 }
 ```
 
-
 #### 2. Create a main class
 
 ```java
@@ -62,7 +61,6 @@ public class MyPlugin extends JavaPlugin {
 ```
 
 That's all. Now you can use injection in your classes.
-
 
 #### 3. Example service
 
@@ -85,7 +83,6 @@ public class MyService {
     }
 }
 ```
-
 
 #### 4. Example command
 
@@ -114,7 +111,6 @@ public class MyCommand {
 }
 ```
 
-
 #### 5. Example listener
 
 ```java
@@ -135,7 +131,6 @@ public class MyListener {
     }
 }
 ```
-
 
 #### 6. Example scheduler
 
@@ -164,7 +159,6 @@ public class MyScheduler {
     }
 }
 ```
-
 
 #### 7. Example configuration
 
