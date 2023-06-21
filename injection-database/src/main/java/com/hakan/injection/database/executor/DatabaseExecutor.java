@@ -4,16 +4,17 @@ import com.hakan.injection.database.annotations.Query;
 import com.hakan.injection.executor.SpigotExecutor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * DatabaseExecutor is the executor class
- * for {@link com.hakan.injection.database.annotations.Query}
- * annotation to execute query processes.
+ * for {@link Query} annotation to execute
+ * query processes.
  */
 public class DatabaseExecutor implements SpigotExecutor {
 
+    private Object instance;
     private final Class<?> clazz;
 
     /**
@@ -29,24 +30,40 @@ public class DatabaseExecutor implements SpigotExecutor {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
-        Proxy.newProxyInstance(
-                this.clazz.getClassLoader(),
-                new Class[]{this.clazz},
-                (proxy, method, args1) -> {
-                    if (method.isAnnotationPresent(Query.class))
-                        return this.onMethodExecute(method, method.getAnnotation(Query.class));
-
-                    throw new RuntimeException("method is not registered!");
-                });
+    public @Nullable Object getInstance() {
+        return this.instance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nonnull Class<?> getDeclaringClass() {
+        return this.clazz;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void execute(@Nonnull Object instance) {
+        this.instance = instance;
+    }
+
+    /**
+     * Executes the method with {@link Query} annotation.
+     *
+     * @param method     method
+     * @param annotation annotation
+     * @return method result
+     */
     public Object onMethodExecute(@Nonnull Method method,
                                   @Nonnull Query annotation) {
         String query = annotation.value();
         Class<?> returnType = method.getReturnType();
 
-
+        System.out.println("query: " + query);
+        System.out.println("returnType: " + returnType);
 
         return null;
     }

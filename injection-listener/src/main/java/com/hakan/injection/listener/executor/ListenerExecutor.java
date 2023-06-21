@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
 import org.reflections.ReflectionUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 
 /**
@@ -19,29 +20,40 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"unchecked"})
 public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor {
 
+    private Object instance;
     private final Plugin plugin;
     private final Method method;
-    private final Object instance;
     private final EventListener listener;
     private final Class<? extends Event> clazz;
 
     /**
      * Constructor of ListenerExecutor.
      *
-     * @param plugin   plugin
-     * @param listener listener
-     * @param method   method
-     * @param instance instance
+     * @param plugin plugin
+     * @param method method
      */
     public ListenerExecutor(@Nonnull Plugin plugin,
-                            @Nonnull Object instance,
-                            @Nonnull Method method,
-                            @Nonnull EventListener listener) {
+                            @Nonnull Method method) {
         this.plugin = plugin;
         this.method = method;
-        this.instance = instance;
-        this.listener = listener;
+        this.listener = method.getAnnotation(EventListener.class);
         this.clazz = (Class<? extends Event>) method.getParameters()[0].getType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable Object getInstance() {
+        return this.instance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nonnull Class<?> getDeclaringClass() {
+        return this.method.getDeclaringClass();
     }
 
     /**
@@ -49,7 +61,9 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
      * connects events to method.
      */
     @Override
-    public void execute() {
+    public void execute(@Nonnull Object instance) {
+        this.instance = instance;
+
         Bukkit.getPluginManager().registerEvent(
                 this.clazz,
                 this,

@@ -1,16 +1,19 @@
 package com.hakan.injection;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.hakan.injection.modules.PluginModule;
-import com.hakan.injection.modules.ScannerModule;
-import com.hakan.injection.registerer.SpigotRegisterer;
+import com.hakan.injection.annotations.Component;
+import com.hakan.injection.annotations.Scanner;
+import com.hakan.injection.annotations.Service;
+import com.hakan.injection.module.SpigotModule;
 import com.hakan.injection.utils.ReflectionUtils;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * SpigotBootstrap is bootstrap class
@@ -19,7 +22,8 @@ import java.util.Arrays;
  * all classes that are specified
  * in modules.
  */
-public class SpigotBootstrap {
+@Scanner("com.hakan.injection")
+public class SpigotBootstrap extends AbstractModule {
 
     /**
      * Starts automatic injection.
@@ -32,10 +36,11 @@ public class SpigotBootstrap {
     }
 
 
-
     private final Plugin plugin;
     private final Injector injector;
-    private final Reflections reflections;
+    private final Reflections apiReflections;
+    private final Reflections pluginReflections;
+    private final List<SpigotModule<?, ?>> modules;
 
     /**
      * Constructor of SpigotBootstrap.
@@ -43,20 +48,13 @@ public class SpigotBootstrap {
      * @param plugin plugin instance
      */
     private SpigotBootstrap(@Nonnull Plugin plugin) {
-        this(plugin, Guice.createInjector(new PluginModule(plugin)));
-    }
-
-    /**
-     * Constructor of SpigotBootstrap.
-     *
-     * @param plugin   plugin instance
-     * @param injector injector instance
-     */
-    private SpigotBootstrap(@Nonnull Plugin plugin,
-                            @Nonnull Injector injector) {
         this.plugin = plugin;
-        this.reflections = ReflectionUtils.createFrom(plugin);
-        this.injector = Guice.createInjector(new ScannerModule(injector, this.reflections));
+        this.modules = new ArrayList<>();
+        this.apiReflections = ReflectionUtils.createFrom(this);
+        this.pluginReflections = ReflectionUtils.createFrom(plugin);
+        this.injector = Guice.createInjector(this);
+
+        this.modules.forEach((module) -> module.execute(this.injector));
     }
 
     /**
@@ -83,15 +81,37 @@ public class SpigotBootstrap {
      * @return reflections
      */
     public @Nonnull Reflections getReflections() {
-        return this.reflections;
+        return this.pluginReflections;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void configure() {
+        this.pluginReflections.getTypesAnnotatedWith(Service.class).forEach(this::bind);
+        this.pluginReflections.getTypesAnnotatedWith(Component.class).forEach(this::bind);
+
+        this.apiReflections.getSubTypesOf(SpigotModule.class).forEach(this::installModule);
     }
 
     /**
-     * Creates a registerer.
+     * Binds the class to
+     * instance of itself.
      *
-     * @param registerers registerers
+     * @param clazz class
      */
-    public void register(@Nonnull SpigotRegisterer<?, ?>... registerers) {
-        Arrays.stream(registerers).forEach(SpigotRegisterer::register);
+    private void installModule(@Nonnull Class<?> clazz) {
+        SpigotModule<?, ?> module = ReflectionUtils.newInstance(clazz,
+                new Class[]{Plugin.class, Reflections.class},
+                new Object[]{this.plugin, this.pluginReflections}
+        );
+
+        this.install(module);
+        if (module.isExecute())
+            module.execute(this.injector);
+
+        this.modules.add(module);
     }
 }
