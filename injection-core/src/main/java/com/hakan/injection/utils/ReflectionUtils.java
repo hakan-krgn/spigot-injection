@@ -1,12 +1,14 @@
 package com.hakan.injection.utils;
 
 import com.hakan.injection.annotations.Scanner;
+import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 
 /**
  * ReflectionUtils is a utility class
@@ -85,16 +87,47 @@ public class ReflectionUtils {
      * @param <T>          type
      * @return instance
      */
+    @SneakyThrows
     public static @Nonnull <T> T newInstance(@Nonnull Class<?> clazz,
                                              @Nonnull Class<?>[] paramClasses,
-                                             @Nonnull Object params) {
-        try {
-            Constructor<?> constructor = clazz.getConstructor(paramClasses);
-            constructor.setAccessible(true);
+                                             @Nonnull Object[] params) {
+        Constructor<?> constructor = clazz.getDeclaredConstructor(paramClasses);
+        constructor.setAccessible(true);
 
-            return (T) constructor.newInstance(params);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return (T) constructor.newInstance(params);
+    }
+
+    /**
+     * Gets field value from the instance.
+     *
+     * @param instance instance
+     * @param field    field
+     * @param <T>      type
+     * @return value
+     */
+    @SneakyThrows
+    public static @Nonnull <T> T getValue(@Nonnull Object instance,
+                                          @Nonnull String field) {
+        Field declaredField = instance.getClass().getDeclaredField(field);
+        declaredField.setAccessible(true);
+
+        return (T) declaredField.get(instance);
+    }
+
+    /**
+     * Sets field value of the instance.
+     *
+     * @param instance instance
+     * @param field    field
+     * @param value    value
+     */
+    @SneakyThrows
+    public static void setValue(@Nonnull Object instance,
+                                @Nonnull String field,
+                                @Nonnull Object value) {
+        Field declaredField = instance.getClass().getDeclaredField(field);
+        declaredField.setAccessible(true);
+
+        declaredField.set(instance, value);
     }
 }

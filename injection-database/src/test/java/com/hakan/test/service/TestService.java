@@ -3,6 +3,7 @@ package com.hakan.test.service;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.hakan.injection.annotations.Service;
+import com.hakan.test.model.User;
 import com.hakan.test.repository.TestRepository;
 
 @Singleton
@@ -16,11 +17,19 @@ public class TestService {
         this.repository = repository;
     }
 
-    public void saveSomething(int id, String name) {
-        this.repository.save(id, name);
+    public User findById(int id) {
+        return this.repository.findById(id);
     }
 
-    public void deleteSomething(int id) {
-        this.repository.delete(id);
+    public User findByNameAndEmail(String name, String email) {
+        return this.repository.findByNameAndEmail(name, email);
+    }
+
+    public void save(User user) {
+        this.repository.save(user);
+    }
+
+    public void delete(int id) {
+        this.repository.deleteById(id);
     }
 }

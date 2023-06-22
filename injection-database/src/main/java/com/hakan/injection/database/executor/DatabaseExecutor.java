@@ -1,6 +1,11 @@
 package com.hakan.injection.database.executor;
 
+import com.google.inject.Injector;
 import com.hakan.injection.database.annotations.Query;
+import com.hakan.injection.database.annotations.Repository;
+import com.hakan.injection.database.connection.DbConnection;
+import com.hakan.injection.database.connection.query.DbQuery;
+import com.hakan.injection.database.connection.result.DbResult;
 import com.hakan.injection.executor.SpigotExecutor;
 
 import javax.annotation.Nonnull;
@@ -15,7 +20,9 @@ import java.lang.reflect.Method;
 public class DatabaseExecutor implements SpigotExecutor {
 
     private Object instance;
+    private DbConnection dbConnection;
     private final Class<?> clazz;
+    private final Repository repository;
 
     /**
      * Constructor of {@link DatabaseExecutor}.
@@ -24,6 +31,7 @@ public class DatabaseExecutor implements SpigotExecutor {
      */
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
+        this.repository = clazz.getAnnotation(Repository.class);
     }
 
     /**
@@ -43,28 +51,73 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
+     * Gets the repository annotation.
+     *
+     * @return repository
+     */
+    public @Nonnull Repository getRepository() {
+        return this.repository;
+    }
+
+    /**
+     * Gets the database connection.
+     *
+     * @return connection
+     */
+    public @Nonnull DbConnection getConnection() {
+        return this.dbConnection;
+    }
+
+    /**
+     * Sets the instance of interface.
+     *
+     * @param instance instance
+     */
+    public void setInstance(@Nonnull Object instance) {
+        this.instance = instance;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public void execute(@Nonnull Object instance) {
-        this.instance = instance;
+    public void execute(@Nonnull Object instance,
+                        @Nonnull Injector injector) {
+        try {
+            this.dbConnection = new DbConnection(injector.getInstance(this.repository.credential()));
+        } catch (Exception ex) {
+            this.dbConnection = new DbConnection(this.repository);
+        }
+
+        for (String query : this.repository.queries()) {
+            this.dbConnection.executeUpdate(query);
+        }
     }
 
     /**
      * Executes the method with {@link Query} annotation.
      *
      * @param method     method
+     * @param args       arguments
      * @param annotation annotation
      * @return method result
      */
-    public Object onMethodExecute(@Nonnull Method method,
-                                  @Nonnull Query annotation) {
-        String query = annotation.value();
-        Class<?> returnType = method.getReturnType();
+    public @Nonnull Object onMethodCall(@Nonnull Method method,
+                                        @Nonnull Object[] args,
+                                        @Nonnull Query annotation) {
+        if (args.length != method.getParameterCount())
+            throw new RuntimeException("argument count must be equal to parameter count!");
 
-        System.out.println("query: " + query);
-        System.out.println("returnType: " + returnType);
+        DbQuery dbQuery = DbQuery.create(
+                method.getParameters(),
+                args,
+                annotation.value()
+        );
 
-        return null;
+        if (method.getReturnType().equals(void.class))
+            return this.dbConnection.executeUpdate(dbQuery.getQuery());
+        else if (method.getReturnType().equals(DbResult.class))
+            return this.dbConnection.executeQuery(dbQuery.getQuery());
+        return this.dbConnection.executeQuery(dbQuery.getQuery(), method.getReturnType());
     }
 }

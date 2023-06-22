@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * SpigotRegisterer registers fields, methods, constructors and classes
+ * SpigotModule registers fields, methods, constructors and classes
  * that are annotated with the given annotation and are assignable
  * from the given target.
  * <p>
@@ -29,14 +29,12 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
 
     protected final Plugin plugin;
     protected final Reflections reflections;
-    protected final boolean execute;
-
     protected final Class<T> target;
     protected final Class<A> annotation;
     protected final List<SpigotExecutor> executors;
 
     /**
-     * Constructor of SpigotRegisterer.
+     * Constructor of SpigotModule.
      *
      * @param plugin      plugin instance
      * @param reflections reflections
@@ -45,30 +43,11 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
      */
     public SpigotModule(@Nonnull Plugin plugin,
                         @Nonnull Reflections reflections,
-
-                        @Nonnull Class<T> target,
-                        @Nonnull Class<A> annotation) {
-        this(plugin, reflections, false, target, annotation);
-    }
-
-    /**
-     * Constructor of SpigotRegisterer.
-     *
-     * @param plugin      plugin instance
-     * @param reflections reflections
-     * @param execute     should it be executed directly?
-     * @param target      target type
-     * @param annotation  annotation
-     */
-    public SpigotModule(@Nonnull Plugin plugin,
-                        @Nonnull Reflections reflections,
-                        @Nonnull Boolean execute,
 
                         @Nonnull Class<T> target,
                         @Nonnull Class<A> annotation) {
         this.plugin = plugin;
         this.reflections = reflections;
-        this.execute = execute;
 
         this.target = target;
         this.annotation = annotation;
@@ -91,17 +70,6 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
      */
     public @Nonnull Reflections getReflections() {
         return this.reflections;
-    }
-
-    /**
-     * Gets the execute state.
-     * If it is true, the module will be executed directly
-     * after the injector is created.
-     *
-     * @return execute state
-     */
-    public boolean isExecute() {
-        return this.execute;
     }
 
     /**

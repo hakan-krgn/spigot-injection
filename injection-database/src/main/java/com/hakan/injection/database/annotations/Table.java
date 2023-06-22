@@ -1,25 +1,22 @@
 package com.hakan.injection.database.annotations;
 
-import javax.annotation.Nonnull;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Query annotation is used to
- * mark the method as a query
- * method.
+ * Table annotation is used to
+ * mark the class as a table.
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Query {
+public @interface Table {
 
     /**
-     * HQL query to execute.
+     * Table name.
      *
-     * @return query
+     * @return table name
      */
-    @Nonnull
-    String value();
+    String value() default "";
 }

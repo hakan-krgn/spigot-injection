@@ -50,7 +50,7 @@ public class SchedulerModule extends SpigotModule<Method, Scheduler> {
     @Override
     public void execute(@Nonnull Injector injector) {
         for (SpigotExecutor executor : super.executors) {
-            executor.execute(injector.getInstance(executor.getDeclaringClass()));
+            executor.execute(injector.getInstance(executor.getDeclaringClass()), injector);
         }
     }
 }
