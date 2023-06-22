@@ -121,7 +121,7 @@ public class DbConnection {
         DbResult dbResult = this.executeQuery(query);
         dbResult.next();
 
-        return DatabaseUtils.create(dbResult, modelClass);
+        return DatabaseUtils.createInstance(dbResult, modelClass);
     }
 
     /**

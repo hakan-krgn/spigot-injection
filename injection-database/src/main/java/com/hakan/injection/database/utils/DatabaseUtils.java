@@ -2,7 +2,7 @@ package com.hakan.injection.database.utils;
 
 import com.hakan.injection.database.annotations.Table;
 import com.hakan.injection.database.connection.result.DbResult;
-import com.hakan.injection.utils.ReflectionUtils;
+import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -27,9 +27,11 @@ public class DatabaseUtils {
      */
     public static @Nonnull Object createProxy(@Nonnull Class<?> clazz,
                                               @Nonnull ProxyFunction function) {
-        Class<?>[] interfaces = new Class[]{clazz};
-        ClassLoader classLoader = clazz.getClassLoader();
-        return Proxy.newProxyInstance(classLoader, interfaces, (proxy, method, args) -> function.apply(method, args));
+        return Proxy.newProxyInstance(
+                clazz.getClassLoader(),
+                new Class[]{clazz},
+                (proxy, method, args) -> function.apply(method, args)
+        );
     }
 
     /**
@@ -41,20 +43,21 @@ public class DatabaseUtils {
      * @param <T>      type
      * @return instance
      */
-    public static @Nonnull <T> T create(@Nonnull DbResult dbResult,
-                                        @Nonnull Class<T> clazz) {
-        T instance = ReflectionUtils.newInstance(clazz, new Class[]{}, new Object[]{});
+    @SneakyThrows
+    public static @Nonnull <T> T createInstance(@Nonnull DbResult dbResult,
+                                                @Nonnull Class<T> clazz) {
+        T instance = clazz.newInstance();
         String table = clazz.getAnnotation(Table.class).value();
 
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
 
             if (field.getType().isPrimitive() || field.getType().equals(String.class)) {
-                ReflectionUtils.setValue(instance, field.getName(), dbResult.getObject(table + "." + field.getName()));
+                field.set(instance, dbResult.getObject(table + "." + field.getName()));
                 continue;
             }
 
-            ReflectionUtils.setValue(instance, field.getName(), create(dbResult, field.getType()));
+            field.set(instance, createInstance(dbResult, field.getType()));
         }
 
         return instance;

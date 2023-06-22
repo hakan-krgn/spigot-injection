@@ -7,7 +7,6 @@ import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 /**
@@ -79,25 +78,6 @@ public class ReflectionUtils {
     }
 
     /**
-     * Creates a new instance of the class.
-     *
-     * @param clazz        class
-     * @param paramClasses param classes
-     * @param params       params
-     * @param <T>          type
-     * @return instance
-     */
-    @SneakyThrows
-    public static @Nonnull <T> T newInstance(@Nonnull Class<?> clazz,
-                                             @Nonnull Class<?>[] paramClasses,
-                                             @Nonnull Object[] params) {
-        Constructor<?> constructor = clazz.getDeclaredConstructor(paramClasses);
-        constructor.setAccessible(true);
-
-        return (T) constructor.newInstance(params);
-    }
-
-    /**
      * Gets field value from the instance.
      *
      * @param instance instance
@@ -112,22 +92,5 @@ public class ReflectionUtils {
         declaredField.setAccessible(true);
 
         return (T) declaredField.get(instance);
-    }
-
-    /**
-     * Sets field value of the instance.
-     *
-     * @param instance instance
-     * @param field    field
-     * @param value    value
-     */
-    @SneakyThrows
-    public static void setValue(@Nonnull Object instance,
-                                @Nonnull String field,
-                                @Nonnull Object value) {
-        Field declaredField = instance.getClass().getDeclaredField(field);
-        declaredField.setAccessible(true);
-
-        declaredField.set(instance, value);
     }
 }

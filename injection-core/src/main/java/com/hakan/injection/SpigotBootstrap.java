@@ -9,6 +9,7 @@ import com.hakan.injection.annotations.Service;
 import com.hakan.injection.module.PluginModule;
 import com.hakan.injection.module.SpigotModule;
 import com.hakan.injection.utils.ReflectionUtils;
+import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
@@ -104,12 +105,11 @@ public class SpigotBootstrap extends AbstractModule {
      *
      * @param clazz class
      */
+    @SneakyThrows
     private void installSpigotModule(@Nonnull Class<?> clazz) {
-        SpigotModule<?, ?> module = ReflectionUtils.newInstance(
-                clazz,
-                new Class[]{Plugin.class, Reflections.class},
-                new Object[]{this.plugin, this.pluginReflections}
-        );
+        SpigotModule<?, ?> module = (SpigotModule<?, ?>) clazz
+                .getConstructor(Plugin.class, Reflections.class)
+                .newInstance(this.plugin, this.pluginReflections);
 
         this.install(module);
         this.modules.add(module);
@@ -121,13 +121,8 @@ public class SpigotBootstrap extends AbstractModule {
      *
      * @param clazz class
      */
+    @SneakyThrows
     private void installPluginModule(@Nonnull Class<?> clazz) {
-        PluginModule module = ReflectionUtils.newInstance(
-                clazz,
-                new Class[]{},
-                new Object[]{}
-        );
-
-        this.install(module);
+        this.install((PluginModule) clazz.newInstance());
     }
 }
