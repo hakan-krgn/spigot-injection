@@ -2,9 +2,9 @@ package com.hakan.injection.listener.module;
 
 import com.google.inject.Injector;
 import com.hakan.injection.executor.SpigotExecutor;
-import com.hakan.injection.module.SpigotModule;
 import com.hakan.injection.listener.annotations.EventListener;
 import com.hakan.injection.listener.executor.ListenerExecutor;
+import com.hakan.injection.module.SpigotModule;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
