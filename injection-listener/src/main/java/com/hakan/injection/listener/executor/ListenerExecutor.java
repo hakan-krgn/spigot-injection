@@ -1,5 +1,6 @@
 package com.hakan.injection.listener.executor;
 
+import com.google.inject.Injector;
 import com.hakan.injection.executor.SpigotExecutor;
 import com.hakan.injection.listener.annotations.EventListener;
 import org.bukkit.Bukkit;
@@ -61,7 +62,8 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
      * connects events to method.
      */
     @Override
-    public void execute(@Nonnull Object instance) {
+    public void execute(@Nonnull Object instance,
+                        @Nonnull Injector injector) {
         this.instance = instance;
 
         Bukkit.getPluginManager().registerEvent(

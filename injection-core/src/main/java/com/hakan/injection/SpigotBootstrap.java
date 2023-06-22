@@ -6,6 +6,7 @@ import com.google.inject.Injector;
 import com.hakan.injection.annotations.Component;
 import com.hakan.injection.annotations.Scanner;
 import com.hakan.injection.annotations.Service;
+import com.hakan.injection.module.PluginModule;
 import com.hakan.injection.module.SpigotModule;
 import com.hakan.injection.utils.ReflectionUtils;
 import org.bukkit.plugin.Plugin;
@@ -54,7 +55,7 @@ public class SpigotBootstrap extends AbstractModule {
         this.pluginReflections = ReflectionUtils.createFrom(plugin);
         this.injector = Guice.createInjector(this);
 
-        this.modules.forEach((module) -> module.execute(this.injector));
+        this.modules.forEach(module -> module.execute(this.injector));
     }
 
     /**
@@ -93,7 +94,8 @@ public class SpigotBootstrap extends AbstractModule {
         this.pluginReflections.getTypesAnnotatedWith(Service.class).forEach(this::bind);
         this.pluginReflections.getTypesAnnotatedWith(Component.class).forEach(this::bind);
 
-        this.apiReflections.getSubTypesOf(SpigotModule.class).forEach(this::installModule);
+        this.apiReflections.getSubTypesOf(SpigotModule.class).forEach(this::installSpigotModule);
+        this.pluginReflections.getSubTypesOf(PluginModule.class).forEach(this::installPluginModule);
     }
 
     /**
@@ -102,16 +104,30 @@ public class SpigotBootstrap extends AbstractModule {
      *
      * @param clazz class
      */
-    private void installModule(@Nonnull Class<?> clazz) {
-        SpigotModule<?, ?> module = ReflectionUtils.newInstance(clazz,
+    private void installSpigotModule(@Nonnull Class<?> clazz) {
+        SpigotModule<?, ?> module = ReflectionUtils.newInstance(
+                clazz,
                 new Class[]{Plugin.class, Reflections.class},
                 new Object[]{this.plugin, this.pluginReflections}
         );
 
         this.install(module);
-        if (module.isExecute())
-            module.execute(this.injector);
-
         this.modules.add(module);
+    }
+
+    /**
+     * Binds the class to
+     * instance of itself.
+     *
+     * @param clazz class
+     */
+    private void installPluginModule(@Nonnull Class<?> clazz) {
+        PluginModule module = ReflectionUtils.newInstance(
+                clazz,
+                new Class[]{},
+                new Object[]{}
+        );
+
+        this.install(module);
     }
 }

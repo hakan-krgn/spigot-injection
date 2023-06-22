@@ -1,5 +1,6 @@
 package com.hakan.injection.scheduler.executor;
 
+import com.google.inject.Injector;
 import com.hakan.injection.executor.SpigotExecutor;
 import com.hakan.injection.scheduler.annotations.Scheduler;
 import org.bukkit.plugin.Plugin;
@@ -71,7 +72,8 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
      * Starts scheduler.
      */
     @Override
-    public void execute(@Nonnull Object instance) {
+    public void execute(@Nonnull Object instance,
+                        @Nonnull Injector injector) {
         this.instance = instance;
 
         if (this.period == 0 && this.async) {

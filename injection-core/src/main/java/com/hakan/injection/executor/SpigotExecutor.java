@@ -1,5 +1,7 @@
 package com.hakan.injection.executor;
 
+import com.google.inject.Injector;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -8,11 +10,6 @@ import javax.annotation.Nullable;
  * of bukkit process classes.
  */
 public interface SpigotExecutor {
-
-    /**
-     * Executes the process.
-     */
-    void execute(@Nonnull Object instance);
 
     /**
      * Gets the instance.
@@ -30,4 +27,16 @@ public interface SpigotExecutor {
      */
     @Nonnull
     Class<?> getDeclaringClass();
+
+    /**
+     * Executes the process.
+     * When the process executed,
+     * the instance will be set and
+     * bukkit process will be registered.
+     *
+     * @param instance instance
+     * @param injector injector
+     */
+    void execute(@Nonnull Object instance,
+                 @Nonnull Injector injector);
 }

@@ -1,5 +1,6 @@
 package com.hakan.injection.command.executor;
 
+import com.google.inject.Injector;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.CommandParam;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
@@ -78,7 +79,8 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
      * the command to this executor.
      */
     @Override
-    public void execute(@Nonnull Object instance) {
+    public void execute(@Nonnull Object instance,
+                        @Nonnull Injector injector) {
         this.instance = instance;
         CommandUtils.register(this);
     }
