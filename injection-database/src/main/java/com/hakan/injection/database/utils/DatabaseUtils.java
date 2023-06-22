@@ -46,6 +46,10 @@ public class DatabaseUtils {
     @SneakyThrows
     public static @Nonnull <T> T createInstance(@Nonnull DbResult dbResult,
                                                 @Nonnull Class<T> clazz) {
+        if (!clazz.isAnnotationPresent(Table.class))
+            throw new IllegalArgumentException("class must be annotated with @Table!");
+
+
         T instance = clazz.newInstance();
         String table = clazz.getAnnotation(Table.class).value();
 
