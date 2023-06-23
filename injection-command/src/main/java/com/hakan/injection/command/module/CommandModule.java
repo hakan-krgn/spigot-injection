@@ -9,7 +9,6 @@ import org.bukkit.plugin.Plugin;
 import org.reflections.Reflections;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Method;
 import java.util.Set;
 
 /**

@@ -7,6 +7,7 @@ import com.hakan.injection.command.annotations.Executor;
 import com.hakan.injection.command.annotations.Subcommand;
 import com.hakan.test.service.TestService;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 @Command(
         name = "test",
@@ -25,7 +26,7 @@ public class TestCommand {
 
     @Subcommand
     public void test1(@Executor CommandSender executor,
-                      @CommandParam String target,
+                      @CommandParam Player target,
                       @CommandParam String message,
                       @CommandParam int amount) {
         for (int i = 0; i < amount; i++) {
@@ -38,7 +39,7 @@ public class TestCommand {
             permissionMessage = "You don't have permission to use this command."
     )
     public void test2(@Executor CommandSender executor,
-                      @CommandParam String target,
+                      @CommandParam Player target,
                       @CommandParam String message) {
         this.service.sendMessage(target, message);
     }

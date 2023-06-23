@@ -14,7 +14,8 @@ public class TestService {
 
     }
 
-    public void sendMessage(String player, String message) {
-        System.out.println("Player: " + player + " Message: " + message);
+    public void sendMessage(Player player, String message) {
+        player.sendMessage(message);
+        System.out.println(message);
     }
 }
