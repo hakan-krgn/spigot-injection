@@ -30,8 +30,8 @@ public interface SpigotExecutor {
 
     /**
      * Executes the process.
-     * When the process executed,
-     * the instance will be set and
+     * When the process is executed,
+     * the instance will be set and the
      * bukkit process will be registered.
      *
      * @param instance instance

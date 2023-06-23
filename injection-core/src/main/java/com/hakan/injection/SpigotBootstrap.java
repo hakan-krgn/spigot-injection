@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * SpigotBootstrap is bootstrap class
  * of the injection library. It starts
- * automatic injection and inject
+ * automatic injection and injects
  * all classes that are specified
  * in modules.
  */
@@ -36,6 +36,7 @@ public class SpigotBootstrap extends AbstractModule {
     public static @Nonnull SpigotBootstrap run(@Nonnull Plugin plugin) {
         return new SpigotBootstrap(plugin);
     }
+
 
 
     private final Plugin plugin;
@@ -87,6 +88,7 @@ public class SpigotBootstrap extends AbstractModule {
     }
 
 
+
     /**
      * {@inheritDoc}
      */
@@ -101,6 +103,8 @@ public class SpigotBootstrap extends AbstractModule {
         this.apiReflections.getSubTypesOf(SpigotModule.class).forEach(this::installSpigotModule);
         this.pluginReflections.getSubTypesOf(PluginModule.class).forEach(this::installPluginModule);
     }
+
+
 
     /**
      * Binds the class to

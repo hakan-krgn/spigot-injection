@@ -23,7 +23,7 @@ public @interface Scheduler {
     long delay() default 0L;
 
     /**
-     * Gets scheduler period of annotation.
+     * Gets a scheduler period of annotation.
      *
      * @return Scheduler period of annotation.
      */

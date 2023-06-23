@@ -57,6 +57,8 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
         return this.method.getDeclaringClass();
     }
 
+
+
     /**
      * Registers listener to bukkit and
      * connects events to method.
@@ -75,7 +77,6 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
                 false
         );
     }
-
 
     /**
      * Executes event listener method.

@@ -78,6 +78,8 @@ public class DatabaseExecutor implements SpigotExecutor {
         this.instance = instance;
     }
 
+
+
     /**
      * {@inheritDoc}
      */
@@ -96,8 +98,6 @@ public class DatabaseExecutor implements SpigotExecutor {
             this.dbConnection.executeUpdate(query);
         }
     }
-
-
 
     /**
      * Runs when a method called.
