@@ -97,7 +97,8 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * Executes the method with {@link Query} annotation.
+     * Runs when an interface
+     * method is called.
      *
      * @param method method
      * @param args   arguments
@@ -114,7 +115,8 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * Executes the method with {@link Query} annotation.
+     * Executes the methods which are
+     * annotated with {@link Query} annotation.
      *
      * @param method method
      * @param args   arguments

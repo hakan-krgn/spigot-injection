@@ -60,8 +60,7 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
 
 
     /**
-     * Registers listener to bukkit and
-     * connects events to method.
+     * {@inheritDoc}
      */
     @Override
     public void execute(@Nonnull Object instance,
@@ -79,7 +78,8 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     }
 
     /**
-     * Executes event listener method.
+     * Executes event listener method which is
+     * annotated with {@link EventListener}.
      *
      * @param listener listener
      * @param event    event

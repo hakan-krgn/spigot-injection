@@ -48,6 +48,9 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(@Nonnull Injector injector) {
         for (SpigotExecutor executor : super.executors) {

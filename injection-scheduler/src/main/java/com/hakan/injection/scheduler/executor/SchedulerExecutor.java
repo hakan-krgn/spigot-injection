@@ -71,7 +71,7 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
 
 
     /**
-     * Starts scheduler.
+     * {@inheritDoc}
      */
     @Override
     public void execute(@Nonnull Object instance,
@@ -91,7 +91,8 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
 
 
     /**
-     * Executes scheduler method.
+     * Executes the method which is
+     * annotated with {@link Scheduler}.
      */
     @Override
     public void run() {
