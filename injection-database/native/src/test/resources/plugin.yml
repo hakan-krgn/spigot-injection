@@ -1,0 +1,4 @@
+name: 'TestInjection'
+author: 'Hakan'
+version: '0.0.4'
+main: 'com.hakan.test.TestPlugin'

@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':injection-core')
+    testImplementation project(':injection-core')
+
+    implementation 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
+}

@@ -92,6 +92,9 @@ public class SpigotBootstrap extends AbstractModule {
      */
     @Override
     protected void configure() {
+        this.bind(Plugin.class).toInstance(this.plugin);
+        this.bind(Reflections.class).toInstance(this.pluginReflections);
+
         this.pluginReflections.getTypesAnnotatedWith(Service.class).forEach(this::bind);
         this.pluginReflections.getTypesAnnotatedWith(Component.class).forEach(this::bind);
 
