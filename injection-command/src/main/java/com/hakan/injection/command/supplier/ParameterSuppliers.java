@@ -1,5 +1,6 @@
 package com.hakan.injection.command.supplier;
 
+import com.hakan.injection.command.exceptions.InvalidParameterTypeException;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -35,19 +36,6 @@ public class ParameterSuppliers {
     private static final Map<Class<?>, ParameterSupplier<?>> suppliers = new HashMap<>();
 
     /**
-     * Applies a parameter supplier.
-     *
-     * @param clazz     The class of the parameter.
-     * @param parameter The parameter.
-     * @param <T>       The type of the parameter.
-     * @return The parameter.
-     */
-    public static @Nonnull <T> T apply(@Nonnull Class<T> clazz,
-                                       @Nonnull String parameter) {
-        return (T) suppliers.get(clazz).get(parameter);
-    }
-
-    /**
      * Registers a parameter supplier.
      *
      * @param clazz    The class of the parameter.
@@ -57,6 +45,23 @@ public class ParameterSuppliers {
     public static <T> void register(@Nonnull Class<T> clazz,
                                     @Nonnull ParameterSupplier<T> supplier) {
         suppliers.put(clazz, supplier);
+    }
+
+    /**
+     * Applies a parameter supplier.
+     *
+     * @param clazz     The class of the parameter.
+     * @param parameter The parameter.
+     * @param <T>       The type of the parameter.
+     * @return The parameter.
+     */
+    public static @Nonnull <T> T apply(@Nonnull Class<T> clazz,
+                                       @Nonnull String parameter) {
+        try {
+            return (T) suppliers.get(clazz).get(parameter);
+        } catch (Exception e) {
+            throw new InvalidParameterTypeException("could not apply parameter supplier for " + clazz.getName());
+        }
     }
 
 

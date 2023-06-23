@@ -11,8 +11,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -31,7 +30,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
     protected final Reflections reflections;
     protected final Class<T> target;
     protected final Class<A> annotation;
-    protected final List<SpigotExecutor> executors;
+    protected final Set<SpigotExecutor> executors;
 
     /**
      * Constructor of SpigotModule.
@@ -51,7 +50,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
 
         this.target = target;
         this.annotation = annotation;
-        this.executors = new ArrayList<>();
+        this.executors = new HashSet<>();
     }
 
     /**
@@ -64,7 +63,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
     }
 
     /**
-     * Gets the reflections instance.
+     * Gets the reflection instance.
      *
      * @return reflections instance
      */
@@ -95,7 +94,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
      *
      * @return executor list
      */
-    public @Nonnull List<SpigotExecutor> getExecutors() {
+    public @Nonnull Set<SpigotExecutor> getExecutors() {
         return this.executors;
     }
 
@@ -120,7 +119,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
     /**
      * Abstract load method.
      * This method is called when the
-     * module installed.
+     * module is installed.
      */
     public abstract void load(@Nonnull Set<T> list);
 

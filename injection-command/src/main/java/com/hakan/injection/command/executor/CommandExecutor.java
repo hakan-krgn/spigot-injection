@@ -3,6 +3,12 @@ package com.hakan.injection.command.executor;
 import com.google.inject.Injector;
 import com.hakan.injection.command.annotations.Command;
 import com.hakan.injection.command.annotations.CommandParam;
+import com.hakan.injection.command.annotations.Executor;
+import com.hakan.injection.command.annotations.Subcommand;
+import com.hakan.injection.command.exceptions.InsufficientPermissionException;
+import com.hakan.injection.command.exceptions.InvalidArgsLengthException;
+import com.hakan.injection.command.exceptions.InvalidParameterTypeException;
+import com.hakan.injection.command.exceptions.MissingAnnotationException;
 import com.hakan.injection.command.supplier.ParameterSuppliers;
 import com.hakan.injection.command.utils.CommandUtils;
 import com.hakan.injection.executor.SpigotExecutor;
@@ -21,40 +27,41 @@ import java.util.Arrays;
  * listen bukkit commands and
  * invoke related method.
  */
+@SuppressWarnings({"rawtypes"})
 public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
     private Object instance;
-    private final Method method;
+    private final Class clazz;
+    private final Method[] methods;
 
     /**
      * Constructor of {@link CommandExecutor}.
      *
-     * @param method method
+     * @param clazz clazz
      */
-    public CommandExecutor(@Nonnull Method method) {
-        this(method, method.getAnnotation(Command.class));
+    public CommandExecutor(@Nonnull Class<?> clazz) {
+        this(clazz, clazz.getAnnotation(Command.class));
     }
 
     /**
      * Constructor of {@link CommandExecutor}.
      *
-     * @param method  method
+     * @param clazz   clazz
      * @param command annotation
      */
-    public CommandExecutor(@Nonnull Method method,
+    public CommandExecutor(@Nonnull Class clazz,
                            @Nonnull Command command) {
-        super(command.name(), command.description(), command.usage(), Arrays.asList(command.aliases()));
-        this.method = method;
-    }
+        super(
+                command.name(),
+                command.description(),
+                command.usage(),
+                Arrays.asList(command.aliases())
+        );
 
-    /**
-     * Gets the method of the
-     * command executor.
-     *
-     * @return method
-     */
-    public @Nonnull Method getMethod() {
-        return this.method;
+        this.clazz = clazz;
+        this.methods = Arrays.stream(clazz.getMethods())
+                .filter(method -> method.isAnnotationPresent(Subcommand.class))
+                .toArray(Method[]::new);
     }
 
     /**
@@ -70,7 +77,7 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
-        return this.method.getDeclaringClass();
+        return this.clazz;
     }
 
     /**
@@ -86,6 +93,7 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     }
 
 
+
     /**
      * Executes the command, returning its success.
      *
@@ -98,23 +106,57 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     public boolean execute(@Nonnull CommandSender sender,
                            @Nonnull String label,
                            @Nonnull String[] args) {
-        Parameter[] parameters = this.method.getParameters();
-        Object[] objects = new Object[parameters.length];
+        for (Method method : this.methods) {
+            try {
+                this.invoke(method, sender, args);
+            } catch (InsufficientPermissionException e) {
+                sender.sendMessage(e.getMessage());
+            } catch (MissingAnnotationException e) {
+                e.printStackTrace();
+            } catch (InvalidArgsLengthException | InvalidParameterTypeException ignored) {
 
-        objects[0] = sender;
-
-        for (int i = 1; i < parameters.length; i++) {
-            if (!parameters[i].isAnnotationPresent(CommandParam.class))
-                throw new RuntimeException("parameter must be annotated with @CommandParam!");
-
-
-            String parameter = args[i - 1];
-            Class<?> parameterType = parameters[i].getType();
-
-            objects[i] = ParameterSuppliers.apply(parameterType, parameter);
+            }
         }
 
-        ReflectionUtils.invoke(this.method, this.instance, objects);
-        return false;
+        return true;
+    }
+
+    /**
+     * Invokes the method with the
+     * given parameters, and if the
+     * exception is thrown, it is
+     * caught.
+     *
+     * @param method method
+     * @param sender sender
+     * @param args   args
+     */
+    public void invoke(@Nonnull Method method,
+                       @Nonnull CommandSender sender,
+                       @Nonnull String[] args) {
+        Parameter[] parameters = method.getParameters();
+        Object[] objects = new Object[parameters.length];
+        Subcommand subcommand = method.getAnnotation(Subcommand.class);
+
+        String permission = subcommand.permission();
+        String permissionMessage = subcommand.permissionMessage();
+
+        if (args.length != parameters.length - 1) {
+            throw new InvalidArgsLengthException("args length must be " + (parameters.length - 1));
+        } else if (!permission.isEmpty() && !sender.hasPermission(permission)) {
+            throw new InsufficientPermissionException(permissionMessage);
+        }
+
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i].isAnnotationPresent(Executor.class)) {
+                objects[i] = sender;
+            } else if (parameters[i].isAnnotationPresent(CommandParam.class)) {
+                objects[i] = ParameterSuppliers.apply(parameters[i].getType(), args[i - 1]);
+            } else {
+                throw new MissingAnnotationException("parameter must be annotated with @CommandParam or @Executor");
+            }
+        }
+
+        ReflectionUtils.invoke(method, this.instance, objects);
     }
 }

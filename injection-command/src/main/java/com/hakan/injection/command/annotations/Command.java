@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Command annotation to
  * define command features.
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
 

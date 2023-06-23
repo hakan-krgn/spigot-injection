@@ -15,7 +15,8 @@ import java.util.Set;
 /**
  * CommandModule registers command executors.
  */
-public class CommandModule extends SpigotModule<Method, Command> {
+@SuppressWarnings({"rawtypes"})
+public class CommandModule extends SpigotModule<Class, Command> {
 
     /**
      * Constructor of CommandModule.
@@ -25,19 +26,16 @@ public class CommandModule extends SpigotModule<Method, Command> {
      */
     public CommandModule(@Nonnull Plugin plugin,
                          @Nonnull Reflections reflections) {
-        super(plugin, reflections, Method.class, Command.class);
+        super(plugin, reflections, Class.class, Command.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void load(@Nonnull Set<Method> methods) {
-        for (Method method : methods) {
-            if (method.getReturnType() != void.class)
-                throw new RuntimeException("event listener method must have void return type!");
-
-            super.executors.add(new CommandExecutor(method));
+    public void load(@Nonnull Set<Class> classes) {
+        for (Class clazz : classes) {
+            super.executors.add(new CommandExecutor(clazz));
         }
     }
 
