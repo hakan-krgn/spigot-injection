@@ -17,22 +17,6 @@ import java.util.Map;
 @SuppressWarnings({"unchecked"})
 public class ParameterSuppliers {
 
-    private static final ParameterSupplier<String> STRING_SUPPLIER = parameter -> parameter;
-    private static final ParameterSupplier<Boolean> BOOLEAN_SUPPLIER = Boolean::parseBoolean;
-
-    private static final ParameterSupplier<Byte> BYTE_SUPPLIER = Byte::parseByte;
-    private static final ParameterSupplier<Short> SHORT_SUPPLIER = Short::parseShort;
-    private static final ParameterSupplier<Integer> INTEGER_SUPPLIER = Integer::parseInt;
-    private static final ParameterSupplier<Long> LONG_SUPPLIER = Long::parseLong;
-
-    private static final ParameterSupplier<Float> FLOAT_SUPPLIER = Float::parseFloat;
-    private static final ParameterSupplier<Double> DOUBLE_SUPPLIER = Double::parseDouble;
-
-    private static final ParameterSupplier<World> WORLD_SUPPLIER = Bukkit::getWorld;
-    private static final ParameterSupplier<Player> PLAYER_SUPPLIER = Bukkit::getPlayer;
-
-
-
     private static final Map<Class<?>, ParameterSupplier<?>> suppliers = new HashMap<>();
 
     /**
@@ -60,37 +44,37 @@ public class ParameterSuppliers {
         try {
             return (T) suppliers.get(clazz).get(parameter);
         } catch (Exception e) {
-            throw new InvalidParameterTypeException("could not apply parameter supplier for " + clazz.getName());
+            throw new InvalidParameterTypeException("could not apply parameter for " + clazz.getName());
         }
     }
 
 
 
     static {
-        register(String.class, STRING_SUPPLIER);
+        register(String.class, parameter -> parameter);
 
-        register(boolean.class, BOOLEAN_SUPPLIER);
-        register(Boolean.class, BOOLEAN_SUPPLIER);
+        register(boolean.class, Boolean::parseBoolean);
+        register(Boolean.class, Boolean::parseBoolean);
 
-        register(byte.class, BYTE_SUPPLIER);
-        register(Byte.class, BYTE_SUPPLIER);
+        register(byte.class, Byte::parseByte);
+        register(Byte.class, Byte::parseByte);
 
-        register(short.class, SHORT_SUPPLIER);
-        register(Short.class, SHORT_SUPPLIER);
+        register(short.class, Short::parseShort);
+        register(Short.class, Short::parseShort);
 
-        register(int.class, INTEGER_SUPPLIER);
-        register(Integer.class, INTEGER_SUPPLIER);
+        register(int.class, Integer::parseInt);
+        register(Integer.class, Integer::parseInt);
 
-        register(long.class, LONG_SUPPLIER);
-        register(Long.class, LONG_SUPPLIER);
+        register(long.class, Long::parseLong);
+        register(Long.class, Long::parseLong);
 
-        register(float.class, FLOAT_SUPPLIER);
-        register(Float.class, FLOAT_SUPPLIER);
+        register(float.class, Float::parseFloat);
+        register(Float.class, Float::parseFloat);
 
-        register(double.class, DOUBLE_SUPPLIER);
-        register(Double.class, DOUBLE_SUPPLIER);
+        register(double.class, Double::parseDouble);
+        register(Double.class, Double::parseDouble);
 
-        register(World.class, WORLD_SUPPLIER);
-        register(Player.class, PLAYER_SUPPLIER);
+        register(World.class, Bukkit::getWorld);
+        register(Player.class, Bukkit::getPlayer);
     }
 }
