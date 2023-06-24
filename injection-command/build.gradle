@@ -2,3 +2,5 @@ dependencies {
     implementation project(':injection-core')
     testImplementation project(':injection-core')
 }
+
+tasks.compileJava.dependsOn(':injection-core:shadowJar')

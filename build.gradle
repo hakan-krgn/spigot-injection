@@ -55,4 +55,8 @@ subprojects {
     tasks.jar {
         enabled = true
     }
+
+    tasks.shadowJar {
+        archiveFileName.set("${project.name}-${project.version}.jar")
+    }
 }
