@@ -12,14 +12,14 @@ import java.util.concurrent.TimeUnit;
         resource = "test.yml",
         path = "plugins/TestInjection/test.yml",
 
-        reloadTimer = @ReloadTimer(
+        saveTimer = @SaveTimer(
                 enabled = true,
                 async = true,
                 delay = 5,
                 period = 5,
                 timeUnit = TimeUnit.SECONDS
         ),
-        saveTimer = @SaveTimer(
+        reloadTimer = @ReloadTimer(
                 enabled = true,
                 async = true,
                 delay = 5,

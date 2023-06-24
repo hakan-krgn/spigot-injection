@@ -42,9 +42,17 @@ public class ConfigSaveScheduler extends BukkitRunnable {
 
         long delay = this.saveTimer.timeUnit().toMillis(this.saveTimer.delay()) / 50L;
         long period = this.saveTimer.timeUnit().toMillis(this.saveTimer.period()) / 50L;
+        boolean async = this.saveTimer.async();
 
-        if (!this.saveTimer.async()) this.runTaskTimer(this.plugin, delay, period);
-        else this.runTaskTimerAsynchronously(this.plugin, delay, period);
+        if (period == 0 && async) {
+            this.runTaskLaterAsynchronously(this.plugin, delay);
+        } else if (period == 0) {
+            this.runTaskLater(this.plugin, delay);
+        } else if (async) {
+            this.runTaskTimerAsynchronously(this.plugin, delay, period);
+        } else {
+            this.runTaskTimer(this.plugin, delay, period);
+        }
     }
 
     /**

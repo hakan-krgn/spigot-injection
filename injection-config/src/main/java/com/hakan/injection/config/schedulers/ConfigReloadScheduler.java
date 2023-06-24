@@ -42,9 +42,17 @@ public class ConfigReloadScheduler extends BukkitRunnable {
 
         long delay = this.reloadTimer.timeUnit().toMillis(this.reloadTimer.delay()) / 50L;
         long period = this.reloadTimer.timeUnit().toMillis(this.reloadTimer.period()) / 50L;
+        boolean async = this.reloadTimer.async();
 
-        if (!this.reloadTimer.async()) this.runTaskTimer(this.plugin, delay, period);
-        else this.runTaskTimerAsynchronously(this.plugin, delay, period);
+        if (period == 0 && async) {
+            this.runTaskLaterAsynchronously(this.plugin, delay);
+        } else if (period == 0) {
+            this.runTaskLater(this.plugin, delay);
+        } else if (async) {
+            this.runTaskTimerAsynchronously(this.plugin, delay, period);
+        } else {
+            this.runTaskTimer(this.plugin, delay, period);
+        }
     }
 
     /**
