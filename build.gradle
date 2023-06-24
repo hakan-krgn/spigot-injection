@@ -39,18 +39,6 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok:1.18.28'
     }
 
-    shadowJar {
-        relocate 'javassist', 'com.hakan.injection.shadow.javassist'
-        relocate 'com.google', 'com.hakan.injection.shadow.com.google'
-        relocate 'jakarta.inject', 'com.hakan.injection.shadow.jakarta.inject'
-        relocate 'javax.annotation', 'com.hakan.injection.shadow.javax.annotation'
-
-        relocate 'org.slf4j', 'com.hakan.injection.shadow.org.slf4j'
-        relocate 'org.aopalliance', 'com.hakan.injection.shadow.org.aopalliance'
-        relocate 'org.reflections', 'com.hakan.injection.shadow.org.reflections'
-        relocate 'org.checkerframework', 'com.hakan.injection.shadow.org.checkerframework'
-    }
-
     publishing {
         publications {
             maven(MavenPublication) {
