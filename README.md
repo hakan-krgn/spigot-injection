@@ -119,7 +119,7 @@ public class MyCommand {
 public class MyListener {
 
     private final MyService myService;
-    
+
     @Inject
     public MyListener(MyService myService) {
         this.myService = myService;
