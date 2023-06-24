@@ -6,6 +6,7 @@ import com.hakan.injection.database.annotations.Repository;
 import com.hakan.injection.database.connection.DbConnection;
 import com.hakan.injection.database.connection.query.DbQuery;
 import com.hakan.injection.database.connection.result.DbResult;
+import com.hakan.injection.database.utils.DatabaseUtils;
 import com.hakan.injection.executor.SpigotExecutor;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,7 @@ public class DatabaseExecutor implements SpigotExecutor {
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.repository = clazz.getAnnotation(Repository.class);
+        this.instance = DatabaseUtils.createProxy(clazz, this::preCall);
     }
 
     /**
@@ -66,15 +68,6 @@ public class DatabaseExecutor implements SpigotExecutor {
      */
     public @Nonnull DbConnection getConnection() {
         return this.dbConnection;
-    }
-
-    /**
-     * Sets the instance of interface.
-     *
-     * @param instance instance
-     */
-    public void setInstance(@Nonnull Object instance) {
-        this.instance = instance;
     }
 
 

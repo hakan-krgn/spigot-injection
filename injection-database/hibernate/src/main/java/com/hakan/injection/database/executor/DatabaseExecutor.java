@@ -5,6 +5,7 @@ import com.hakan.injection.database.annotations.Query;
 import com.hakan.injection.database.annotations.Repository;
 import com.hakan.injection.database.connection.DbConnection;
 import com.hakan.injection.database.connection.query.DbQuery;
+import com.hakan.injection.database.utils.DatabaseUtils;
 import com.hakan.injection.executor.SpigotExecutor;
 import org.reflections.Reflections;
 
@@ -20,8 +21,8 @@ import java.util.List;
  */
 public class DatabaseExecutor implements SpigotExecutor {
 
-    private Object instance;
     private DbConnection dbConnection;
+    private final Object instance;
     private final Class<?> clazz;
     private final Repository repository;
 
@@ -33,6 +34,7 @@ public class DatabaseExecutor implements SpigotExecutor {
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.repository = clazz.getAnnotation(Repository.class);
+        this.instance = DatabaseUtils.createProxy(clazz, this::preCall);
     }
 
     /**
@@ -67,15 +69,6 @@ public class DatabaseExecutor implements SpigotExecutor {
      */
     public @Nonnull DbConnection getConnection() {
         return this.dbConnection;
-    }
-
-    /**
-     * Sets the instance of interface.
-     *
-     * @param instance instance
-     */
-    public void setInstance(@Nonnull Object instance) {
-        this.instance = instance;
     }
 
 
@@ -114,13 +107,13 @@ public class DatabaseExecutor implements SpigotExecutor {
         if (method.getName().equals("hashCode"))
             return this.hashCode();
 
-        if (method.getName().equals("save"))
+        if (method.getName().equals("save") && args.length == 1)
             return this.dbConnection.save(args[0]);
-        if (method.getName().equals("delete"))
+        if (method.getName().equals("delete") && args.length == 1)
             return this.dbConnection.delete(args[0]);
-        if (method.getName().equals("deleteById"))
+        if (method.getName().equals("deleteById") && args.length == 1)
             return this.dbConnection.deleteById(this.repository.entity(), args[0]);
-        if (method.getName().equals("findById"))
+        if (method.getName().equals("findById") && args.length == 1)
             return this.dbConnection.getSession().get(this.repository.entity(), args[0]);
         if (method.getName().equals("findAll"))
             return this.dbConnection.getSession().createQuery("from " + this.repository.entity().getSimpleName()).list();
