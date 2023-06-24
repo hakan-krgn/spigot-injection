@@ -15,9 +15,9 @@ public class ContainerFactory {
     /**
      * Create a new ConfigContainer.
      *
-     * @param instance   Instance of the class.
-     * @param annotation ConfigFile annotation.
-     * @return ConfigContainer.
+     * @param instance   instance of the class
+     * @param annotation configFile annotation
+     * @return new instance of ConfigContainer
      */
     public static @Nonnull Container of(@Nonnull Object instance,
                                         @Nonnull ConfigFile annotation) {

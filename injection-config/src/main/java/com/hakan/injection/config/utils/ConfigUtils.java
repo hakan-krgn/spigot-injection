@@ -1,7 +1,5 @@
 package com.hakan.injection.config.utils;
 
-import com.hakan.injection.config.annotations.ConfigFile;
-import com.hakan.injection.config.container.Container;
 import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
@@ -21,10 +19,11 @@ import java.util.function.BiFunction;
 public final class ConfigUtils {
 
     /**
-     * Creates a file.
+     * Creates a file
+     * at the given path.
      *
-     * @param path Path to create.
-     * @return Created file.
+     * @param path path to create
+     * @return created file
      */
     @SneakyThrows
     public static @Nonnull File createFile(@Nonnull String path) {
@@ -34,36 +33,14 @@ public final class ConfigUtils {
         return file;
     }
 
-
     /**
-     * Creates a file.
+     * Creates a file with the given
+     * path, resource and loader.
      *
-     * @param container Container to create.
-     * @return Created file.
-     */
-    public static @Nonnull File createFile(@Nonnull Container container,
-                                           @Nonnull Class<?> loader) {
-        return ConfigUtils.createFile(container.getPath(), container.getResource(), loader);
-    }
-
-    /**
-     * Creates a file.
-     *
-     * @param file File to create.
-     * @return Created file.
-     */
-    public static @Nonnull File createFile(@Nonnull ConfigFile file,
-                                           @Nonnull Class<?> loader) {
-        return ConfigUtils.createFile(file.path(), file.resource(), loader);
-    }
-
-    /**
-     * Creates a file.
-     *
-     * @param path     Path to create.
-     * @param resource Resource to include.
-     * @param loader   Class loader.
-     * @return Created file.
+     * @param path     path to create
+     * @param resource resource to include
+     * @param loader   class loader
+     * @return created file
      */
     @SneakyThrows
     public static @Nonnull File createFile(@Nonnull String path,

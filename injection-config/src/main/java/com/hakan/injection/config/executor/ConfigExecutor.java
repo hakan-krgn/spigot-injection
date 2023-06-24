@@ -12,6 +12,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 
+/**
+ * ConfigExecutor is an executor class
+ * that is used to execute ConfigValue methods.
+ */
 public class ConfigExecutor implements SpigotExecutor {
 
     private Container container;
@@ -19,6 +23,11 @@ public class ConfigExecutor implements SpigotExecutor {
     private final Class<?> clazz;
     private final ConfigFile annotation;
 
+    /**
+     * Constructor of {@link ConfigExecutor}.
+     *
+     * @param clazz class
+     */
     public ConfigExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.annotation = clazz.getAnnotation(ConfigFile.class);

@@ -20,8 +20,8 @@ public final class ColorUtil {
     /**
      * Convert a message to a colored message.
      *
-     * @param message The message to convert.
-     * @return The colored message.
+     * @param message message to convert
+     * @return colored message
      */
     public static @Nonnull String colored(@Nonnull String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
@@ -30,8 +30,8 @@ public final class ColorUtil {
     /**
      * Convert hex color code to chat color.
      *
-     * @param hex The hex color code.
-     * @return The chat color.
+     * @param hex hex color code
+     * @return chat color
      */
     public static @Nonnull String color(@Nonnull String hex) {
         return colored(hex);
@@ -40,10 +40,10 @@ public final class ColorUtil {
     /**
      * Convert rgb to chat color.
      *
-     * @param r The red value.
-     * @param b The blue value.
-     * @param g The green value.
-     * @return The chat color.
+     * @param r red value
+     * @param b blue value
+     * @param g green value
+     * @return chat color
      */
     public static @Nonnull String color(float r, float b, float g) {
         return color(new Color(r, b, g));
@@ -52,11 +52,11 @@ public final class ColorUtil {
     /**
      * Convert color to chat color.
      *
-     * @param r The red value.
-     * @param b The blue value.
-     * @param g The green value.
-     * @param a The alpha value.
-     * @return The chat color.
+     * @param r red value
+     * @param b blue value
+     * @param g green value
+     * @param a alpha value
+     * @return chat color
      */
     public static @Nonnull String color(float r, float b, float g, float a) {
         return color(new Color(r, b, g, a));
@@ -65,8 +65,8 @@ public final class ColorUtil {
     /**
      * Convert color to chat color.
      *
-     * @param color The color.
-     * @return The chat color.
+     * @param color color
+     * @return chat color
      */
     public static @Nonnull String color(@Nonnull Color color) {
         String hex = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
@@ -77,8 +77,8 @@ public final class ColorUtil {
      * Get the last chat color
      * from the given text.
      *
-     * @param text Given text.
-     * @return The last chat color codes.
+     * @param text given text
+     * @return last chat color codes
      */
     public static @Nonnull String getLastColors(@Nonnull String text) {
         Matcher colorMatcher = COLOR_PATTERN.matcher(text);

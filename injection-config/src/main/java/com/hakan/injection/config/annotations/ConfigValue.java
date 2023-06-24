@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * ConfigValue annotation to
  * define config value and get
- * connected filed.
+ * it from the config file.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -18,7 +18,7 @@ public @interface ConfigValue {
     /**
      * Path of the file.
      *
-     * @return Path of the file.
+     * @return path of the file
      */
     @Nonnull
     String value();
@@ -27,7 +27,7 @@ public @interface ConfigValue {
      * If the value is text, it will be
      * colored if this setting is true.
      *
-     * @return If the value is text, it will be colored.
+     * @return if the value is text, it will be colored
      */
     boolean colored() default true;
 }

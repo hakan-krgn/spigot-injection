@@ -8,12 +8,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.hakan.injection.utils.ReflectionUtils;
+import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -22,48 +22,46 @@ import java.util.Map;
  */
 public final class JsonUtils {
 
-    private static final Gson gson = new Gson();
-    private static final JsonParser parser = new JsonParser();
+    private static final Gson GSON = new Gson();
+    private static final JsonParser PARSER = new JsonParser();
 
     /**
      * Gets JsonObject from file.
      *
-     * @param filePath Path to file.
-     * @return JsonObject from file.
+     * @param filePath path to file
+     * @return JsonObject from file
      */
+    @SneakyThrows
     public static @Nonnull JsonObject loadFromFile(@Nonnull String filePath) {
         try (FileReader reader = new FileReader(filePath)) {
             JsonReader jsonReader = new JsonReader(reader);
-            Map<?, ?> objectMap = gson.fromJson(jsonReader, Map.class);
-            return parser.parse(gson.toJson(objectMap)).getAsJsonObject();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            Map<?, ?> objectMap = GSON.fromJson(jsonReader, Map.class);
+            return PARSER.parse(GSON.toJson(objectMap)).getAsJsonObject();
         }
     }
 
     /**
      * Gets JsonObject from file.
      *
-     * @param object     JsonObject to get.
-     * @param filePath   Path to file.
-     * @param beautified Beautified json.
+     * @param object     JsonObject to get
+     * @param filePath   path to file
+     * @param beautified beautified json
      */
+    @SneakyThrows
     public static void saveToFile(@Nonnull JsonObject object,
                                   @Nonnull String filePath,
                                   boolean beautified) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             if (!beautified) fileWriter.write(object.toString());
             else fileWriter.write(JsonUtils.beautify(object.toString()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     /**
      * Saves JsonObject to file.
      *
-     * @param object   JsonObject to save.
-     * @param filePath Path to file.
+     * @param object   JsonObject to save
+     * @param filePath path to file
      */
     public static void saveToFile(@Nonnull JsonObject object,
                                   @Nonnull String filePath) {
@@ -74,9 +72,9 @@ public final class JsonUtils {
      * Gets the element from the parent
      * json object by given path.
      *
-     * @param parent Parent json object.
-     * @param key    Key to get.
-     * @return Element.
+     * @param parent parent json object
+     * @param key    key to get
+     * @return element
      */
     public static @Nullable Object getValue(@Nonnull JsonObject parent,
                                             @Nonnull String key) {
@@ -96,9 +94,9 @@ public final class JsonUtils {
     /**
      * Sets element to parent json.
      *
-     * @param parent  Parent json object.
-     * @param key     Key to set.
-     * @param element Element to set.
+     * @param parent  parent json object
+     * @param key     key to set
+     * @param element element to set
      */
     public static void setValue(@Nonnull JsonObject parent,
                                 @Nonnull String key,
@@ -113,8 +111,8 @@ public final class JsonUtils {
     /**
      * Beautifies the given json string.
      *
-     * @param input Input json string.
-     * @return Beautified json string.
+     * @param input input json string
+     * @return beautified json string
      * @see <a href="https://stackoverflow.com/questions/5457524/json-beautifier-library-for-java">Json beautifier method</a>
      */
     public static @Nonnull String beautify(@Nonnull String input) {
@@ -146,11 +144,13 @@ public final class JsonUtils {
         return inputBuilder.toString();
     }
 
+
+
     /**
-     * New line.
+     * New line with tab count.
      *
-     * @param tabCount Tab count.
-     * @return New line.
+     * @param tabCount tab count
+     * @return new line
      */
     private static @Nonnull String newLine(int tabCount) {
         StringBuilder builder = new StringBuilder();

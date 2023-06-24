@@ -17,8 +17,8 @@ public abstract class Container {
     /**
      * Creates a new ConfigContainer.
      *
-     * @param instance   Instance of the class.
-     * @param annotation ConfigFile annotation.
+     * @param instance   instance of the class
+     * @param annotation ConfigFile annotation
      */
     public Container(@Nonnull Object instance,
                      @Nonnull ConfigFile annotation) {
@@ -30,7 +30,7 @@ public abstract class Container {
     /**
      * Gets instance of the class.
      *
-     * @return Instance of the class.
+     * @return instance of the class
      */
     public @Nonnull Object getInstance() {
         return this.instance;
@@ -39,7 +39,7 @@ public abstract class Container {
     /**
      * Gets ConfigFile annotation.
      *
-     * @return ConfigFile annotation.
+     * @return ConfigFile annotation
      */
     public @Nonnull ConfigFile getAnnotation() {
         return this.annotation;
@@ -48,7 +48,7 @@ public abstract class Container {
     /**
      * Gets the path of the config file.
      *
-     * @return Path of the config file.
+     * @return path of the config file
      */
     public @Nonnull String getPath() {
         return this.annotation.path();
@@ -57,7 +57,7 @@ public abstract class Container {
     /**
      * Gets resource of the config file.
      *
-     * @return Resource of the config file.
+     * @return resource of the config file
      */
     public @Nonnull String getResource() {
         return this.annotation.resource();
@@ -68,9 +68,9 @@ public abstract class Container {
      * Gets value from config file
      * with the given path.
      *
-     * @param path Value path.
-     * @param <T>  Value type.
-     * @return Value.
+     * @param path value path
+     * @param <T>  value type
+     * @return value
      */
     public abstract @Nullable <T> T get(@Nonnull String path);
 
@@ -78,10 +78,10 @@ public abstract class Container {
      * Gets value from config file
      * with the given path.
      *
-     * @param path  Value path.
-     * @param clazz Value class.
-     * @param <T>   Value type.
-     * @return Value.
+     * @param path  value path
+     * @param clazz value class
+     * @param <T>   value type
+     * @return value
      */
     public abstract @Nullable <T> T get(@Nonnull String path,
                                         @Nonnull Class<T> clazz);
@@ -91,9 +91,9 @@ public abstract class Container {
      * with the given path and save
      * it to file.
      *
-     * @param path  Value path.
-     * @param value Value.
-     * @return ConfigContainer.
+     * @param path  value path
+     * @param value value
+     * @return instance of the class
      */
     public abstract @Nonnull Container set(@Nonnull String path,
                                            @Nonnull Object value);
@@ -102,11 +102,11 @@ public abstract class Container {
      * Sets value to config file
      * with the given path.
      *
-     * @param path  Value path.
-     * @param value Value.
-     * @param save  Save config file after
-     *              setting the value.
-     * @return ConfigContainer.
+     * @param path  value path
+     * @param value value
+     * @param save  save config file after
+     *              setting the value
+     * @return instance of the class
      */
     public abstract @Nonnull Container set(@Nonnull String path,
                                            @Nonnull Object value,
@@ -116,7 +116,7 @@ public abstract class Container {
      * Saves last data to
      * config file as persist.
      *
-     * @return ConfigContainer.
+     * @return instance of the class
      */
     public abstract @Nonnull Container save();
 
@@ -125,7 +125,7 @@ public abstract class Container {
      * and sets it to the all fields
      * of this class.
      *
-     * @return ConfigContainer.
+     * @return instance of the class
      */
     public abstract @Nonnull Container reload();
 }

@@ -11,6 +11,11 @@ import org.reflections.Reflections;
 import javax.annotation.Nonnull;
 import java.util.Set;
 
+/**
+ * ConfigModule is a module class
+ * that is used to load configuration classes
+ * which are annotated with {@link ConfigFile}.
+ */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class ConfigModule extends SpigotModule<Class, ConfigFile> {
 

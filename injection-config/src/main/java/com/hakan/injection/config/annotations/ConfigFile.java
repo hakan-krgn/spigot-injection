@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 
 /**
- * ConfigFile annotation.
+ * ConfigFile annotation to
+ * define config file settings.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -29,7 +30,7 @@ public @interface ConfigFile {
      * the config file.
      *
      * @return Resource to include
-     * the config file.
+     * the config file
      */
     @Nonnull
     String resource() default "";
@@ -37,7 +38,7 @@ public @interface ConfigFile {
     /**
      * Config type of the file.
      *
-     * @return config type of the file.
+     * @return config type of the file
      */
     @Nonnull
     ContainerType type() default ContainerType.YAML;
@@ -47,7 +48,7 @@ public @interface ConfigFile {
      * Auto-save time of the
      * config file.
      *
-     * @return timestamp.
+     * @return timestamp
      */
     long saveInterval() default 0L;
 
@@ -55,7 +56,7 @@ public @interface ConfigFile {
      * Time unit of the auto save.
      * Default is seconds.
      *
-     * @return time unit.
+     * @return time unit
      */
     @Nonnull
     TimeUnit saveIntervalUnit() default TimeUnit.SECONDS;
@@ -67,7 +68,7 @@ public @interface ConfigFile {
      * the settings from the file
      * automatically.
      *
-     * @return auto reload status.
+     * @return auto reload status
      */
     boolean autoSave() default true;
 
@@ -76,7 +77,7 @@ public @interface ConfigFile {
      * Auto-reload time of the
      * config file.
      *
-     * @return timestamp.
+     * @return timestamp
      */
     long reloadInterval() default 0L;
 
@@ -84,7 +85,7 @@ public @interface ConfigFile {
      * Time unit of the auto reload.
      * Default is seconds.
      *
-     * @return time unit.
+     * @return time unit
      */
     @Nonnull
     TimeUnit reloadIntervalUnit() default TimeUnit.SECONDS;
@@ -96,7 +97,7 @@ public @interface ConfigFile {
      * the settings from the file
      * automatically.
      *
-     * @return auto reload status.
+     * @return auto reload status
      */
     boolean autoReload() default true;
 }
