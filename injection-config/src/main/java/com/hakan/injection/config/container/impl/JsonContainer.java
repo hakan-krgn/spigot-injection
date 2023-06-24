@@ -35,36 +35,32 @@ public class JsonContainer extends Container {
      * {@inheritDoc}
      */
     @Override
-    public @Nullable <T> T get(@Nonnull String path) {
-        return (T) JsonUtils.getValue(this.jsonObject, path);
+    public @Nullable <T> T get(@Nonnull String key) {
+        return (T) JsonUtils.getValue(this.jsonObject, key);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nullable <T> T get(@Nonnull String path,
-                               @Nonnull Class<T> clazz) {
-        return clazz.cast(JsonUtils.getValue(this.jsonObject, path));
+    public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
+        return clazz.cast(JsonUtils.getValue(this.jsonObject, key));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nonnull Container set(@Nonnull String path,
-                                  @Nonnull Object value) {
-        return this.set(path, value, true);
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
+        return this.set(key, value, true);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nonnull Container set(@Nonnull String path,
-                                  @Nonnull Object value,
-                                  boolean save) {
-        JsonUtils.setValue(this.jsonObject, path, GSON.toJsonTree(value));
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
+        JsonUtils.setValue(this.jsonObject, key, GSON.toJsonTree(value));
         if (save) this.save();
         return this;
     }
@@ -73,8 +69,8 @@ public class JsonContainer extends Container {
      * {@inheritDoc}
      */
     @Override
-    public @Nonnull Container save() {
-        JsonUtils.saveToFile(this.jsonObject, super.annotation.path());
+    public synchronized @Nonnull Container save() {
+        JsonUtils.saveToFile(this.jsonObject, super.path);
         return this;
     }
 
@@ -83,8 +79,8 @@ public class JsonContainer extends Container {
      */
     @Override
     @SneakyThrows
-    public @Nonnull Container reload() {
-        this.jsonObject = JsonUtils.loadFromFile(super.annotation.path());
+    public synchronized @Nonnull Container reload() {
+        this.jsonObject = JsonUtils.loadFromFile(super.path);
         return this;
     }
 }

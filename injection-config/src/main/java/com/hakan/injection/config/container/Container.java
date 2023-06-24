@@ -12,7 +12,8 @@ import javax.annotation.Nullable;
 public abstract class Container {
 
     protected final Object instance;
-    protected final ConfigFile annotation;
+    protected final String path;
+    protected final String resource;
 
     /**
      * Creates a new ConfigContainer.
@@ -23,7 +24,8 @@ public abstract class Container {
     public Container(@Nonnull Object instance,
                      @Nonnull ConfigFile annotation) {
         this.instance = instance;
-        this.annotation = annotation;
+        this.path = annotation.path();
+        this.resource = annotation.resource();
     }
 
 
@@ -37,21 +39,12 @@ public abstract class Container {
     }
 
     /**
-     * Gets ConfigFile annotation.
-     *
-     * @return ConfigFile annotation
-     */
-    public @Nonnull ConfigFile getAnnotation() {
-        return this.annotation;
-    }
-
-    /**
      * Gets the path of the config file.
      *
      * @return path of the config file
      */
     public @Nonnull String getPath() {
-        return this.annotation.path();
+        return this.path;
     }
 
     /**
@@ -60,57 +53,53 @@ public abstract class Container {
      * @return resource of the config file
      */
     public @Nonnull String getResource() {
-        return this.annotation.resource();
+        return this.resource;
     }
 
 
     /**
      * Gets value from config file
-     * with the given path.
+     * with the given key.
      *
-     * @param path value path
-     * @param <T>  value type
+     * @param key value key
+     * @param <T> value type
      * @return value
      */
-    public abstract @Nullable <T> T get(@Nonnull String path);
+    public abstract @Nullable <T> T get(@Nonnull String key);
 
     /**
      * Gets value from config file
-     * with the given path.
+     * with the given key.
      *
-     * @param path  value path
+     * @param key   value key
      * @param clazz value class
      * @param <T>   value type
      * @return value
      */
-    public abstract @Nullable <T> T get(@Nonnull String path,
-                                        @Nonnull Class<T> clazz);
+    public abstract @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz);
 
     /**
      * Sets value to config file
-     * with the given path and save
+     * with the given key and save
      * it to file.
      *
-     * @param path  value path
+     * @param key   key
      * @param value value
      * @return instance of the class
      */
-    public abstract @Nonnull Container set(@Nonnull String path,
-                                           @Nonnull Object value);
+    public abstract @Nonnull Container set(@Nonnull String key, @Nonnull Object value);
 
     /**
      * Sets value to config file
-     * with the given path.
+     * with the given key.
      *
-     * @param path  value path
+     * @param key   key
      * @param value value
      * @param save  save config file after
      *              setting the value
      * @return instance of the class
      */
-    public abstract @Nonnull Container set(@Nonnull String path,
-                                           @Nonnull Object value,
-                                           boolean save);
+    public abstract @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save);
 
     /**
      * Saves last data to

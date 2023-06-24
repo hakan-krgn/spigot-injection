@@ -16,9 +16,9 @@ import java.lang.annotation.Target;
 public @interface ConfigValue {
 
     /**
-     * Path of the file.
+     * Key of the value.
      *
-     * @return path of the file
+     * @return key of the value
      */
     @Nonnull
     String value();

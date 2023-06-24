@@ -17,7 +17,7 @@ import java.io.File;
 public class YamlContainer extends Container {
 
     private final File file;
-    private FileConfiguration configuration;
+    private final FileConfiguration configuration;
 
     /**
      * {@inheritDoc}
@@ -25,7 +25,7 @@ public class YamlContainer extends Container {
     public YamlContainer(@Nonnull Object instance,
                          @Nonnull ConfigFile annotation) {
         super(instance, annotation);
-        this.file = new File(annotation.path());
+        this.file = new File(super.path);
         this.configuration = YamlConfiguration.loadConfiguration(this.file);
     }
 
@@ -34,28 +34,16 @@ public class YamlContainer extends Container {
      */
 
     @Override
-    public @Nullable <T> T get(@Nonnull String path) {
-        return (T) this.configuration.get(path);
+    public @Nullable <T> T get(@Nonnull String key) {
+        return (T) this.configuration.get(key);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nullable <T> T get(@Nonnull String path,
-                               @Nonnull Class<T> clazz) {
-        return clazz.cast(this.configuration.get(path));
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return
-     */
-    @Override
-    public @Nonnull Container set(@Nonnull String path,
-                                  @Nonnull Object value) {
-        return this.set(path, value, true);
+    public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
+        return clazz.cast(this.configuration.get(key));
     }
 
     /**
@@ -64,10 +52,18 @@ public class YamlContainer extends Container {
      * @return
      */
     @Override
-    public @Nonnull Container set(@Nonnull String path,
-                                  @Nonnull Object value,
-                                  boolean save) {
-        this.configuration.set(path, value);
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
+        return this.set(key, value, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
+        this.configuration.set(key, value);
         if (save) this.save();
         return this;
     }
@@ -77,7 +73,7 @@ public class YamlContainer extends Container {
      */
     @Override
     @SneakyThrows
-    public @Nonnull Container save() {
+    public synchronized @Nonnull Container save() {
         this.configuration.save(this.file);
         return this;
     }
@@ -87,8 +83,8 @@ public class YamlContainer extends Container {
      */
     @Override
     @SneakyThrows
-    public @Nonnull Container reload() {
-        this.configuration = YamlConfiguration.loadConfiguration(this.file);
+    public synchronized @Nonnull Container reload() {
+        this.configuration.load(this.file);
         return this;
     }
 }

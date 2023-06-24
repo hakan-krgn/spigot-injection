@@ -5,8 +5,11 @@ import com.hakan.injection.config.annotations.ConfigFile;
 import com.hakan.injection.config.annotations.ConfigValue;
 import com.hakan.injection.config.container.Container;
 import com.hakan.injection.config.container.ContainerFactory;
+import com.hakan.injection.config.schedulers.ConfigReloadScheduler;
+import com.hakan.injection.config.schedulers.ConfigSaveScheduler;
 import com.hakan.injection.config.utils.ConfigUtils;
 import com.hakan.injection.executor.SpigotExecutor;
+import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,6 +66,9 @@ public class ConfigExecutor implements SpigotExecutor {
         );
 
         this.container = ContainerFactory.of(instance, this.annotation);
+
+        new ConfigReloadScheduler(injector.getInstance(Plugin.class), this.container, this.annotation).start();
+        new ConfigSaveScheduler(injector.getInstance(Plugin.class), this.container, this.annotation).start();
     }
 
 

@@ -70,7 +70,7 @@ public final class JsonUtils {
 
     /**
      * Gets the element from the parent
-     * json object by given path.
+     * json object by given key.
      *
      * @param parent parent json object
      * @param key    key to get

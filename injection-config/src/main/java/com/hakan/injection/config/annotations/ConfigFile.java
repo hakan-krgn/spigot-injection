@@ -7,7 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ConfigFile annotation to
@@ -45,59 +44,18 @@ public @interface ConfigFile {
 
 
     /**
-     * Auto-save time of the
-     * config file.
+     * Save timer settings
+     * for the config file.
      *
-     * @return timestamp
+     * @return save timer settings
      */
-    long saveInterval() default 0L;
+    SaveTimer saveTimer() default @SaveTimer;
 
     /**
-     * Time unit of the auto save.
-     * Default is seconds.
+     * Reload timer settings
+     * for the config file.
      *
-     * @return time unit
+     * @return reload timer settings
      */
-    @Nonnull
-    TimeUnit saveIntervalUnit() default TimeUnit.SECONDS;
-
-    /**
-     * Auto-save status of the
-     * config file. If it is true,
-     * the config file will take
-     * the settings from the file
-     * automatically.
-     *
-     * @return auto reload status
-     */
-    boolean autoSave() default true;
-
-
-    /**
-     * Auto-reload time of the
-     * config file.
-     *
-     * @return timestamp
-     */
-    long reloadInterval() default 0L;
-
-    /**
-     * Time unit of the auto reload.
-     * Default is seconds.
-     *
-     * @return time unit
-     */
-    @Nonnull
-    TimeUnit reloadIntervalUnit() default TimeUnit.SECONDS;
-
-    /**
-     * Auto-reload status of the
-     * config file. If it is true,
-     * the config file will take
-     * the settings from the file
-     * automatically.
-     *
-     * @return auto reload status
-     */
-    boolean autoReload() default true;
+    ReloadTimer reloadTimer() default @ReloadTimer;
 }

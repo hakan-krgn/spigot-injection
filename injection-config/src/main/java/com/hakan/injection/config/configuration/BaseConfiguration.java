@@ -12,7 +12,7 @@ public interface BaseConfiguration {
     /**
      * Gets value from the config file.
      *
-     * @param key path of the value.
+     * @param key key of the value.
      * @param <T> type of the value.
      * @return value.
      */
@@ -22,34 +22,30 @@ public interface BaseConfiguration {
     /**
      * Gets value from the config file.
      *
-     * @param key   path of the value.
+     * @param key   key of the value.
      * @param clazz type of the value.
      * @param <T>   type of the value.
      * @return value.
      */
     @Nullable
-    <T> T get(@Nonnull String key,
-              @Nonnull Class<T> clazz);
+    <T> T get(@Nonnull String key, @Nonnull Class<T> clazz);
 
     /**
      * Sets value to the config file.
      *
-     * @param key   path of the value.
+     * @param key   key of the value.
      * @param value value.
      */
-    void set(@Nonnull String key,
-             @Nonnull Object value);
+    void set(@Nonnull String key, @Nonnull Object value);
 
     /**
      * Sets value to the config file.
      *
-     * @param key   path of the value.
+     * @param key   key of the value.
      * @param value value.
      * @param save  if true, it will save the config file.
      */
-    void set(@Nonnull String key,
-             @Nonnull Object value,
-             boolean save);
+    void set(@Nonnull String key, @Nonnull Object value, boolean save);
 
     /**
      * Saves the config file.
