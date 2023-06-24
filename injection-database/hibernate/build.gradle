@@ -14,7 +14,7 @@ shadowJar {
     relocate 'javax.json', 'com.hakan.injection.shadow.javax.json'
     relocate 'javax.persistence', 'com.hakan.injection.shadow.javax.persistence'
     relocate 'javax.transaction', 'com.hakan.injection.shadow.javax.transaction'
-    relocate 'javax.xml', 'com.hakan.injection.shadow.javax.xml'
+    //relocate 'javax.xml', 'com.hakan.injection.shadow.javax.xml'
 
     relocate 'net.bytebuddy', 'com.hakan.injection.shadow.net.bytebuddy'
 
