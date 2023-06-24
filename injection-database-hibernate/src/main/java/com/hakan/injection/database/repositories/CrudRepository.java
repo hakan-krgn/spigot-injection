@@ -19,6 +19,7 @@ public interface CrudRepository<ID, ENTITY> {
      * @param entity entity
      * @return id of entity
      */
+    @Nonnull
     ID save(@Nonnull ENTITY entity);
 
     /**
