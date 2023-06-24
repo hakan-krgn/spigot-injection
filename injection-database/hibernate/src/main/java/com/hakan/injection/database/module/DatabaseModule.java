@@ -3,7 +3,6 @@ package com.hakan.injection.database.module;
 import com.google.inject.Injector;
 import com.hakan.injection.database.annotations.Repository;
 import com.hakan.injection.database.executor.DatabaseExecutor;
-import com.hakan.injection.database.utils.DatabaseUtils;
 import com.hakan.injection.executor.SpigotExecutor;
 import com.hakan.injection.module.SpigotModule;
 import org.bukkit.plugin.Plugin;

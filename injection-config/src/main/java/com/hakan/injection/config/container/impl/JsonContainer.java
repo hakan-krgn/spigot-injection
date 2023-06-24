@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.hakan.injection.config.annotations.ConfigFile;
 import com.hakan.injection.config.container.Container;
-import com.hakan.injection.config.utils.ConfigUtils;
 import com.hakan.injection.config.utils.JsonUtils;
 import lombok.SneakyThrows;
 
