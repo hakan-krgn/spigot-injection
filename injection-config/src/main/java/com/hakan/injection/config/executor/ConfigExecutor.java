@@ -59,6 +59,8 @@ public class ConfigExecutor implements SpigotExecutor {
         return this.clazz;
     }
 
+
+
     /**
      * Creates config file if not exists
      * and creates container from the config file.
@@ -82,7 +84,6 @@ public class ConfigExecutor implements SpigotExecutor {
         new ConfigReloadScheduler(injector.getInstance(Plugin.class), this.container, this.annotation).start();
         new ConfigSaveScheduler(injector.getInstance(Plugin.class), this.container, this.annotation).start();
     }
-
 
     /**
      * Runs when the method from interface

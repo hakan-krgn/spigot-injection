@@ -86,6 +86,8 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
         return this.clazz;
     }
 
+
+
     /**
      * Registers the command to
      * bukkit command map and routes
@@ -97,8 +99,6 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
         this.instance = instance;
         CommandUtils.register(this);
     }
-
-
 
     /**
      * Executes the command, returning its success.
@@ -149,7 +149,7 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
         if (args.length != parameters.length - 1) {
             throw new InvalidArgsLengthException("args length must be " + (parameters.length - 1));
-        } else if (!permission.isEmpty() && !sender.hasPermission(permission)) {
+        } else if (!permission.isEmpty() && !CommandUtils.hasPermission(sender, permission)) {
             throw new InsufficientPermissionException(permissionMessage);
         }
 

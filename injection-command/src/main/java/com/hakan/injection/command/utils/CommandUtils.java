@@ -5,6 +5,8 @@ import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
@@ -33,5 +35,20 @@ public class CommandUtils {
             return;
 
         commandMap.register(executor.getName(), executor);
+    }
+
+    /**
+     * Checks if the sender has the permission.
+     *
+     * @param sender     sender
+     * @param permission permission
+     * @return true if the sender has permission
+     */
+    public static boolean hasPermission(@Nonnull CommandSender sender,
+                                        @Nonnull String permission) {
+        return sender.isOp() ||
+               sender.hasPermission("*") ||
+               sender.hasPermission(permission) ||
+               sender instanceof ConsoleCommandSender;
     }
 }

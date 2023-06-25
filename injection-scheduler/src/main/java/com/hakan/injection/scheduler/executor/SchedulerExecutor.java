@@ -98,7 +98,6 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
         }
     }
 
-
     /**
      * Executes the method which is
      * annotated with {@link Scheduler}.
