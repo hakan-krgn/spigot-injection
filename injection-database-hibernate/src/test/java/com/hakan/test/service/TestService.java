@@ -1,7 +1,6 @@
 package com.hakan.test.service;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.hakan.injection.annotations.Service;
 import com.hakan.test.model.User;
 import com.hakan.test.repository.TestRepository;
