@@ -13,8 +13,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 /**
- * DatabaseConnection is the connection class
- * to connect to the database and execute queries.
+ * DbConnection is the connection class to
+ * connect to the database and execute queries.
  */
 public class DbConnection {
 

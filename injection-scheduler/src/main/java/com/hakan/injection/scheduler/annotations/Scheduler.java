@@ -1,6 +1,7 @@
 package com.hakan.injection.scheduler.annotations;
 
 import javax.annotation.Nonnull;
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Scheduler is an annotation that
  * registers scheduler methods.
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scheduler {

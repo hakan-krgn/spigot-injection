@@ -8,7 +8,6 @@ import com.hakan.test.repository.TestRepository;
 
 import java.util.List;
 
-@Singleton
 @Service
 public class TestService {
 

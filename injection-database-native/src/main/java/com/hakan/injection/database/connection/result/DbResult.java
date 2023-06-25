@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.function.Supplier;
 
 /**
- * DbResult is the result set class
+ * DbResult is the result-set class
  * to get the results of the query.
  */
 public class DbResult {

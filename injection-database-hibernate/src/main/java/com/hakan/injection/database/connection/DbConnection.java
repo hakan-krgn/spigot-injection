@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * DatabaseConnection is the connection class
- * to connect to the database and execute queries.
+ * DbConnection is the connection class to
+ * connect to the database and execute queries.
  */
 public class DbConnection {
 
@@ -118,36 +118,44 @@ public class DbConnection {
 
 
     /**
-     * Executes the query.
+     * Gets a single result by
+     * running the query.
      *
      * @param query query text
+     * @return single result
      */
     public synchronized @Nullable Object getSingleResult(@Nonnull String query) {
         return this.getSingleResult(new DbQuery(this.session.createQuery(query)));
     }
 
     /**
-     * Executes the query.
+     * Gets a single result by
+     * running the query.
      *
      * @param dbQuery dbQuery
+     * @return single result
      */
     public synchronized @Nullable Object getSingleResult(@Nonnull DbQuery dbQuery) {
         return dbQuery.getQuery().getSingleResult();
     }
 
     /**
-     * Executes the query.
+     * Gets result list by
+     * running the query.
      *
      * @param query query text
+     * @return result list
      */
     public synchronized @Nonnull List<?> getResultList(@Nonnull String query) {
         return this.getResultList(new DbQuery(this.session.createQuery(query)));
     }
 
     /**
-     * Executes the query.
+     * Gets result list by
+     * running the query.
      *
      * @param dbQuery dbQuery
+     * @return result list
      */
     public synchronized @Nonnull List<?> getResultList(@Nonnull DbQuery dbQuery) {
         return dbQuery.getQuery().getResultList();
@@ -157,6 +165,7 @@ public class DbConnection {
      * Executes the query.
      *
      * @param query query text
+     * @return executed
      */
     public synchronized boolean executeUpdate(@Nonnull String query) {
         return this.executeUpdate(new DbQuery(this.session.createQuery(query)));
@@ -166,6 +175,7 @@ public class DbConnection {
      * Executes the query.
      *
      * @param dbQuery dbQuery
+     * @return executed
      */
     public synchronized boolean executeUpdate(@Nonnull DbQuery dbQuery) {
         try {

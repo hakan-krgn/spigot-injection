@@ -1,8 +1,10 @@
 package com.hakan.injection.database.annotations;
 
+import com.google.inject.Singleton;
 import com.hakan.injection.database.connection.credential.DbCredential;
 
 import javax.annotation.Nonnull;
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +14,8 @@ import java.lang.annotation.Target;
  * Repository annotation is used to
  * mark the interface as a repository.
  */
+@Singleton
+@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Repository {

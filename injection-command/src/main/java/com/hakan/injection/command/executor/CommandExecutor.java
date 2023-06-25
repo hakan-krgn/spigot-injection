@@ -65,7 +65,10 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the class
+     * that is annotated with {@link Command}.
+     *
+     * @return the instance of the executor
      */
     @Override
     public @Nullable Object getInstance() {
@@ -73,7 +76,10 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the class of the instance
+     * that is annotated with {@link Command}.
+     *
+     * @return the class of the instance
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {

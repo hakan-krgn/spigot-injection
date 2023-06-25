@@ -30,7 +30,11 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads event listener methods that are annotated with {@link EventListener}.
+     * And creates {@link ListenerExecutor} for each class to
+     * handle configuration processes.
+     *
+     * @param methods methods that are annotated with {@link EventListener}.
      */
     @Override
     public void load(@Nonnull Set<Method> methods) {
@@ -49,7 +53,12 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes all event listener executors which are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     *
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Injector injector) {

@@ -38,7 +38,10 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the class
+     * that is annotated with {@link Repository}.
+     *
+     * @return instance
      */
     @Override
     public @Nullable Object getInstance() {
@@ -46,7 +49,10 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the class of the instance
+     * that is annotated with {@link Repository}.
+     *
+     * @return class
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
@@ -74,7 +80,12 @@ public class DatabaseExecutor implements SpigotExecutor {
 
 
     /**
-     * {@inheritDoc}
+     * Executes the database queries which are
+     * saved in {@link Repository#queries()} and
+     * creates a new {@link DbConnection} instance.
+     *
+     * @param instance instance
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Object instance,

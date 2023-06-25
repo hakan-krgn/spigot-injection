@@ -7,8 +7,8 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Parameter;
 
 /**
- * QueryString is a utility class
- * for replacing and editing queries.
+ * DbQuery is a utility class for
+ * replacing and editing queries.
  */
 public class DbQuery {
 

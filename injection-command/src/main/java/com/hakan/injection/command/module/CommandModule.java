@@ -29,7 +29,11 @@ public class CommandModule extends SpigotModule<Class, Command> {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads classes which are annotated with {@link Command}.
+     * And creates {@link CommandExecutor} for each class to
+     * handle command processes.
+     *
+     * @param classes classes that are annotated with {@link Command}.
      */
     @Override
     public void load(@Nonnull Set<Class> classes) {
@@ -39,7 +43,12 @@ public class CommandModule extends SpigotModule<Class, Command> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes all command executors which are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     *
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Injector injector) {

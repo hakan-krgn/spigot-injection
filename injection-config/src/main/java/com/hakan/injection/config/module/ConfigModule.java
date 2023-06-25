@@ -31,7 +31,11 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads classes which are annotated with {@link ConfigFile}.
+     * And creates {@link ConfigExecutor} for each class to
+     * handle configuration processes.
+     *
+     * @param classes classes that are annotated with {@link ConfigFile}.
      */
     @Override
     public void load(@Nonnull Set<Class> classes) {
@@ -48,7 +52,12 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes all configuration executors which are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     *
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Injector injector) {

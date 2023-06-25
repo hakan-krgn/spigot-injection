@@ -32,7 +32,6 @@ public class YamlContainer extends Container {
     /**
      * {@inheritDoc}
      */
-
     @Override
     public @Nullable <T> T get(@Nonnull String key) {
         return (T) this.configuration.get(key);
@@ -48,8 +47,6 @@ public class YamlContainer extends Container {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
@@ -58,8 +55,6 @@ public class YamlContainer extends Container {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {

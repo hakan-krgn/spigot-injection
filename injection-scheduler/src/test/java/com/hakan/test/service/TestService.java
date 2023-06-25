@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 import com.hakan.injection.annotations.Service;
 import org.bukkit.entity.Player;
 
-@Singleton
 @Service
 public class TestService {
 

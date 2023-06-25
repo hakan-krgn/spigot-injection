@@ -8,6 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.reflections.ReflectionUtils;
 
 import javax.annotation.Nonnull;
@@ -42,7 +43,10 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the method class
+     * that is annotated with {@link EventListener}.
+     *
+     * @return instance
      */
     @Override
     public @Nullable Object getInstance() {
@@ -50,7 +54,10 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the class of method that is
+     * annotated with {@link EventListener}.
+     *
+     * @return method
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
@@ -60,7 +67,12 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
 
 
     /**
-     * {@inheritDoc}
+     * Registers event listener method which is
+     * annotated with {@link EventListener}
+     * to {@link PluginManager} of the plugin.
+     *
+     * @param instance instance
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Object instance,

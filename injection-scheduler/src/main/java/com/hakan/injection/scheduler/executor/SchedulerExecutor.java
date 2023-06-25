@@ -53,7 +53,10 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the method
+     * that is annotated with {@link Scheduler}.
+     *
+     * @return instance
      */
     @Override
     public @Nullable Object getInstance() {
@@ -61,7 +64,10 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the declaring class of the method
+     * that is annotated with {@link Scheduler}.
+     *
+     * @return declaring class
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
@@ -71,7 +77,10 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
 
 
     /**
-     * {@inheritDoc}
+     * Starts the scheduler.
+     *
+     * @param instance instance
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Object instance,

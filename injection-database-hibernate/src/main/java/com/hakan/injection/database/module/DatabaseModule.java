@@ -31,7 +31,11 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads the classes which are annotated with {@link Repository}.
+     * And creates {@link DatabaseExecutor} for each class to
+     * handle database processes.
+     *
+     * @param classes classes that are annotated with {@link Repository}.
      */
     @Override
     public void load(@Nonnull Set<Class> classes) {
@@ -48,7 +52,12 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes all database executors which are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     *
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Injector injector) {

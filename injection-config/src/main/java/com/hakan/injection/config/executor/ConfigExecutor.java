@@ -38,7 +38,10 @@ public class ConfigExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the class
+     * that is annotated with {@link ConfigFile}.
+     *
+     * @return instance
      */
     @Override
     public @Nullable Object getInstance() {
@@ -46,7 +49,10 @@ public class ConfigExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the class of the instance
+     * that is annotated with {@link ConfigFile}.
+     *
+     * @return class
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
@@ -54,7 +60,13 @@ public class ConfigExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Creates config file if not exists
+     * and creates container from the config file.
+     * <p>
+     * Then it starts the config reload and save scheduler.
+     *
+     * @param instance instance
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Object instance,
@@ -73,8 +85,8 @@ public class ConfigExecutor implements SpigotExecutor {
 
 
     /**
-     * Runs when an interface
-     * method is called.
+     * Runs when the method from interface
+     * of config method is called.
      *
      * @param method method
      * @param args   arguments

@@ -30,7 +30,11 @@ public class SchedulerModule extends SpigotModule<Method, Scheduler> {
     }
 
     /**
-     * {@inheritDoc}
+     * Loads the scheduler methods that are annotated with {@link Scheduler}.
+     * And creates {@link SchedulerExecutor} for each class to
+     * handle configuration processes.
+     *
+     * @param methods methods that are annotated with {@link Scheduler}.
      */
     @Override
     public void load(@Nonnull Set<Method> methods) {
@@ -45,7 +49,12 @@ public class SchedulerModule extends SpigotModule<Method, Scheduler> {
     }
 
     /**
-     * {@inheritDoc}
+     * Executes all scheduler executors which are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     *
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Injector injector) {

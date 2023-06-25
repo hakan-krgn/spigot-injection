@@ -1,8 +1,10 @@
 package com.hakan.injection.config.annotations;
 
+import com.google.inject.Singleton;
 import com.hakan.injection.config.container.ContainerType;
 
 import javax.annotation.Nonnull;
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +14,8 @@ import java.lang.annotation.Target;
  * ConfigFile annotation to
  * define config file settings.
  */
+@Singleton
+@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigFile {

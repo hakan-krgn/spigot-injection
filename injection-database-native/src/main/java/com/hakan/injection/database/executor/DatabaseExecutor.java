@@ -20,8 +20,8 @@ import java.lang.reflect.Method;
  */
 public class DatabaseExecutor implements SpigotExecutor {
 
-    private Object instance;
     private DbConnection dbConnection;
+    private final Object instance;
     private final Class<?> clazz;
     private final Repository repository;
 
@@ -37,7 +37,10 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the instance of the class
+     * that is annotated with {@link Repository}.
+     *
+     * @return instance
      */
     @Override
     public @Nullable Object getInstance() {
@@ -45,7 +48,10 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the class of the instance
+     * that is annotated with {@link Repository}.
+     *
+     * @return class
      */
     @Override
     public @Nonnull Class<?> getDeclaringClass() {
@@ -73,7 +79,11 @@ public class DatabaseExecutor implements SpigotExecutor {
 
 
     /**
-     * {@inheritDoc}
+     * Registers the repository queries
+     * and creates the database connection.
+     *
+     * @param instance instance
+     * @param injector injector
      */
     @Override
     public void execute(@Nonnull Object instance,

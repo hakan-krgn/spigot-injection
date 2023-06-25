@@ -61,7 +61,7 @@ public class SpigotBootstrap extends AbstractModule {
     }
 
     /**
-     * Returns plugin instance.
+     * Gets Plugin instance.
      *
      * @return plugin
      */
@@ -70,7 +70,7 @@ public class SpigotBootstrap extends AbstractModule {
     }
 
     /**
-     * Returns injector instance.
+     * Gets Injector instance.
      *
      * @return injector
      */
@@ -79,7 +79,7 @@ public class SpigotBootstrap extends AbstractModule {
     }
 
     /**
-     * Returns reflections instance.
+     * Gets Reflections instance.
      *
      * @return reflections
      */
@@ -90,7 +90,13 @@ public class SpigotBootstrap extends AbstractModule {
 
 
     /**
-     * {@inheritDoc}
+     * This method is called by Guice to
+     * configure the injector.
+     * <p>
+     * When Guice#createInjector is called,
+     * it will invoke this method and
+     * bind all classes to register
+     * them to the injector.
      */
     @Override
     protected void configure() {

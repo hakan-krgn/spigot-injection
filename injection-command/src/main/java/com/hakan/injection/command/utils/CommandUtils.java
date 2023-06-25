@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 
 /**
@@ -21,7 +22,7 @@ public class CommandUtils {
      * @param executor command executor
      */
     @SneakyThrows
-    public static void register(CommandExecutor executor) {
+    public static void register(@Nonnull CommandExecutor executor) {
         Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
         bukkitCommandMap.setAccessible(true);
 

@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * QueryString is a utility class
- * for replacing and editing queries.
+ * DbQuery is a utility class for
+ * replacing and editing queries.
  */
 public class DbQuery {
 
