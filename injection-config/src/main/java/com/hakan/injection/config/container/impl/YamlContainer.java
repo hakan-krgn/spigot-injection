@@ -1,7 +1,9 @@
 package com.hakan.injection.config.container.impl;
 
 import com.hakan.injection.config.annotations.ConfigFile;
+import com.hakan.injection.config.annotations.ConfigValue;
 import com.hakan.injection.config.container.Container;
+import com.hakan.injection.config.utils.ColorUtils;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -9,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.lang.reflect.Method;
 
 /**
  * {@inheritDoc}
@@ -43,6 +46,16 @@ public class YamlContainer extends Container {
     @Override
     public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
         return clazz.cast(this.configuration.get(key));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation) {
+        Object value = this.get(annotation.value(), method.getReturnType());
+        return ((value instanceof String) && (annotation.colored())) ?
+                (T) ColorUtils.colored(value.toString()) : (T) value;
     }
 
     /**

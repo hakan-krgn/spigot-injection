@@ -2,7 +2,6 @@ package com.hakan.injection.config.container;
 
 import com.hakan.injection.config.annotations.ConfigFile;
 import com.hakan.injection.config.annotations.ConfigValue;
-import com.hakan.injection.config.utils.ColorUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,7 +11,6 @@ import java.lang.reflect.Method;
  * ConfigContainer is an abstract class
  * that is used to load and save config files.
  */
-@SuppressWarnings({"unchecked"})
 public abstract class Container {
 
     protected final Object instance;
@@ -63,24 +61,6 @@ public abstract class Container {
 
 
     /**
-     * Gets value from config file with the given key, and if
-     * colored is true and value is String, it will be colored.
-     *
-     * @param method     method
-     * @param annotation ConfigValue annotation
-     * @param <T>        value type
-     * @return value
-     */
-    public @Nullable <T> T get(@Nonnull Method method,
-                               @Nonnull ConfigValue annotation) {
-        Object value = this.get(annotation.value(), method.getReturnType());
-        return ((value instanceof String) && (annotation.colored())) ?
-                (T) ColorUtils.colored(value.toString()) : (T) value;
-    }
-
-
-
-    /**
      * Gets value from config file
      * with the given key.
      *
@@ -100,6 +80,17 @@ public abstract class Container {
      * @return value
      */
     public abstract @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz);
+
+    /**
+     * Gets value from config file with the given key, and if
+     * colored is true and value is String, it will be colored.
+     *
+     * @param method     method
+     * @param annotation ConfigValue annotation
+     * @param <T>        value type
+     * @return value
+     */
+    public abstract @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation);
 
     /**
      * Sets value to config file

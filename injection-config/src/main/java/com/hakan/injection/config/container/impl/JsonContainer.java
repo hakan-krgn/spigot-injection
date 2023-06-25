@@ -3,12 +3,15 @@ package com.hakan.injection.config.container.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.hakan.injection.config.annotations.ConfigFile;
+import com.hakan.injection.config.annotations.ConfigValue;
 import com.hakan.injection.config.container.Container;
+import com.hakan.injection.config.utils.ColorUtils;
 import com.hakan.injection.config.utils.JsonUtils;
 import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Method;
 
 /**
  * {@inheritDoc}
@@ -45,6 +48,16 @@ public class JsonContainer extends Container {
     @Override
     public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
         return clazz.cast(JsonUtils.getValue(this.jsonObject, key));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation) {
+        Object value = this.get(annotation.value(), method.getReturnType());
+        return ((value instanceof String) && (annotation.colored())) ?
+                (T) ColorUtils.colored(value.toString()) : (T) value;
     }
 
     /**
