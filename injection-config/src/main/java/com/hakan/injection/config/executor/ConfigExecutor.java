@@ -130,7 +130,6 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getParameterCount() != 0)
             throw new RuntimeException("parameter count must be 0!");
 
-        ConfigValue annotation = method.getAnnotation(ConfigValue.class);
-        return this.container.get(annotation.value(), method.getReturnType());
+        return this.container.get(method, method.getAnnotation(ConfigValue.class));
     }
 }

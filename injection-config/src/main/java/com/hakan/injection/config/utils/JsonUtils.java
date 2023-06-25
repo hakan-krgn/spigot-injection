@@ -20,7 +20,7 @@ import java.util.Map;
  * Json utilities for handling json objects
  * and saving them to files.
  */
-public final class JsonUtils {
+public class JsonUtils {
 
     private static final Gson GSON = new Gson();
     private static final JsonParser PARSER = new JsonParser();

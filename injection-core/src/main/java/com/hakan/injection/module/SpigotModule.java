@@ -33,7 +33,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends AbstractModu
     protected final Set<SpigotExecutor> executors;
 
     /**
-     * Constructor of SpigotModule.
+     * Constructor of {@link SpigotModule}.
      *
      * @param plugin      plugin instance
      * @param reflections reflections

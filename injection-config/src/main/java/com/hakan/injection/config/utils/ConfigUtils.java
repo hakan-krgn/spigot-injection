@@ -16,7 +16,7 @@ import java.util.function.BiFunction;
  * Config utilities for creating
  * proxy instances.
  */
-public final class ConfigUtils {
+public class ConfigUtils {
 
     /**
      * Creates a file

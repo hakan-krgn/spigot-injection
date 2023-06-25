@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * ColorUtil class to convert color
  * codes in messages.
  */
-public final class ColorUtil {
+public class ColorUtils {
 
     private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
     private static final Pattern COLOR_PATTERN = Pattern.compile("(?<color>(([§&][A-Fa-f\\d|rR])|(#[A-Fa-f\\d]{6})))");
@@ -24,6 +24,15 @@ public final class ColorUtil {
      * @return colored message
      */
     public static @Nonnull String colored(@Nonnull String message) {
+        if (ProtocolVersion.getCurrentVersion().isNewerOrEqual(ProtocolVersion.v1_16_R1)) {
+            Matcher matcher = HEX_PATTERN.matcher(message);
+
+            while (matcher.find()) {
+                String color = message.substring(matcher.start(), matcher.end());
+                message = message.replace(color, String.valueOf(net.md_5.bungee.api.ChatColor.of(color)));
+                matcher = HEX_PATTERN.matcher(message);
+            }
+        }
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
