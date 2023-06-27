@@ -1,7 +1,7 @@
 package com.hakan.test.model.credential;
 
-import com.hakan.injection.database.annotations.Column;
-import com.hakan.injection.database.annotations.Table;
+import com.hakan.spinjection.database.annotations.Column;
+import com.hakan.spinjection.database.annotations.Table;
 
 @Table("user_credentials")
 public class UserCredential {

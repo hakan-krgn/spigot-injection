@@ -1,6 +1,7 @@
 package com.hakan.test.service;
 
-import com.google.inject.Inject;
+import com.hakan.injection.annotations.Autowired;
+import com.hakan.injection.annotations.PostConstruct;
 import com.hakan.injection.annotations.Service;
 import com.hakan.test.model.User;
 import com.hakan.test.repository.TestRepository;
@@ -12,10 +13,17 @@ public class TestService {
 
     private final TestRepository repository;
 
-    @Inject
+    @Autowired
     public TestService(TestRepository repository) {
         this.repository = repository;
     }
+
+    @PostConstruct
+    public void init() {
+        this.repository.save(new User("Hakan", "Kargin", 20, "hakan@gmail.com", "123456"));
+        this.repository.save(new User("Mert", "Tas", 20, "mert@gmail.com", "123456"));
+    }
+
 
     public User findById(int id) {
         return this.repository.findById(id);

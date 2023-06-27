@@ -1,8 +1,8 @@
 package com.hakan.test.model;
 
-import com.hakan.injection.database.annotations.Column;
-import com.hakan.injection.database.annotations.Relational;
-import com.hakan.injection.database.annotations.Table;
+import com.hakan.spinjection.database.annotations.Column;
+import com.hakan.spinjection.database.annotations.Relational;
+import com.hakan.spinjection.database.annotations.Table;
 import com.hakan.test.model.credential.UserCredential;
 
 @Table("users")

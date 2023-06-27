@@ -1,10 +1,10 @@
 package com.hakan.test.config;
 
-import com.hakan.injection.config.annotations.ConfigFile;
-import com.hakan.injection.config.annotations.ConfigValue;
-import com.hakan.injection.config.annotations.ReloadTimer;
-import com.hakan.injection.config.annotations.SaveTimer;
-import com.hakan.injection.config.configuration.BaseConfiguration;
+import com.hakan.spinjection.config.annotations.ConfigFile;
+import com.hakan.spinjection.config.annotations.ConfigValue;
+import com.hakan.spinjection.config.annotations.ReloadTimer;
+import com.hakan.spinjection.config.annotations.SaveTimer;
+import com.hakan.spinjection.config.configuration.BaseConfiguration;
 
 import java.util.concurrent.TimeUnit;
 

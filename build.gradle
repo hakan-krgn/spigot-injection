@@ -25,18 +25,18 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://repo.codemc.org/repository/nms/' }
     }
 
     dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.28'
+        annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
         compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
         testCompileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
 
-        implementation 'com.google.inject:guice:7.0.0'
-        implementation 'org.reflections:reflections:0.10.2'
-
-        compileOnly 'org.projectlombok:lombok:1.18.28'
-        annotationProcessor 'org.projectlombok:lombok:1.18.28'
+        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.3'
     }
 
     publishing {

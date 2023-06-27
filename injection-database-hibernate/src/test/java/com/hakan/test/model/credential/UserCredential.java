@@ -1,41 +1,50 @@
 package com.hakan.test.model.credential;
 
+import com.hakan.test.model.User;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "users_credentials")
 public class UserCredential {
 
     @Id
-    private int id;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private User user;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
     public UserCredential() {
 
     }
 
-    public UserCredential(int id,
+    public UserCredential(User user,
                           String email,
                           String password) {
-        this.id = id;
+        this.user = user;
         this.email = email;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public User getUser() {
+        return this.user;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 }

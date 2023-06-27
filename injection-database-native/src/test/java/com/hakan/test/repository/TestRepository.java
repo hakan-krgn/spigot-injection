@@ -1,8 +1,8 @@
 package com.hakan.test.repository;
 
-import com.hakan.injection.database.annotations.Query;
-import com.hakan.injection.database.annotations.QueryParam;
-import com.hakan.injection.database.annotations.Repository;
+import com.hakan.spinjection.database.annotations.Query;
+import com.hakan.spinjection.database.annotations.QueryParam;
+import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.test.model.User;
 
 //if DbCredential has an instance, you don't have to

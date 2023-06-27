@@ -1,22 +1,20 @@
 package com.hakan.test.scheduler;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import com.hakan.injection.annotations.Autowired;
 import com.hakan.injection.annotations.Component;
-import com.hakan.injection.scheduler.annotations.Scheduler;
+import com.hakan.spinjection.scheduler.annotations.Scheduler;
 import com.hakan.test.service.TestService;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
 
-@Singleton
 @Component
 public class TestScheduler {
 
     private final TestService service;
 
-    @Inject
+    @Autowired
     public TestScheduler(TestService service) {
         this.service = service;
     }

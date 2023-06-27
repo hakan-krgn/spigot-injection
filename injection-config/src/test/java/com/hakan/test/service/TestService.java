@@ -1,6 +1,6 @@
 package com.hakan.test.service;
 
-import com.google.inject.Inject;
+import com.hakan.injection.annotations.Autowired;
 import com.hakan.injection.annotations.Service;
 import com.hakan.test.config.TestConfig;
 import org.bukkit.entity.Player;
@@ -12,9 +12,10 @@ public class TestService {
 
     private final TestConfig config;
 
-    @Inject
+    @Autowired
     public TestService(TestConfig config) {
         this.config = config;
+        System.out.println(this.config.getMessage());
     }
 
     public void saveConfig() {
