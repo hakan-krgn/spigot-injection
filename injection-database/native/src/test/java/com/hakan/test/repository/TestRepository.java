@@ -3,6 +3,7 @@ package com.hakan.test.repository;
 import com.hakan.spinjection.database.annotations.Query;
 import com.hakan.spinjection.database.annotations.QueryParam;
 import com.hakan.spinjection.database.annotations.Repository;
+import com.hakan.spinjection.database.connection.result.DbResult;
 import com.hakan.test.model.User;
 
 //if DbCredential has an instance, you don't have to
@@ -38,11 +39,13 @@ public interface TestRepository {
 
 
 
-    @Query("SELECT * FROM users WHERE id = :id;")
-    User findById(@QueryParam("id") int id);
+    @Query("SELECT * FROM users " +
+           "INNER JOIN user_credentials ON users.id = user_credentials.id " +
+           "WHERE users.id = ':id';")
+    DbResult findById(@QueryParam("id") int id);
 
-    @Query("SELECT * FROM users INNER JOIN user_credentials " +
-           "ON users.id = user_credentials.id " +
+    @Query("SELECT * FROM users " +
+           "INNER JOIN user_credentials ON users.id = user_credentials.id " +
            "WHERE users.name = ':name' AND user_credentials.email = ':email';")
-    User findByNameAndEmail(@QueryParam("name") String name, @QueryParam("email") String email);
+    DbResult findByNameAndEmail(@QueryParam("name") String name, @QueryParam("email") String email);
 }

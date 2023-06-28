@@ -1,23 +1,10 @@
 package com.hakan.test.model.credential;
 
-import com.hakan.spinjection.database.annotations.Column;
-import com.hakan.spinjection.database.annotations.Table;
-
-@Table("user_credentials")
 public class UserCredential {
 
-    @Column("id")
-    private int id;
-
-    @Column("email")
-    private String email;
-
-    @Column("password")
-    private String password;
-
-    public UserCredential() {
-
-    }
+    private final int id;
+    private final String email;
+    private final String password;
 
     public UserCredential(int id,
                           String email,
@@ -28,14 +15,14 @@ public class UserCredential {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 }

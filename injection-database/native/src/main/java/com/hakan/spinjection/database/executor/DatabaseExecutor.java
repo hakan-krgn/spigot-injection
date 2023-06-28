@@ -108,13 +108,13 @@ public class DatabaseExecutor implements SpigotExecutor {
      * @return method result
      */
     public @Nullable Object preCall(@Nonnull Method method,
-                                    @Nonnull Object[] args) {
+                                    @Nullable Object[] args) {
         if (method.getName().equals("toString"))
             return this.clazz.getName() + "@" + Integer.toHexString(this.hashCode());
         if (method.getName().equals("hashCode"))
             return this.hashCode();
 
-        return this.postCall(method, args);
+        return this.postCall(method, (args != null) ? args : new Object[0]);
     }
 
     /**
@@ -139,7 +139,7 @@ public class DatabaseExecutor implements SpigotExecutor {
             return this.dbConnection.executeUpdate(dbQuery);
         else if (method.getReturnType().equals(DbResult.class))
             return this.dbConnection.executeQuery(dbQuery);
-        else
-            return this.dbConnection.executeQuery(dbQuery, method.getReturnType());
+
+        throw new RuntimeException("return type must be void or DbResult!");
     }
 }

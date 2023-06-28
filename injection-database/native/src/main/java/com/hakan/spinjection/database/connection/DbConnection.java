@@ -4,7 +4,6 @@ import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.credential.DbCredential;
 import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.database.connection.result.DbResult;
-import com.hakan.spinjection.database.utils.DatabaseUtils;
 import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
@@ -96,33 +95,6 @@ public class DbConnection {
     }
 
 
-
-    /**
-     * Executes the query and returns
-     * the result as the specified model.
-     *
-     * @param dbQuery dbQuery
-     * @return result set
-     */
-    public synchronized @Nonnull <T> T executeQuery(@Nonnull DbQuery dbQuery,
-                                                    @Nonnull Class<T> modelClass) {
-        return this.executeQuery(dbQuery.getQuery(), modelClass);
-    }
-
-    /**
-     * Executes the query and returns
-     * the result as the specified model.
-     *
-     * @param query query text
-     * @return result set
-     */
-    public synchronized @Nonnull <T> T executeQuery(@Nonnull String query,
-                                                    @Nonnull Class<T> modelClass) {
-        DbResult dbResult = this.executeQuery(query);
-        dbResult.next();
-
-        return DatabaseUtils.createInstance(dbResult, modelClass);
-    }
 
     /**
      * Executes the query and
