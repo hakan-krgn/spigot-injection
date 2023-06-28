@@ -1,0 +1,6 @@
+tasks.register('cleanup') {
+    doLast { delete 'build' }
+}
+
+tasks.build.finalizedBy cleanup
+tasks.publishMavenPublicationToMavenLocal.finalizedBy cleanup
