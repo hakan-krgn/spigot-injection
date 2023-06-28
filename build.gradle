@@ -39,13 +39,14 @@ subprojects {
         implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.3'
     }
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                groupId = project.group
-                version = project.version
-                artifactId = project.name
-                from components.java
+    if (it.name != 'injection-database') {
+        publishing {
+            publications {
+                maven(MavenPublication) {
+                    groupId = project.group
+                    version = project.version
+                    from components.java
+                }
             }
         }
     }

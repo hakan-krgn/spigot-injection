@@ -5,8 +5,12 @@ dependencies {
     implementation 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
 }
 
-tasks.compileJava.dependsOn(':injection-core:shadowJar')
-
-tasks.publishToMavenLocal {
-    archivesBaseName = archivesBaseName.replace("${project.name}", "injection-database-${project.name}")
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = "injection-database-" + project.name
+        }
+    }
 }
+
+tasks.compileJava.dependsOn(':injection-core:shadowJar')
