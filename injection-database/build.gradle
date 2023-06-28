@@ -3,4 +3,4 @@ tasks.register('cleanup') {
 }
 
 tasks.build.finalizedBy cleanup
-tasks.publishMavenPublicationToMavenLocal.finalizedBy cleanup
+tasks.publishToMavenLocal.finalizedBy cleanup

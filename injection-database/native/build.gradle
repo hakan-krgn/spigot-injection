@@ -5,6 +5,6 @@ dependencies {
 
 tasks.compileJava.dependsOn(':injection-core:shadowJar')
 
-tasks.publishMavenPublicationToMavenLocal {
+tasks.publishToMavenLocal {
     archivesBaseName = archivesBaseName.replace("${project.name}", "injection-database-${project.name}")
 }
