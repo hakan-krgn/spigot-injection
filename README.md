@@ -26,7 +26,7 @@ You can check the example test plugin from here
 <dependency>
     <groupId>com.github.hakan-krgn</groupId>
     <artifactId>spigot-injection</artifactId>
-    <version>0.0.9.1</version>
+    <version>0.0.9.2</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.hakan-krgn:spigot-injection:0.0.9.1'
+    implementation 'com.github.hakan-krgn:spigot-injection:0.0.9.2'
 }
 ```
 
