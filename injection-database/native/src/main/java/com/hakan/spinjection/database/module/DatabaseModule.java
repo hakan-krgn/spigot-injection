@@ -3,6 +3,7 @@ package com.hakan.spinjection.database.module;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.executor.DatabaseExecutor;
+import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.module.SpigotModule;
 
 import javax.annotation.Nonnull;
@@ -40,9 +41,9 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
 
 
             DatabaseExecutor databaseExecutor = new DatabaseExecutor(clazz);
-            databaseExecutor.execute(super.bootstrap, databaseExecutor.getInstance());
 
             super.bind(clazz).withInstance(databaseExecutor.getInstance());
+            super.executors.add(databaseExecutor);
         }
     }
 
@@ -54,6 +55,9 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
      */
     @Override
     public void execute() {
-
+        for (SpigotExecutor executor : super.executors) {
+            DatabaseExecutor databaseExecutor = (DatabaseExecutor) executor;
+            databaseExecutor.execute(super.bootstrap, databaseExecutor.getInstance());
+        }
     }
 }
