@@ -1,6 +1,7 @@
 package com.hakan.spinjection.scheduler.module;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.module.SpigotModule;
 import com.hakan.spinjection.scheduler.annotations.Scheduler;
@@ -14,6 +15,7 @@ import java.util.Set;
  * SchedulerModule registers scheduler methods
  * that are annotated with Scheduler.
  */
+@ExecutorOrder(5)
 public class SchedulerModule extends SpigotModule<Method, Scheduler> {
 
     /**

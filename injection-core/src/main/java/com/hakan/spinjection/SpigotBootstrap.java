@@ -13,8 +13,8 @@ import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * SpigotBootstrap is bootstrap class
@@ -42,7 +42,7 @@ public class SpigotBootstrap extends Module {
     private final Injector injector;
     private final Reflection spigotReflection;
     private final Reflection pluginReflection;
-    private final List<SpigotModule<?, ?>> modules;
+    private final Set<SpigotModule<?, ?>> modules;
 
     /**
      * Constructor of SpigotBootstrap.
@@ -51,12 +51,13 @@ public class SpigotBootstrap extends Module {
      */
     private SpigotBootstrap(@Nonnull Plugin plugin) {
         this.plugin = plugin;
-        this.modules = new ArrayList<>();
+        this.modules = new TreeSet<>();
         this.spigotReflection = ReflectionUtils.createFrom(this);
         this.pluginReflection = ReflectionUtils.createFrom(plugin);
         this.injector = Injector.of(this);
 
         this.modules.forEach(SpigotModule::execute);
+        this.injector.createInstances();
     }
 
     /**

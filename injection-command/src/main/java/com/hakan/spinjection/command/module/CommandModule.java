@@ -1,6 +1,7 @@
 package com.hakan.spinjection.command.module;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.command.annotations.Command;
 import com.hakan.spinjection.command.executor.CommandExecutor;
 import com.hakan.spinjection.executor.SpigotExecutor;
@@ -12,6 +13,7 @@ import java.util.Set;
 /**
  * CommandModule registers command executors.
  */
+@ExecutorOrder(3)
 @SuppressWarnings({"rawtypes"})
 public class CommandModule extends SpigotModule<Class, Command> {
 

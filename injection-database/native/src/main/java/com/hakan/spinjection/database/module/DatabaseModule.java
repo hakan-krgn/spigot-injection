@@ -1,6 +1,7 @@
 package com.hakan.spinjection.database.module;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.executor.DatabaseExecutor;
 import com.hakan.spinjection.executor.SpigotExecutor;
@@ -14,6 +15,7 @@ import java.util.Set;
  * executors to listen interfaces and execute
  * database queries.
  */
+@ExecutorOrder(2)
 @SuppressWarnings({"rawtypes"})
 public class DatabaseModule extends SpigotModule<Class, Repository> {
 

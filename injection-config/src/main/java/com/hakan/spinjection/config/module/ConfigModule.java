@@ -1,8 +1,10 @@
 package com.hakan.spinjection.config.module;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.executor.ConfigExecutor;
+import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.module.SpigotModule;
 
 import javax.annotation.Nonnull;
@@ -13,6 +15,7 @@ import java.util.Set;
  * that is used to load configuration classes
  * which are annotated with {@link ConfigFile}.
  */
+@ExecutorOrder(1)
 @SuppressWarnings({"rawtypes"})
 public class ConfigModule extends SpigotModule<Class, ConfigFile> {
 
@@ -40,9 +43,9 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
 
 
             ConfigExecutor configExecutor = new ConfigExecutor(clazz);
-            configExecutor.execute(super.bootstrap, configExecutor.getInstance());
 
             super.bind(clazz).withInstance(configExecutor.getInstance());
+            super.executors.add(configExecutor);
         }
     }
 
@@ -54,6 +57,9 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
      */
     @Override
     public void execute() {
-
+        for (SpigotExecutor executor : super.executors) {
+            ConfigExecutor configExecutor = (ConfigExecutor) executor;
+            configExecutor.execute(super.bootstrap, configExecutor.getInstance());
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.hakan.spinjection.module;
 import com.hakan.injection.module.Module;
 import com.hakan.injection.reflection.Reflection;
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import org.bukkit.plugin.Plugin;
 
@@ -24,7 +25,7 @@ import java.util.Set;
  * @param <A> Annotation class type
  */
 @SuppressWarnings({"unchecked"})
-public abstract class SpigotModule<T, A extends Annotation> extends Module {
+public abstract class SpigotModule<T, A extends Annotation> extends Module implements Comparable<SpigotModule<?, ?>> {
 
     protected final Plugin plugin;
     protected final Reflection reflections;
@@ -32,6 +33,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends Module {
     protected final Class<T> target;
     protected final Class<A> annotation;
     protected final Set<SpigotExecutor> executors;
+    protected final int priority;
 
     /**
      * Constructor of {@link SpigotModule}.
@@ -50,6 +52,8 @@ public abstract class SpigotModule<T, A extends Annotation> extends Module {
         this.target = target;
         this.annotation = annotation;
         this.executors = new HashSet<>();
+        this.priority = this.getClass().isAnnotationPresent(ExecutorOrder.class) ?
+                this.getClass().getAnnotation(ExecutorOrder.class).value() : 100;
     }
 
     /**
@@ -106,6 +110,28 @@ public abstract class SpigotModule<T, A extends Annotation> extends Module {
         return this.executors;
     }
 
+    /**
+     * Gets the priority.
+     *
+     * @return priority
+     */
+    public int getPriority() {
+        return this.priority;
+    }
+
+
+    /**
+     * Compares this object with the specified object for order.
+     *
+     * @param o the object to be compared.
+     * @return a negative integer, zero, or a positive integer
+     * as this object is less than, equal to, or greater than
+     * the specified object.
+     */
+    @Override
+    public int compareTo(@Nonnull SpigotModule<?, ?> o) {
+        return Integer.compare(this.priority, o.priority);
+    }
 
     /**
      * {@inheritDoc}
@@ -122,6 +148,7 @@ public abstract class SpigotModule<T, A extends Annotation> extends Module {
             this.load((Set<T>) this.reflections.getFieldsAnnotatedWith(this.annotation));
         }
     }
+
 
 
     /**

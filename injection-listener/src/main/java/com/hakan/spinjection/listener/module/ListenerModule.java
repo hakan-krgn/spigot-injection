@@ -1,6 +1,7 @@
 package com.hakan.spinjection.listener.module;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.listener.annotations.EventListener;
 import com.hakan.spinjection.listener.executor.ListenerExecutor;
@@ -14,6 +15,7 @@ import java.util.Set;
 /**
  * ListenerModule registers event listeners.
  */
+@ExecutorOrder(4)
 public class ListenerModule extends SpigotModule<Method, EventListener> {
 
     /**
