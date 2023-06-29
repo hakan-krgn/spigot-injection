@@ -90,7 +90,7 @@ public class DatabaseExecutor implements SpigotExecutor {
                         @Nonnull Object instance) {
         try {
             this.dbConnection = new DbConnection(bootstrap.getInstance(this.repository.credential()));
-        } catch (Exception ex) {
+        } catch (Exception e) {
             this.dbConnection = new DbConnection(this.repository);
         }
 

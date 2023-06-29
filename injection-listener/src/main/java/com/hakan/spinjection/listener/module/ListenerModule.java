@@ -57,7 +57,7 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
     @Override
     public void execute() {
         for (SpigotExecutor executor : super.executors) {
-            executor.execute(bootstrap, bootstrap.getInstance(executor.getDeclaringClass()));
+            executor.execute(super.bootstrap, super.bootstrap.getInstance(executor.getDeclaringClass()));
         }
     }
 }
