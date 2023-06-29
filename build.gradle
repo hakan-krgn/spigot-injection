@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.hakan'
-version '0.0.9.4'
+version '0.0.9.5'
 sourceCompatibility = 8
 compileJava.options.encoding = 'UTF-8'
 
