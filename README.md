@@ -54,11 +54,10 @@ dependencies {
 
 ### 1. Create a main class
 
-We need to create a main class to start the injection process. We can use @Scanner annotation to specify the package
+We need to create a main class to start the injection process. We can use `@Scanner` annotation to specify the package
 that will be scanned.
 
 ```java
-// this package will be scanned
 @Scanner("com.hakan.test")
 public class MyPlugin extends JavaPlugin {
 
@@ -72,11 +71,10 @@ public class MyPlugin extends JavaPlugin {
 
 ### 2. Example service
 
-Now you can use injection in your classes. Now we can create our service class to first. This service will
-be our manager class.
+Now you can use injection in your classes. Now we can create our service class first. This service will be our manager
+class.
 
 ```java
-//this is the service class of the plugin
 @Service
 public class MyService {
 
@@ -103,11 +101,10 @@ public class MyService {
 
 ### 3. Example command
 
-We can use @Command and @Subcommand annotations to create commands. Also we can use @CommandParam annotation to get
-command parameters. We can use @Executor annotation to specify the executor of the command.
+We can use `@Command` and `@Subcommand` annotations to create commands. We can use `@CommandParam` annotation to get
+command parameters. We can use `@Executor` annotation to specify the executor of the command.
 
 ```java
-//we can use @Command and @Subcommand annotations to create commands
 @Command(
         name = "mycommand",
         aliases = {"mc"},
@@ -140,12 +137,10 @@ public class MyCommand {
 
 ### 4. Example configuration
 
-Now we can create our configuration class. We can use @ConfigFile annotation to create configurations. Also we can use
-@ConfigValue annotation to get values from the configuration.
+Now we can create our configuration class. We can use `@ConfigFile` annotation to create configurations. We can use
+`@ConfigValue` annotation to get values from the configuration.
 
 ```java
-//we can use @ConfigFile annotation to create configurations
-//also we can use @ConfigValue annotation to get values from the configuration
 @ConfigFile(
         type = ContainerType.YAML,
         resource = "config.yml",
@@ -179,15 +174,12 @@ public interface MyConfig extends BaseConfiguration {
 
 ### 5. Example repository
 
-Now we can create our repository class. We can use @Repository annotation to create repositories. Also we can use
-@Query annotation to create specific queries. We can use @QueryParam annotation to specify the parameters of the query.
+Now we can create our repository class. We can use @Repository annotation to create repositories. Also, we can use
+`@Query` annotation to create specific queries. `@QueryParam` annotation is used to specify the parameters of the query.
+Also, we can specify the credentials in the @Repository annotation, but if DbCredential has an instance, you don't have
+to specify the credentials in the @Repository annotation.
 
 ```java
-//we can use @Repository annotation to create repositories
-//also we can specify the credentials in the @Repository annotation
-
-//if DbCredential has an instance, you don't have to
-//specify the credentials in the @Repository annotation.
 @Repository(
         username = "root",
         password = "admin",
@@ -211,11 +203,9 @@ public interface MyRepository extends JpaRepository<Integer, User> {
 
 ### 6. Example listener
 
-We can use @EventListener annotation to create listeners. These listeners will be registered automatically to server.
+We can use `@EventListener` annotation to create listeners. These listeners will be registered automatically to server.
 
 ```java
-//we can use @EventListener annotation to create listeners
-
 @Component
 public class MyListener {
 
@@ -235,11 +225,10 @@ public class MyListener {
 
 ### 7. Example scheduler
 
-We can use @Scheduler annotation to create schedulers. These schedulers will be started automatically. Also schedulers
-uses spigot scheduler system.
+We can use `@Scheduler` annotation to create schedulers. These schedulers will be started automatically. Also, the
+scheduler system of the library uses the spigot's system.
 
 ```java
-
 @Component
 public class MyScheduler {
 
@@ -267,9 +256,9 @@ public class MyScheduler {
 ### Example Plugin
 
 If you want to see usage of the library, you can check
-the [example plugin](https://github.com/hakan-krgn/spigot-injection/tree/master/example-plugin)
+the [example plugin](https://github.com/hakan-krgn/spigot-injection/tree/master/example-plugin).
 
 ## License
 
-This project is licensed under the MIT License - see
-the [LICENSE](https://github.com/hakan-krgn/spigot-injection/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License. You can check
+out [LICENSE](https://github.com/hakan-krgn/spigot-injection/blob/master/LICENSE) file for details.
