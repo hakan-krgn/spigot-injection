@@ -255,8 +255,11 @@ public class MyScheduler {
 
 ### Example Plugin
 
-If you want to see usage of the library, you can check
-the [example plugin](https://github.com/hakan-krgn/spigot-injection/tree/master/example-plugin).
+If you want to see usage of the library, you can check some of the plugin examples.
+
+User plugin -> [Click to go](https://github.com/hakan-krgn/spigot-injection/tree/master/plugin-examples/user-plugin)
+
+Full plugin -> [Click to go](https://github.com/hakan-krgn/spigot-injection/tree/master/plugin-examples/full-plugin)
 
 ## License
 
