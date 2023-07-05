@@ -1,13 +1,15 @@
 dependencies {
     compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
-    compileOnly 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
 
     implementation project(':injection-core')
     implementation project(':injection-config')
     implementation project(':injection-command')
     implementation project(':injection-listener')
-    implementation project(':injection-scheduler')
-    implementation project(':injection-database:hibernate')
 }
 
-tasks.compileJava.dependsOn(':injection-core:shadowJar')
+tasks.compileJava.dependsOn(
+        ':injection-core:shadowJar',
+        ':injection-config:shadowJar',
+        ':injection-command:shadowJar',
+        ':injection-listener:shadowJar',
+)

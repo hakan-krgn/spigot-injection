@@ -1,10 +1,10 @@
 package com.hakan.spinjection;
 
-import com.hakan.injection.Injector;
-import com.hakan.injection.annotations.Component;
-import com.hakan.injection.annotations.Service;
-import com.hakan.injection.module.Module;
-import com.hakan.injection.reflection.Reflection;
+import com.hakan.basicdi.Injector;
+import com.hakan.basicdi.annotations.Component;
+import com.hakan.basicdi.annotations.Service;
+import com.hakan.basicdi.module.Module;
+import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.annotations.Scanner;
 import com.hakan.spinjection.module.PluginModule;
 import com.hakan.spinjection.module.SpigotModule;
@@ -57,7 +57,7 @@ public class SpigotBootstrap extends Module {
         this.injector = Injector.of(this);
 
         this.modules.forEach(SpigotModule::execute);
-        this.injector.createInstances();
+        this.injector.create();
     }
 
     /**

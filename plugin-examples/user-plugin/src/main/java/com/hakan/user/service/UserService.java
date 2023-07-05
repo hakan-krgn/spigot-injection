@@ -1,8 +1,8 @@
 package com.hakan.user.service;
 
-import com.hakan.injection.annotations.Autowired;
-import com.hakan.injection.annotations.PostConstruct;
-import com.hakan.injection.annotations.Service;
+import com.hakan.basicdi.annotations.Autowired;
+import com.hakan.basicdi.annotations.PostConstruct;
+import com.hakan.basicdi.annotations.Service;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

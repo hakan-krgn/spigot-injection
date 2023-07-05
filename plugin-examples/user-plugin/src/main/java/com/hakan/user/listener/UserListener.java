@@ -1,7 +1,7 @@
 package com.hakan.user.listener;
 
-import com.hakan.injection.annotations.Autowired;
-import com.hakan.injection.annotations.Component;
+import com.hakan.basicdi.annotations.Autowired;
+import com.hakan.basicdi.annotations.Component;
 import com.hakan.spinjection.listener.annotations.EventListener;
 import com.hakan.user.config.UserConfig;
 import com.hakan.user.service.UserService;

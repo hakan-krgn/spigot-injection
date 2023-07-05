@@ -1,6 +1,6 @@
 package com.hakan.spinjection.module;
 
-import com.hakan.injection.module.Module;
+import com.hakan.basicdi.module.Module;
 
 /**
  * PluginModule is a module that

@@ -36,7 +36,7 @@ subprojects {
         compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
         testCompileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
 
-        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.4.2'
+        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.4.3'
     }
 
     artifacts.archives(tasks.shadowJar)

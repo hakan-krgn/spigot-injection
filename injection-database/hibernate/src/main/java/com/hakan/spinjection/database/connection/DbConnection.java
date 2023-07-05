@@ -1,6 +1,6 @@
 package com.hakan.spinjection.database.connection;
 
-import com.hakan.injection.reflection.Reflection;
+import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.credential.DbCredential;
 import com.hakan.spinjection.database.connection.query.DbQuery;

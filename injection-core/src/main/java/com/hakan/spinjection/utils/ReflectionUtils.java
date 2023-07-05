@@ -1,6 +1,6 @@
 package com.hakan.spinjection.utils;
 
-import com.hakan.injection.reflection.Reflection;
+import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.annotations.Scanner;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;

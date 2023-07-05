@@ -1,6 +1,6 @@
 package com.hakan.spinjection.command.annotations;
 
-import com.hakan.injection.annotations.Component;
+import com.hakan.basicdi.annotations.Component;
 
 import javax.annotation.Nonnull;
 import java.lang.annotation.Documented;

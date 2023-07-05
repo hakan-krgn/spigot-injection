@@ -1,6 +1,6 @@
 package com.hakan.user.command;
 
-import com.hakan.injection.annotations.Autowired;
+import com.hakan.basicdi.annotations.Autowired;
 import com.hakan.spinjection.command.annotations.Command;
 import com.hakan.spinjection.command.annotations.Executor;
 import com.hakan.spinjection.command.annotations.Subcommand;

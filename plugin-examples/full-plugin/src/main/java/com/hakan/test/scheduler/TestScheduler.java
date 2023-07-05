@@ -1,7 +1,7 @@
 package com.hakan.test.scheduler;
 
-import com.hakan.injection.annotations.Autowired;
-import com.hakan.injection.annotations.Component;
+import com.hakan.basicdi.annotations.Autowired;
+import com.hakan.basicdi.annotations.Component;
 import com.hakan.spinjection.scheduler.annotations.Scheduler;
 import com.hakan.test.cache.TestCache;
 import com.hakan.test.repository.TestRepository;

@@ -1,7 +1,7 @@
 package com.hakan.test.cache;
 
-import com.hakan.injection.annotations.Autowired;
-import com.hakan.injection.annotations.Component;
+import com.hakan.basicdi.annotations.Autowired;
+import com.hakan.basicdi.annotations.Component;
 import com.hakan.test.model.TestEntity;
 
 import java.util.HashMap;

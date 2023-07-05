@@ -1,6 +1,6 @@
 package com.hakan.test.module;
 
-import com.hakan.injection.annotations.Provide;
+import com.hakan.basicdi.annotations.Provide;
 import com.hakan.spinjection.database.connection.credential.DbCredential;
 import com.hakan.spinjection.module.PluginModule;
 import com.hakan.test.config.TestConfig;

@@ -1,6 +1,6 @@
 package com.hakan.test.command;
 
-import com.hakan.injection.annotations.Autowired;
+import com.hakan.basicdi.annotations.Autowired;
 import com.hakan.spinjection.command.annotations.Command;
 import com.hakan.spinjection.command.annotations.CommandParam;
 import com.hakan.spinjection.command.annotations.Executor;

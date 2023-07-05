@@ -10,4 +10,11 @@ dependencies {
     implementation project(':injection-database:hibernate')
 }
 
-tasks.compileJava.dependsOn(':injection-core:shadowJar')
+tasks.compileJava.dependsOn(
+        ':injection-core:shadowJar',
+        ':injection-config:shadowJar',
+        ':injection-command:shadowJar',
+        ':injection-listener:shadowJar',
+        ':injection-scheduler:shadowJar',
+        ':injection-database:hibernate:shadowJar'
+)

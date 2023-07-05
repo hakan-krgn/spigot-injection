@@ -1,7 +1,7 @@
 package com.hakan.spinjection.module;
 
-import com.hakan.injection.module.Module;
-import com.hakan.injection.reflection.Reflection;
+import com.hakan.basicdi.module.Module;
+import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.executor.SpigotExecutor;
