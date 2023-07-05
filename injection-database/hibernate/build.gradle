@@ -1,14 +1,18 @@
 dependencies {
     implementation project(':injection-core')
-    testImplementation project(':injection-core')
+    compileOnly 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
 
-    implementation 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
+    testImplementation project(':injection-core')
+    testCompileOnly 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId = project.group
+            version = project.version
             artifactId = "injection-database-" + project.name
+            from components.java
         }
     }
 }

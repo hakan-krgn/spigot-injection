@@ -6,7 +6,10 @@ dependencies {
 publishing {
     publications {
         maven(MavenPublication) {
+            groupId = project.group
+            version = project.version
             artifactId = "injection-database-" + project.name
+            from components.java
         }
     }
 }

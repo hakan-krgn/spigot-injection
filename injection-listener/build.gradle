@@ -3,4 +3,15 @@ dependencies {
     testImplementation project(':injection-core')
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            version = project.version
+            artifactId = project.name
+            from components.java
+        }
+    }
+}
+
 tasks.compileJava.dependsOn(':injection-core:shadowJar')
