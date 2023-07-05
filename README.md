@@ -21,7 +21,6 @@ to use it. Then you can create your main class and start the injection process.
 #### Maven
 
 ```xml
-
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -30,12 +29,12 @@ to use it. Then you can create your main class and start the injection process.
 </repositories>
 
 <dependencies>
-<dependency>
-    <groupId>com.github.hakan-krgn</groupId>
-    <artifactId>spigot-injection</artifactId>
-    <version>0.0.9.5</version>
-    <scope>compile</scope>
-</dependency>
+    <dependency>
+        <groupId>com.github.hakan-krgn</groupId>
+        <artifactId>spigot-injection</artifactId>
+        <version>0.0.9.5</version>
+        <scope>compile</scope>
+    </dependency>
 </dependencies>
 ```
 
