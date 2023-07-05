@@ -15,35 +15,34 @@ import java.util.concurrent.TimeUnit;
 @Documented
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReloadTimer {
+public @interface ConfigTimer {
 
     /**
-     * Auto-reload status of the
+     * Timer status of the
      * config file. If it is true,
-     * the config file will take
-     * the settings from the file
-     * automatically.
+     * the config file will do
+     * the processes.
      *
-     * @return auto reload status
+     * @return status
      */
     boolean enabled() default false;
 
     /**
-     * If the reload is async,
-     * it will be reloaded in
+     * If the status is async,
+     * it will be processed in
      * another thread. In a
      * nutshell, it will be
      * asynchronous.
      *
      * @return async status
      */
-    boolean async() default true;
+    boolean async() default false;
 
     /**
      * Auto-reload delay time
      * of the config file.
      * <p>
-     * It's reload process will start
+     * It's process will start
      * after the delay time.
      *
      * @return timestamp
@@ -51,10 +50,10 @@ public @interface ReloadTimer {
     long delay() default 0L;
 
     /**
-     * Auto-reload period time
+     * Auto-process period time
      * of the config file.
      * <p>
-     * It's reload process will be
+     * It's process will be
      * repeated every period time.
      *
      * @return timestamp
@@ -62,7 +61,7 @@ public @interface ReloadTimer {
     long period() default 0L;
 
     /**
-     * Time unit of the auto reload.
+     * Time unit of the auto-process.
      * Default is seconds.
      *
      * @return time unit

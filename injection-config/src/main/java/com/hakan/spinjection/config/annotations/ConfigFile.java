@@ -51,7 +51,7 @@ public @interface ConfigFile {
      *
      * @return save timer settings
      */
-    SaveTimer saveTimer() default @SaveTimer;
+    ConfigTimer saveTimer() default @ConfigTimer;
 
     /**
      * Reload timer settings
@@ -59,5 +59,5 @@ public @interface ConfigFile {
      *
      * @return reload timer settings
      */
-    ReloadTimer reloadTimer() default @ReloadTimer;
+    ConfigTimer reloadTimer() default @ConfigTimer;
 }
