@@ -1,7 +1,7 @@
 package com.hakan.spinjection.config.schedulers;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
-import com.hakan.spinjection.config.annotations.ReloadTimer;
+import com.hakan.spinjection.config.annotations.ConfigTimer;
 import com.hakan.spinjection.config.container.Container;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -16,7 +16,7 @@ public class ConfigReloadScheduler extends BukkitRunnable {
 
     private final Plugin plugin;
     private final Container container;
-    private final ReloadTimer reloadTimer;
+    private final ConfigTimer configTimer;
 
     /**
      * Constructor of {@link ConfigReloadScheduler}
@@ -30,19 +30,19 @@ public class ConfigReloadScheduler extends BukkitRunnable {
                                  @Nonnull ConfigFile annotation) {
         this.plugin = plugin;
         this.container = container;
-        this.reloadTimer = annotation.reloadTimer();
+        this.configTimer = annotation.reloadTimer();
     }
 
     /**
      * Starts the scheduler.
      */
     public void start() {
-        if (!this.reloadTimer.enabled())
+        if (!this.configTimer.enabled())
             return;
 
-        long delay = this.reloadTimer.timeUnit().toMillis(this.reloadTimer.delay()) / 50L;
-        long period = this.reloadTimer.timeUnit().toMillis(this.reloadTimer.period()) / 50L;
-        boolean async = this.reloadTimer.async();
+        long delay = this.configTimer.timeUnit().toMillis(this.configTimer.delay()) / 50L;
+        long period = this.configTimer.timeUnit().toMillis(this.configTimer.period()) / 50L;
+        boolean async = this.configTimer.async();
 
         if (period == 0 && async) {
             this.runTaskLaterAsynchronously(this.plugin, delay);

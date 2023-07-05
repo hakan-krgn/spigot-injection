@@ -1,9 +1,8 @@
 package com.hakan.test.config;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
+import com.hakan.spinjection.config.annotations.ConfigTimer;
 import com.hakan.spinjection.config.annotations.ConfigValue;
-import com.hakan.spinjection.config.annotations.ReloadTimer;
-import com.hakan.spinjection.config.annotations.SaveTimer;
 import com.hakan.spinjection.config.configuration.BaseConfiguration;
 
 import java.util.concurrent.TimeUnit;
@@ -12,14 +11,15 @@ import java.util.concurrent.TimeUnit;
         resource = "test.yml",
         path = "plugins/TestInjection/test.yml",
 
-        saveTimer = @SaveTimer(
+        saveTimer = @ConfigTimer(
                 enabled = true,
                 async = true,
                 delay = 5,
                 period = 5,
                 timeUnit = TimeUnit.SECONDS
         ),
-        reloadTimer = @ReloadTimer(
+
+        reloadTimer = @ConfigTimer(
                 enabled = true,
                 async = true,
                 delay = 5,

@@ -1,12 +1,13 @@
 package com.hakan.spinjection.config.schedulers;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
-import com.hakan.spinjection.config.annotations.SaveTimer;
+import com.hakan.spinjection.config.annotations.ConfigTimer;
 import com.hakan.spinjection.config.container.Container;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.annotation.Nonnull;
+import java.util.Timer;
 
 /**
  * ConfigSaveScheduler is a scheduler
@@ -16,7 +17,7 @@ public class ConfigSaveScheduler extends BukkitRunnable {
 
     private final Plugin plugin;
     private final Container container;
-    private final SaveTimer saveTimer;
+    private final ConfigTimer saveTimer;
 
     /**
      * Constructor of {@link ConfigSaveScheduler}
