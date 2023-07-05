@@ -1,0 +1,10 @@
+settings:
+  message: 'Hello, World!'
+  repeat: 3
+  to-console: true
+
+database:
+  username: 'root'
+  password: '123456'
+  url: 'jdbc:mysql://localhost:3306/test'
+  driver: 'com.mysql.jdbc.Driver'
