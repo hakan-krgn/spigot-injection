@@ -8,4 +8,5 @@ include 'injection-database:native'
 include 'injection-listener'
 include 'injection-scheduler'
 
-include 'example-plugin'
+include 'plugin-examples:user-plugin'
+include 'plugin-examples:full-plugin'
