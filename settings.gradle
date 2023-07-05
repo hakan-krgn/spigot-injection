@@ -7,3 +7,5 @@ include 'injection-database:hibernate'
 include 'injection-database:native'
 include 'injection-listener'
 include 'injection-scheduler'
+
+include 'example-plugin'
