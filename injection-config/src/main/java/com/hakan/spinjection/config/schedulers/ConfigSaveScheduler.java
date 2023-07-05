@@ -7,7 +7,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.annotation.Nonnull;
-import java.util.Timer;
 
 /**
  * ConfigSaveScheduler is a scheduler

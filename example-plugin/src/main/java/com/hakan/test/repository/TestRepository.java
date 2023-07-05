@@ -6,8 +6,6 @@ import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.repositories.JpaRepository;
 import com.hakan.test.model.TestEntity;
 
-import java.util.List;
-
 @Repository(
         id = Long.class,
         entity = TestEntity.class
