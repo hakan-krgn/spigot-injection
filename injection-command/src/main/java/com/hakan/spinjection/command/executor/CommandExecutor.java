@@ -158,6 +158,11 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
             if (parameters[i].isAnnotationPresent(Executor.class)) {
                 objects[i] = sender;
             } else if (parameters[i].isAnnotationPresent(CommandParam.class)) {
+                String value = parameters[i].getAnnotation(CommandParam.class).value();
+
+                if (!value.isEmpty() && !value.equals(args[i - 1]))
+                    throw new InvalidParameterTypeException("parameter must be " + value);
+
                 objects[i] = ParameterSuppliers.apply(parameters[i].getType(), args[i - 1]);
             } else {
                 throw new MissingAnnotationException("parameter must be annotated with @CommandParam or @Executor");
