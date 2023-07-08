@@ -3,7 +3,6 @@ package com.hakan.spinjection.config.container;
 import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.container.impl.JsonContainer;
 import com.hakan.spinjection.config.container.impl.YamlContainer;
-import com.hakan.spinjection.config.utils.ConfigUtils;
 import com.hakan.spinjection.config.utils.FileUtils;
 
 import javax.annotation.Nonnull;
