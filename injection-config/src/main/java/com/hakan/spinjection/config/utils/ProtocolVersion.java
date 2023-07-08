@@ -11,27 +11,28 @@ import javax.annotation.Nonnull;
  */
 public enum ProtocolVersion {
 
-    v1_8_R3("v1_8_R3", "v1_8_R3"),
-    v1_9_R1("v1_9_R1", "v1_9_R1"),
-    v1_9_R2("v1_9_R2", "v1_9_R2"),
-    v1_10_R1("v1_10_R1", "v1_10_R1"),
-    v1_11_R1("v1_11_R1", "v1_11_R1"),
-    v1_12_R1("v1_12_R1", "v1_12_R1"),
-    v1_13_R1("v1_13_R1", "v1_13_R1"),
-    v1_13_R2("v1_13_R2", "v1_13_R2"),
-    v1_14_R1("v1_14_R1", "v1_14_R1"),
-    v1_15_R1("v1_15_R1", "v1_15_R1"),
-    v1_16_R1("v1_16_R1", "v1_16_R1"),
-    v1_16_R2("v1_16_R2", "v1_16_R2"),
-    v1_16_R3("v1_16_R3", "v1_16_R3"),
-    v1_17_R1("v1_17_R1", "v1_17_R1"),
-    v1_18_R1("v1_18_R1", "v1_18_R1"),
-    v1_18_R2("v1_18_R2", "v1_18_R2"),
-    v1_19_R1("v1_19_R1", "v1_19_R1"),
-    v1_19_1_R1("v1_19_1_R1", "v1_19_1_R1"),
-    v1_19_2_R1("v1_19_2_R1", "v1_19_1_R1"),
-    v1_19_R2("v1_19_R2", "v1_19_R2"),
-    v1_19_R3("v1_19_R3", "v1_19_R3"),
+    v1_8_R3("v1_8_R3"),
+    v1_9_R1("v1_9_R1"),
+    v1_9_R2("v1_9_R2"),
+    v1_10_R1("v1_10_R1"),
+    v1_11_R1("v1_11_R1"),
+    v1_12_R1("v1_12_R1"),
+    v1_13_R1("v1_13_R1"),
+    v1_13_R2("v1_13_R2"),
+    v1_14_R1("v1_14_R1"),
+    v1_15_R1("v1_15_R1"),
+    v1_16_R1("v1_16_R1"),
+    v1_16_R2("v1_16_R2"),
+    v1_16_R3("v1_16_R3"),
+    v1_17_R1("v1_17_R1"),
+    v1_18_R1("v1_18_R1"),
+    v1_18_R2("v1_18_R2"),
+    v1_19_R1("v1_19_R1"),
+    v1_19_1_R1("v1_19_1_R1"),
+    v1_19_2_R1("v1_19_2_R1"),
+    v1_19_R2("v1_19_R2"),
+    v1_19_R3("v1_19_R3"),
+    v1_20_R1("v1_20_R1"),
     ;
 
 
@@ -56,16 +57,14 @@ public enum ProtocolVersion {
 
 
     private final String key;
-    private final String target;
 
     /**
      * Constructor.
      *
      * @param key The protocol version key.
      */
-    ProtocolVersion(@Nonnull String key, @Nonnull String target) {
+    ProtocolVersion(@Nonnull String key) {
         this.key = key;
-        this.target = target;
     }
 
     /**
@@ -76,17 +75,6 @@ public enum ProtocolVersion {
     @Nonnull
     public String getKey() {
         return this.key;
-    }
-
-    /**
-     * Gets the protocol version target
-     * of hCore for nms classes.
-     *
-     * @return The protocol version target.
-     */
-    @Nonnull
-    public String getTarget() {
-        return this.target;
     }
 
     /**

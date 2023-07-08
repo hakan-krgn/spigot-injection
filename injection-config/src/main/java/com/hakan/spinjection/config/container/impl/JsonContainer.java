@@ -1,8 +1,6 @@
 package com.hakan.spinjection.config.container.impl;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.container.Container;
 import com.hakan.spinjection.config.utils.ColorUtils;
@@ -19,20 +17,16 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"unchecked"})
 public class JsonContainer extends Container {
 
-    private static final Gson GSON = new Gson();
-
-
-
     private JsonObject jsonObject;
 
     /**
      * {@inheritDoc}
      */
-    public JsonContainer(@Nonnull Object instance,
-                         @Nonnull ConfigFile annotation) {
-        super(instance, annotation);
-        this.jsonObject = JsonUtils.loadFromFile(annotation.path());
+    public JsonContainer(@Nonnull String path) {
+        super(path);
+        this.jsonObject = JsonUtils.loadFromFile(super.path);
     }
+
 
     /**
      * {@inheritDoc}
@@ -73,7 +67,7 @@ public class JsonContainer extends Container {
      */
     @Override
     public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
-        JsonUtils.setValue(this.jsonObject, key, GSON.toJsonTree(value));
+        JsonUtils.setValue(this.jsonObject, key, value);
         if (save) this.save();
         return this;
     }

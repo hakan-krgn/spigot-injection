@@ -1,6 +1,5 @@
 package com.hakan.spinjection.config.container.impl;
 
-import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.container.Container;
 import com.hakan.spinjection.config.utils.ColorUtils;
@@ -10,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.File;
 import java.lang.reflect.Method;
 
 /**
@@ -19,18 +17,16 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"unchecked"})
 public class YamlContainer extends Container {
 
-    private final File file;
     private final FileConfiguration configuration;
 
     /**
      * {@inheritDoc}
      */
-    public YamlContainer(@Nonnull Object instance,
-                         @Nonnull ConfigFile annotation) {
-        super(instance, annotation);
-        this.file = new File(super.path);
-        this.configuration = YamlConfiguration.loadConfiguration(this.file);
+    public YamlContainer(@Nonnull String path) {
+        super(path);
+        this.configuration = YamlConfiguration.loadConfiguration(super.file);
     }
+
 
     /**
      * {@inheritDoc}
@@ -82,7 +78,7 @@ public class YamlContainer extends Container {
     @Override
     @SneakyThrows
     public synchronized @Nonnull Container save() {
-        this.configuration.save(this.file);
+        this.configuration.save(super.file);
         return this;
     }
 
@@ -92,7 +88,7 @@ public class YamlContainer extends Container {
     @Override
     @SneakyThrows
     public synchronized @Nonnull Container reload() {
-        this.configuration.load(this.file);
+        this.configuration.load(super.file);
         return this;
     }
 }

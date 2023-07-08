@@ -1,10 +1,10 @@
 package com.hakan.spinjection.config.container;
 
-import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.File;
 import java.lang.reflect.Method;
 
 /**
@@ -13,32 +13,19 @@ import java.lang.reflect.Method;
  */
 public abstract class Container {
 
-    protected final Object instance;
     protected final String path;
-    protected final String resource;
+    protected final File file;
 
     /**
      * Creates a new ConfigContainer.
      *
-     * @param instance   instance of the class
-     * @param annotation ConfigFile annotation
+     * @param path path of the file
      */
-    public Container(@Nonnull Object instance,
-                     @Nonnull ConfigFile annotation) {
-        this.instance = instance;
-        this.path = annotation.path();
-        this.resource = annotation.resource();
+    public Container(@Nonnull String path) {
+        this.path = path;
+        this.file = new File(path);
     }
 
-
-    /**
-     * Gets instance of the class.
-     *
-     * @return instance of the class
-     */
-    public @Nonnull Object getInstance() {
-        return this.instance;
-    }
 
     /**
      * Gets the path of the config file.
@@ -50,12 +37,12 @@ public abstract class Container {
     }
 
     /**
-     * Gets resource of the config file.
+     * Gets the file of the config file.
      *
-     * @return resource of the config file
+     * @return file of the config file
      */
-    public @Nonnull String getResource() {
-        return this.resource;
+    public @Nonnull File getFile() {
+        return this.file;
     }
 
 

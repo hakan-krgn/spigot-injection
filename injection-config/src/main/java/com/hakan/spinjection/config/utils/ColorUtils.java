@@ -16,6 +16,7 @@ public class ColorUtils {
     private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
     private static final Pattern COLOR_PATTERN = Pattern.compile("(?<color>(([§&][A-Fa-f\\d|rR])|(#[A-Fa-f\\d]{6})))");
     private static final Pattern FORMAT_PATTERN = Pattern.compile("(?<format>[§&][k-oK-OrR])");
+    private static final ProtocolVersion CURRENT_VERSION = ProtocolVersion.getCurrentVersion();
 
     /**
      * Convert a message to a colored message.
@@ -24,7 +25,7 @@ public class ColorUtils {
      * @return colored message
      */
     public static @Nonnull String colored(@Nonnull String message) {
-        if (ProtocolVersion.getCurrentVersion().isNewerOrEqual(ProtocolVersion.v1_16_R1)) {
+        if (CURRENT_VERSION.isNewerOrEqual(ProtocolVersion.v1_16_R1)) {
             Matcher matcher = HEX_PATTERN.matcher(message);
 
             while (matcher.find()) {
@@ -33,6 +34,7 @@ public class ColorUtils {
                 matcher = HEX_PATTERN.matcher(message);
             }
         }
+
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 

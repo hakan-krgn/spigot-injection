@@ -72,13 +72,7 @@ public class ConfigExecutor implements SpigotExecutor {
     @Override
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
-        ConfigUtils.createFile(
-                this.annotation.path(),
-                this.annotation.resource(),
-                this.clazz
-        );
-
-        this.container = ContainerFactory.of(instance, this.annotation);
+        this.container = ContainerFactory.of(this.annotation);
 
         new ConfigReloadScheduler(bootstrap.getPlugin(), this.container, this.annotation).start();
         new ConfigSaveScheduler(bootstrap.getPlugin(), this.container, this.annotation).start();
@@ -99,9 +93,9 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getName().equals("hashCode"))
             return this.hashCode();
 
-        if (method.getName().equals("save"))
+        if (method.getName().equals("save") && args.length == 0)
             return this.container.save();
-        if (method.getName().equals("reload"))
+        if (method.getName().equals("reload") && args.length == 0)
             return this.container.reload();
         if (method.getName().equals("get") && args.length == 1)
             return this.container.get(args[0].toString());
@@ -112,7 +106,7 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getName().equals("set") && args.length == 3)
             return this.container.set(args[0].toString(), args[1], (boolean) args[2]);
 
-        return this.postCall(method, args);
+        return this.postCall(method);
     }
 
     /**
@@ -120,11 +114,9 @@ public class ConfigExecutor implements SpigotExecutor {
      * annotated with {@link ConfigValue} annotation.
      *
      * @param method method
-     * @param args   arguments
      * @return method result
      */
-    public @Nullable Object postCall(@Nonnull Method method,
-                                     @Nonnull Object[] args) {
+    public @Nullable Object postCall(@Nonnull Method method) {
         if (!method.isAnnotationPresent(ConfigValue.class))
             throw new RuntimeException("method is not registered!");
         if (method.getParameterCount() != 0)
