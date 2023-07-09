@@ -1,8 +1,9 @@
-package com.hakan.spinjection.config.utils;
+package com.hakan.spinjection.utils;
 
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 /**
  * ProtocolVersion class to get the current
@@ -36,24 +37,62 @@ public enum ProtocolVersion {
     ;
 
 
-    /**
-     * Gets the current protocol version.
-     *
-     * @return The current protocol version.
-     */
-    @Nonnull
-    public static ProtocolVersion getCurrentVersion() {
-        if (Bukkit.getBukkitVersion().contains("1.19.1"))
-            return v1_19_1_R1;
-        else if (Bukkit.getBukkitVersion().contains("1.19.2"))
-            return v1_19_2_R1;
+    public static ProtocolVersion CURRENT;
 
-        String version = Bukkit.getServer().getClass().getName().split("\\.")[3];
-        for (ProtocolVersion protocolVersion : ProtocolVersion.values())
-            if (version.equals(protocolVersion.getKey()))
-                return protocolVersion;
-        throw new IllegalStateException("unknown protocol version!");
+    static {
+        String nmsVersion = Bukkit.getServer().getClass().getName().split("\\.")[3];
+        String bukkitVersion = Bukkit.getBukkitVersion();
+
+        if (bukkitVersion.contains("1.19.1"))
+            CURRENT = v1_19_1_R1;
+        else if (bukkitVersion.contains("1.19.2"))
+            CURRENT = v1_19_2_R1;
+
+        Arrays.stream(ProtocolVersion.values())
+                .filter(protocolVersion -> nmsVersion.equals(protocolVersion.getKey()))
+                .forEach(protocolVersion -> CURRENT = protocolVersion);
     }
+
+    /**
+     * Checks if the current version is newer than the given version.
+     *
+     * @param version The version to check.
+     * @return True if the current version is newer or equal to the given version.
+     */
+    public static boolean isNewer(@Nonnull ProtocolVersion version) {
+        return CURRENT.compareNewer(version);
+    }
+
+    /**
+     * Checks if the current version is newer than or equal to the given version.
+     *
+     * @param version The version to check.
+     * @return True if the current version is older or equal to the given version.
+     */
+    public static boolean isNewerOrEqual(@Nonnull ProtocolVersion version) {
+        return CURRENT.compareNewerOrEqual(version);
+    }
+
+    /**
+     * Checks if the current version is older the given version.
+     *
+     * @param version The version to check.
+     * @return True if the current version is older or equal to the given version.
+     */
+    public static boolean isOlder(@Nonnull ProtocolVersion version) {
+        return CURRENT.compareOlder(version);
+    }
+
+    /**
+     * Checks if the current version is older or equal to the given version.
+     *
+     * @param version The version to check.
+     * @return True if the current version is older or equal to the given version.
+     */
+    public static boolean isOlderOrEqual(@Nonnull ProtocolVersion version) {
+        return CURRENT.compareOlderOrEqual(version);
+    }
+
 
 
     private final String key;
@@ -83,7 +122,7 @@ public enum ProtocolVersion {
      * @param version The version to check.
      * @return True if the protocol version is newer or equal to the given version.
      */
-    public boolean isNewer(@Nonnull ProtocolVersion version) {
+    public boolean compareNewer(@Nonnull ProtocolVersion version) {
         return this.ordinal() > version.ordinal();
     }
 
@@ -93,7 +132,7 @@ public enum ProtocolVersion {
      * @param version The version to check.
      * @return True if the protocol version is older or equal to the given version.
      */
-    public boolean isNewerOrEqual(@Nonnull ProtocolVersion version) {
+    public boolean compareNewerOrEqual(@Nonnull ProtocolVersion version) {
         return this.ordinal() >= version.ordinal();
     }
 
@@ -103,7 +142,7 @@ public enum ProtocolVersion {
      * @param version The version to check.
      * @return True if the protocol version is older or equal to the given version.
      */
-    public boolean isOlder(@Nonnull ProtocolVersion version) {
+    public boolean compareOlder(@Nonnull ProtocolVersion version) {
         return this.ordinal() < version.ordinal();
     }
 
@@ -113,7 +152,7 @@ public enum ProtocolVersion {
      * @param version The version to check.
      * @return True if the protocol version is older or equal to the given version.
      */
-    public boolean isOlderOrEqual(@Nonnull ProtocolVersion version) {
+    public boolean compareOlderOrEqual(@Nonnull ProtocolVersion version) {
         return this.ordinal() <= version.ordinal();
     }
 }
