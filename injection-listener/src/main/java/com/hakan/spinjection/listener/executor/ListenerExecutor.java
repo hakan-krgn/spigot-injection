@@ -2,6 +2,7 @@ package com.hakan.spinjection.listener.executor;
 
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.executor.SpigotExecutor;
+import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.listener.annotations.EventListener;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
@@ -24,6 +25,7 @@ import java.lang.reflect.Method;
 public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor {
 
     private Object instance;
+    private FilterEngine filterEngine;
     private final Plugin plugin;
     private final Method method;
     private final EventListener listener;
@@ -79,6 +81,7 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
         this.instance = instance;
+        this.filterEngine = bootstrap.getFilterEngine();
 
         Bukkit.getPluginManager().registerEvent(
                 this.clazz,
@@ -104,6 +107,8 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
         if (!event.getClass().equals(this.clazz))
             return;
         if (event instanceof Cancellable && ((Cancellable) event).isCancelled() && this.listener.ignoreCancelled())
+            return;
+        if (!this.filterEngine.run(this.method, new Object[]{event}))
             return;
 
         this.method.invoke(this.instance, event);

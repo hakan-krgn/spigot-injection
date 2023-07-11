@@ -6,6 +6,7 @@ import com.hakan.basicdi.annotations.Service;
 import com.hakan.basicdi.module.Module;
 import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.annotations.Scanner;
+import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.module.PluginModule;
 import com.hakan.spinjection.module.SpigotModule;
 import com.hakan.spinjection.utils.ReflectionUtils;
@@ -42,6 +43,7 @@ public class SpigotBootstrap extends Module {
     private final Injector injector;
     private final Reflection spigotReflection;
     private final Reflection pluginReflection;
+    private final FilterEngine filterEngine;
     private final Set<SpigotModule<?, ?>> modules;
 
     /**
@@ -54,7 +56,9 @@ public class SpigotBootstrap extends Module {
         this.modules = new TreeSet<>();
         this.spigotReflection = ReflectionUtils.createFrom(this);
         this.pluginReflection = ReflectionUtils.createFrom(plugin);
+
         this.injector = Injector.of(this);
+        this.filterEngine = new FilterEngine(this.injector);
 
         this.modules.forEach(SpigotModule::execute);
         this.injector.create();
@@ -76,6 +80,15 @@ public class SpigotBootstrap extends Module {
      */
     public @Nonnull Injector getInjector() {
         return this.injector;
+    }
+
+    /**
+     * Gets FilterEngine instance.
+     *
+     * @return filterEngine
+     */
+    public @Nonnull FilterEngine getFilterEngine() {
+        return this.filterEngine;
     }
 
     /**

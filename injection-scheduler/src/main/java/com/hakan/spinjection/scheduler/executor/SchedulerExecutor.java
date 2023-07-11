@@ -2,6 +2,7 @@ package com.hakan.spinjection.scheduler.executor;
 
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.executor.SpigotExecutor;
+import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.scheduler.annotations.Scheduler;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
@@ -18,6 +19,7 @@ import java.lang.reflect.Method;
 public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor {
 
     private Object instance;
+    private FilterEngine filterEngine;
     private final Plugin plugin;
     private final Method method;
     private final long delay;
@@ -86,6 +88,7 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
         this.instance = instance;
+        this.filterEngine = bootstrap.getFilterEngine();
 
         if (this.period == 0 && this.async) {
             this.runTaskLaterAsynchronously(this.plugin, this.delay);
@@ -105,6 +108,9 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
     @Override
     @SneakyThrows
     public void run() {
+        if (!this.filterEngine.run(this.method, new Object[0]))
+            return;
+
         this.method.invoke(this.instance);
     }
 }

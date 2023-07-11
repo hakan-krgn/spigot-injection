@@ -1,10 +1,12 @@
 package com.hakan.spinjection.command.executor;
 
+import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.command.annotations.Command;
 import com.hakan.spinjection.command.annotations.CommandParam;
 import com.hakan.spinjection.command.annotations.Executor;
 import com.hakan.spinjection.command.annotations.Subcommand;
+import com.hakan.spinjection.command.exceptions.FilterNotPassedException;
 import com.hakan.spinjection.command.exceptions.InsufficientPermissionException;
 import com.hakan.spinjection.command.exceptions.InvalidArgsLengthException;
 import com.hakan.spinjection.command.exceptions.InvalidParameterTypeException;
@@ -12,6 +14,7 @@ import com.hakan.spinjection.command.exceptions.MissingAnnotationException;
 import com.hakan.spinjection.command.supplier.ParameterSuppliers;
 import com.hakan.spinjection.command.utils.CommandUtils;
 import com.hakan.spinjection.executor.SpigotExecutor;
+import com.hakan.spinjection.filter.FilterEngine;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -21,6 +24,7 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Command executor to
@@ -31,8 +35,10 @@ import java.util.Arrays;
 public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
     private Object instance;
+    private FilterEngine filterEngine;
     private final Class clazz;
-    private final Method[] methods;
+    private final Set<Method> methods;
+    private final Reflection reflection;
 
     /**
      * Constructor of {@link CommandExecutor}.
@@ -59,9 +65,8 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
         );
 
         this.clazz = clazz;
-        this.methods = Arrays.stream(clazz.getMethods())
-                .filter(method -> method.isAnnotationPresent(Subcommand.class))
-                .toArray(Method[]::new);
+        this.reflection = new Reflection(clazz);
+        this.methods = this.reflection.getMethodsAnnotatedWith(Subcommand.class);
     }
 
     /**
@@ -97,6 +102,8 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
         this.instance = instance;
+        this.filterEngine = bootstrap.getFilterEngine();
+
         CommandUtils.register(this);
     }
 
@@ -119,7 +126,9 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
                 sender.sendMessage(e.getMessage());
             } catch (MissingAnnotationException e) {
                 e.printStackTrace();
-            } catch (InvalidArgsLengthException | InvalidParameterTypeException ignored) {
+            } catch (FilterNotPassedException |
+                     InvalidArgsLengthException |
+                     InvalidParameterTypeException ignored) {
 
             }
         }
@@ -168,6 +177,10 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
                 throw new MissingAnnotationException("parameter must be annotated with @CommandParam or @Executor");
             }
         }
+
+
+        if (!this.filterEngine.run(method, objects))
+            throw new FilterNotPassedException("filter has not passed!");
 
         method.invoke(this.instance, objects);
     }
