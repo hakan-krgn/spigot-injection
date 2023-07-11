@@ -1,5 +1,7 @@
 package com.hakan.spinjection.command.exceptions;
 
+import javax.annotation.Nonnull;
+
 /**
  * Thrown when the command parameter type is invalid.
  * For example, if the command parameter type is Integer,
@@ -12,7 +14,7 @@ public class InvalidParameterTypeException extends RuntimeException {
      *
      * @param message the message that will be sent
      */
-    public InvalidParameterTypeException(String message) {
+    public InvalidParameterTypeException(@Nonnull String message) {
         super(message);
     }
 }

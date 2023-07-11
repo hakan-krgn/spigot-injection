@@ -1,5 +1,7 @@
 package com.hakan.spinjection.command.exceptions;
 
+import javax.annotation.Nonnull;
+
 /**
  * Thrown when a user does not have the
  * required permission to execute a command.
@@ -11,7 +13,7 @@ public class InsufficientPermissionException extends RuntimeException {
      *
      * @param message the message that will be sent to the user
      */
-    public InsufficientPermissionException(String message) {
+    public InsufficientPermissionException(@Nonnull String message) {
         super(message);
     }
 }

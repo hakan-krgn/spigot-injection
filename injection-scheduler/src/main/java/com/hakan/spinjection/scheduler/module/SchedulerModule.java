@@ -55,7 +55,7 @@ public class SchedulerModule extends SpigotModule<Method, Scheduler> {
     @Override
     public void execute() {
         for (SpigotExecutor executor : super.executors) {
-            executor.execute(bootstrap, bootstrap.getInstance(executor.getDeclaringClass()));
+            executor.execute(this.bootstrap, this.bootstrap.getInstance(executor.getDeclaringClass()));
         }
     }
 }
