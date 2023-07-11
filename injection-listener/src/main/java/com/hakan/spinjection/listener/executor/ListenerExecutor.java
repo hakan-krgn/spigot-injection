@@ -100,6 +100,9 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     @SneakyThrows
     public void execute(@Nonnull Listener listener,
                         @Nonnull Event event) {
+        if (!event.getClass().equals(this.clazz))
+            return;
+
         this.method.invoke(this.instance, event);
     }
 }
