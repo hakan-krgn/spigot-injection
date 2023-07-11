@@ -76,11 +76,7 @@ public class FilterEngine {
             String param = paramMatcher.group();
             int paramIndex = Integer.parseInt(param.substring(4));
 
-            try {
-                engine.put(param, args[paramIndex]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            engine.put(param, args[paramIndex]);
         }
 
         while (serviceMatcher.find()) {
