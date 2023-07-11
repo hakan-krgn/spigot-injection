@@ -1,5 +1,6 @@
 package com.hakan.spinjection.annotations;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -9,6 +10,7 @@ import java.lang.annotation.Target;
  * ExecutorOrder annotation to define
  * executor order of the spigot modules.
  */
+@Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExecutorOrder {
