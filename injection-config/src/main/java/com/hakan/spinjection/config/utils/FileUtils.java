@@ -41,7 +41,7 @@ public class FileUtils {
     @SneakyThrows
     public static @Nonnull File createFile(@Nonnull String path,
                                            @Nonnull String resource) {
-        return createFile(path, resource, ConfigUtils.class);
+        return createFile(path, resource, FileUtils.class);
     }
 
     /**

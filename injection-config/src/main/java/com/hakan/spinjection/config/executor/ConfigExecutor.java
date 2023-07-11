@@ -7,8 +7,8 @@ import com.hakan.spinjection.config.container.Container;
 import com.hakan.spinjection.config.container.ContainerFactory;
 import com.hakan.spinjection.config.schedulers.ConfigReloadScheduler;
 import com.hakan.spinjection.config.schedulers.ConfigSaveScheduler;
-import com.hakan.spinjection.config.utils.ConfigUtils;
 import com.hakan.spinjection.executor.SpigotExecutor;
+import com.hakan.spinjection.utils.ProxyUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +33,7 @@ public class ConfigExecutor implements SpigotExecutor {
     public ConfigExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.annotation = clazz.getAnnotation(ConfigFile.class);
-        this.instance = ConfigUtils.createProxy(this.clazz, this::preCall);
+        this.instance = ProxyUtils.create(this.clazz, this::preCall);
     }
 
     /**
@@ -93,10 +93,6 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getName().equals("hashCode"))
             return this.hashCode();
 
-        if (method.getName().equals("save") && args.length == 0)
-            return this.container.save();
-        if (method.getName().equals("reload") && args.length == 0)
-            return this.container.reload();
         if (method.getName().equals("get") && args.length == 1)
             return this.container.get(args[0].toString());
         if (method.getName().equals("get") && args.length == 2)
@@ -105,6 +101,10 @@ public class ConfigExecutor implements SpigotExecutor {
             return this.container.set(args[0].toString(), args[1]);
         if (method.getName().equals("set") && args.length == 3)
             return this.container.set(args[0].toString(), args[1], (boolean) args[2]);
+        if (method.getName().equals("save") && args.length == 0)
+            return this.container.save();
+        if (method.getName().equals("reload") && args.length == 0)
+            return this.container.reload();
 
         return this.postCall(method);
     }

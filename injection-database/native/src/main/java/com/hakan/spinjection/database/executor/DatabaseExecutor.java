@@ -6,8 +6,8 @@ import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.DbConnection;
 import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.database.connection.result.DbResult;
-import com.hakan.spinjection.database.utils.DatabaseUtils;
 import com.hakan.spinjection.executor.SpigotExecutor;
+import com.hakan.spinjection.utils.ProxyUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +33,7 @@ public class DatabaseExecutor implements SpigotExecutor {
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.repository = clazz.getAnnotation(Repository.class);
-        this.instance = DatabaseUtils.createProxy(clazz, this::preCall);
+        this.instance = ProxyUtils.create(clazz, this::preCall);
     }
 
     /**
