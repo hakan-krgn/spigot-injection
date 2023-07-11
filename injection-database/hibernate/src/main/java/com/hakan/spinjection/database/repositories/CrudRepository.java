@@ -17,22 +17,24 @@ public interface CrudRepository<ID, ENTITY> {
      * returns the id of entity.
      *
      * @param entity entity
-     * @return id of entity
+     * @return new entity with identifiers
      */
     @Nonnull
-    ID save(@Nonnull ENTITY entity);
+    ENTITY save(@Nonnull ENTITY entity);
 
     /**
      * Deletes an entity.
      *
      * @param entity entity
      */
-    void delete(@Nonnull ENTITY entity);
+    @Nonnull
+    ENTITY delete(@Nonnull ENTITY entity);
 
     /**
      * Deletes an entity by its id.
      *
      * @param id id
      */
-    void deleteById(@Nonnull ID id);
+    @Nonnull
+    ENTITY deleteById(@Nonnull ID id);
 }

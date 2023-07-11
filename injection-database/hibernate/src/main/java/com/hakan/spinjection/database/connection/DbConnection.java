@@ -190,12 +190,12 @@ public class DbConnection {
     /**
      * Saves the entity to the database.
      *
-     * @param entity entity which will be saved
+     * @param entity entity which has saved
      */
     public synchronized @Nonnull Object save(@Nonnull Object entity) {
         try {
             this.session.beginTransaction();
-            return this.session.save(entity);
+            return this.session.find(entity.getClass(), this.session.save(entity));
         } catch (Exception e) {
             throw new IllegalArgumentException("entity couldn't be saved!", e);
         } finally {
