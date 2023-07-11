@@ -1,4 +1,4 @@
-package com.hakan.spinjection.database.utils;
+package com.hakan.spinjection.utils;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationHandler;
@@ -7,10 +7,10 @@ import java.lang.reflect.Proxy;
 import java.util.function.BiFunction;
 
 /**
- * DatabaseUtils is the utility class
- * for database processes.
+ * ProxyUtils is the utility class
+ * for creating interfaces.
  */
-public class DatabaseUtils {
+public class ProxyUtils {
 
     /**
      * Creates a proxy instance from
@@ -20,12 +20,12 @@ public class DatabaseUtils {
      * @param function function
      * @return proxy instance
      */
-    public static @Nonnull Object createProxy(@Nonnull Class<?> clazz,
-                                              @Nonnull ProxyFunction function) {
+    public static @Nonnull Object create(@Nonnull Class<?> clazz,
+                                         @Nonnull ProxyFunction function) {
         return Proxy.newProxyInstance(
                 clazz.getClassLoader(),
                 new Class[]{clazz},
-                (proxy, method, args) -> function.apply(method, args)
+                (proxy, method, args) -> function.apply(method, (args == null) ? new Object[0] : args)
         );
     }
 
