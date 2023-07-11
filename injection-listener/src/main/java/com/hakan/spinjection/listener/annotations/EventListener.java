@@ -19,6 +19,14 @@ import java.lang.annotation.Target;
 public @interface EventListener {
 
     /**
+     * If true, the event won't be called
+     * if the event is canceled by another plugin.
+     *
+     * @return Should ignore if the event is canceled.
+     */
+    boolean ignoreCancelled() default false;
+
+    /**
      * Gets event priority of annotation.
      *
      * @return Event priority of annotation.

@@ -5,6 +5,7 @@ import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.listener.annotations.EventListener;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
@@ -101,6 +102,8 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
     public void execute(@Nonnull Listener listener,
                         @Nonnull Event event) {
         if (!event.getClass().equals(this.clazz))
+            return;
+        if (event instanceof Cancellable && ((Cancellable) event).isCancelled() && this.listener.ignoreCancelled())
             return;
 
         this.method.invoke(this.instance, event);
