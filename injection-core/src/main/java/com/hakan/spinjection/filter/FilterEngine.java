@@ -6,6 +6,7 @@ import com.hakan.spinjection.annotations.Filter;
 import lombok.SneakyThrows;
 
 import javax.annotation.Nonnull;
+import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.lang.reflect.Method;
@@ -28,7 +29,7 @@ public class FilterEngine {
 
 
     private final Injector injector;
-    private final ScriptEngineManager manager;
+    private final ScriptEngine engine;
 
     /**
      * Constructor of {@link FilterEngine}.
@@ -37,7 +38,8 @@ public class FilterEngine {
      */
     public FilterEngine(@Nonnull Injector injector) {
         this.injector = injector;
-        this.manager = new ScriptEngineManager();
+        this.engine = new ScriptEngineManager(null)
+                .getEngineByName("nashorn");
     }
 
     /**
@@ -70,13 +72,15 @@ public class FilterEngine {
                        @Nonnull Object[] args) {
         Matcher paramMatcher = PARAM_REGEX.matcher(filter);
         Matcher serviceMatcher = SERVICE_REGEX.matcher(filter);
-        ScriptEngine engine = this.manager.getEngineByName("js");
+
+
+        Bindings bindings = this.engine.createBindings();
 
         while (paramMatcher.find()) {
             String param = paramMatcher.group();
             int paramIndex = Integer.parseInt(param.substring(4));
 
-            engine.put(param, args[paramIndex]);
+            bindings.put(param, args[paramIndex]);
         }
 
         while (serviceMatcher.find()) {
@@ -90,9 +94,9 @@ public class FilterEngine {
                     .orElseThrow(() -> new Exception("entity not found!"))
                     .getInstance();
 
-            engine.put(service, instance);
+            bindings.put(service, instance);
         }
 
-        return (boolean) engine.eval(filter);
+        return (boolean) this.engine.eval(filter, bindings);
     }
 }
