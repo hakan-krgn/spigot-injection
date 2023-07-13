@@ -36,7 +36,7 @@ public class CommandModule extends SpigotModule<Class, Command> {
     @Override
     public void load(@Nonnull Set<Class> classes) {
         for (Class clazz : classes) {
-            super.executors.add(new CommandExecutor(clazz));
+            super.executors.add(new CommandExecutor(super.plugin, clazz));
         }
     }
 

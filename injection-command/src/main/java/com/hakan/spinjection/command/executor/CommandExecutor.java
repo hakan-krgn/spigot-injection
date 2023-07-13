@@ -15,9 +15,11 @@ import com.hakan.spinjection.command.supplier.ParameterSuppliers;
 import com.hakan.spinjection.command.utils.CommandUtils;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.filter.FilterEngine;
+import com.hakan.spinjection.utils.ReflectionUtils;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,12 +33,12 @@ import java.util.Set;
  * listen bukkit commands and
  * invoke related method.
  */
-@SuppressWarnings({"rawtypes"})
 public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
     private Object instance;
     private FilterEngine filterEngine;
-    private final Class clazz;
+    private final Plugin plugin;
+    private final Class<?> clazz;
     private final Set<Method> methods;
     private final Reflection reflection;
 
@@ -45,8 +47,9 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
      *
      * @param clazz clazz
      */
-    public CommandExecutor(@Nonnull Class<?> clazz) {
-        this(clazz, clazz.getAnnotation(Command.class));
+    public CommandExecutor(@Nonnull Plugin plugin,
+                           @Nonnull Class<?> clazz) {
+        this(plugin, clazz, clazz.getAnnotation(Command.class));
     }
 
     /**
@@ -55,7 +58,8 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
      * @param clazz   clazz
      * @param command annotation
      */
-    public CommandExecutor(@Nonnull Class clazz,
+    public CommandExecutor(@Nonnull Plugin plugin,
+                           @Nonnull Class<?> clazz,
                            @Nonnull Command command) {
         super(
                 command.name(),
@@ -65,6 +69,7 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
         );
 
         this.clazz = clazz;
+        this.plugin = plugin;
         this.reflection = new Reflection(clazz);
         this.methods = this.reflection.getMethodsAnnotatedWith(Subcommand.class);
     }
@@ -182,6 +187,6 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
         if (!this.filterEngine.run(method, objects))
             throw new FilterNotPassedException("filter has not passed!");
 
-        method.invoke(this.instance, objects);
+        ReflectionUtils.runMethod(this.plugin, this.instance, method, objects);
     }
 }

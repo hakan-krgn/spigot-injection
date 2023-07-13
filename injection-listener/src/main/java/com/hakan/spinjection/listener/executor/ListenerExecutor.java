@@ -1,9 +1,11 @@
 package com.hakan.spinjection.listener.executor;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.Async;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.listener.annotations.EventListener;
+import com.hakan.spinjection.utils.ReflectionUtils;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Cancellable;
@@ -111,6 +113,6 @@ public class ListenerExecutor implements Listener, EventExecutor, SpigotExecutor
         if (!this.filterEngine.run(this.method, new Object[]{event}))
             return;
 
-        this.method.invoke(this.instance, event);
+        ReflectionUtils.runMethod(this.plugin, this.instance, this.method, event);
     }
 }

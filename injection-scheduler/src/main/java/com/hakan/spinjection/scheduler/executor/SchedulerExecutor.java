@@ -1,6 +1,7 @@
 package com.hakan.spinjection.scheduler.executor;
 
 import com.hakan.spinjection.SpigotBootstrap;
+import com.hakan.spinjection.annotations.Async;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.scheduler.annotations.Scheduler;
@@ -49,7 +50,7 @@ public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor 
                              @Nonnull Scheduler scheduler) {
         this.plugin = plugin;
         this.method = method;
-        this.async = scheduler.async();
+        this.async = method.isAnnotationPresent(Async.class);
         this.delay = scheduler.timeUnit().toMillis(scheduler.delay()) / 50;
         this.period = scheduler.timeUnit().toMillis(scheduler.period()) / 50;
     }

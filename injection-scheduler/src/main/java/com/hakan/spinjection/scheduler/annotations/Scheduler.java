@@ -32,13 +32,6 @@ public @interface Scheduler {
     long period() default 0L;
 
     /**
-     * Gets scheduler async of annotation.
-     *
-     * @return Scheduler async of annotation.
-     */
-    boolean async() default false;
-
-    /**
      * Gets scheduler time unit of annotation.
      *
      * @return Scheduler time unit of annotation.
