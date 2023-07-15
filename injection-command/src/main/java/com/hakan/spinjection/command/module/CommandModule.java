@@ -1,5 +1,7 @@
 package com.hakan.spinjection.command.module;
 
+import com.hakan.basicdi.entity.Scope;
+import com.hakan.basicdi.entity.impl.ClassEntity;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.command.annotations.Command;
@@ -36,7 +38,7 @@ public class CommandModule extends SpigotModule<Class, Command> {
     @Override
     public void load(@Nonnull Set<Class> classes) {
         for (Class clazz : classes) {
-            super.bind(clazz);
+            super.bind(new ClassEntity(super.bootstrap, clazz, Scope.SINGLETON));
             super.executors.add(new CommandExecutor(super.plugin, clazz));
         }
     }
