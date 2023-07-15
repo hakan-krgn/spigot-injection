@@ -2,6 +2,7 @@ package com.hakan.test.scheduler;
 
 import com.hakan.basicdi.annotations.Autowired;
 import com.hakan.basicdi.annotations.Component;
+import com.hakan.spinjection.annotations.Async;
 import com.hakan.spinjection.scheduler.annotations.Scheduler;
 import com.hakan.test.cache.TestCache;
 import com.hakan.test.repository.TestRepository;
@@ -19,8 +20,8 @@ public class TestScheduler {
         this.service = service;
     }
 
+    @Async
     @Scheduler(
-            async = true,
             delay = 0,
             period = 3,
             timeUnit = TimeUnit.SECONDS
