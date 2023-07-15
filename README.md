@@ -32,7 +32,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn</groupId>
         <artifactId>spigot-injection</artifactId>
-        <version>0.1.1</version>
+        <version>0.1.2.1</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.hakan-krgn:spigot-injection:0.1.1'
+    implementation 'com.github.hakan-krgn:spigot-injection:0.1.2.1'
 }
 ```
 
