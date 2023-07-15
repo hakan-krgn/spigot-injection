@@ -1,7 +1,6 @@
 package com.hakan.spinjection.listener.executor;
 
 import com.hakan.spinjection.SpigotBootstrap;
-import com.hakan.spinjection.annotations.Async;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.listener.annotations.EventListener;
