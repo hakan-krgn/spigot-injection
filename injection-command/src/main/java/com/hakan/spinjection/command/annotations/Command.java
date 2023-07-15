@@ -1,7 +1,5 @@
 package com.hakan.spinjection.command.annotations;
 
-import com.hakan.basicdi.annotations.Component;
-
 import javax.annotation.Nonnull;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,7 +11,6 @@ import java.lang.annotation.Target;
  * Command annotation to
  * define command features.
  */
-@Component
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

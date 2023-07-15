@@ -1,7 +1,6 @@
 package com.hakan.spinjection.utils;
 
 import com.hakan.basicdi.reflection.Reflection;
-import com.hakan.basicdi.utils.AnnotationUtils;
 import com.hakan.spinjection.annotations.Async;
 import com.hakan.spinjection.annotations.Scanner;
 import lombok.SneakyThrows;
@@ -121,7 +120,7 @@ public class ReflectionUtils {
         if (method.getParameterCount() != args.length)
             throw new RuntimeException("method parameter count and args length not equal!");
 
-        if (!AnnotationUtils.isPresent(method, Async.class))
+        if (!method.isAnnotationPresent(Async.class))
             invokeMethod(instance, method, args);
         else Bukkit.getScheduler().runTaskAsynchronously(plugin,
                 () -> invokeMethod(instance, method, args));

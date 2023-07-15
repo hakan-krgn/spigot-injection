@@ -1,7 +1,6 @@
 package com.hakan.spinjection.filter;
 
 import com.hakan.basicdi.Injector;
-import com.hakan.basicdi.utils.AnnotationUtils;
 import com.hakan.spinjection.annotations.Filter;
 import lombok.SneakyThrows;
 
@@ -52,7 +51,7 @@ public class FilterEngine {
     @SneakyThrows
     public boolean run(@Nonnull Method method,
                        @Nonnull Object[] args) {
-        if (!AnnotationUtils.isPresent(method, Filter.class))
+        if (!method.isAnnotationPresent(Filter.class))
             return true;
         if (method.getParameterCount() != args.length)
             throw new Exception("parameter count is not equal!");
