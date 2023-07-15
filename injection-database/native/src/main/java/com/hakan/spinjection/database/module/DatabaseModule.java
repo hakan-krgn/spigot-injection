@@ -50,7 +50,7 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
     }
 
     /**
-     * Executes all configuration executors which are
+     * Executes all configuration executors that are
      * saved in {@link #executors}.
      * <p>
      * Then it runs execute method of each executor.

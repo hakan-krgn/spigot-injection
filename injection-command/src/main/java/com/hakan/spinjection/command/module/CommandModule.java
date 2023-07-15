@@ -36,12 +36,13 @@ public class CommandModule extends SpigotModule<Class, Command> {
     @Override
     public void load(@Nonnull Set<Class> classes) {
         for (Class clazz : classes) {
+            super.bind(clazz);
             super.executors.add(new CommandExecutor(super.plugin, clazz));
         }
     }
 
     /**
-     * Executes all command executors which are
+     * Executes all command executors that are
      * saved in {@link #executors}.
      * <p>
      * Then it runs execute method of each executor.

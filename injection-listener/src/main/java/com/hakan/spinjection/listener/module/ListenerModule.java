@@ -37,9 +37,9 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
     @Override
     public void load(@Nonnull Set<Method> methods) {
         for (Method method : methods) {
-            Class<?> clazz = method.getParameters()[0].getType();
+            Class<?> eventClass = method.getParameters()[0].getType();
 
-            if (!Event.class.isAssignableFrom(clazz))
+            if (!Event.class.isAssignableFrom(eventClass))
                 throw new RuntimeException("event listener method parameter must be a subclass of org.bukkit.event.Event!");
             if (method.getParameterCount() != 1)
                 throw new RuntimeException("event listener method must have only one parameter!");
@@ -51,7 +51,7 @@ public class ListenerModule extends SpigotModule<Method, EventListener> {
     }
 
     /**
-     * Executes all event listener executors which are
+     * Executes all event listener executors that are
      * saved in {@link #executors}.
      * <p>
      * Then it runs execute method of each executor.

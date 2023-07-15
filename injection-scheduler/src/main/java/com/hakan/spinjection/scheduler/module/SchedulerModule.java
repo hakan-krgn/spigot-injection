@@ -47,7 +47,7 @@ public class SchedulerModule extends SpigotModule<Method, Scheduler> {
     }
 
     /**
-     * Executes all scheduler executors which are
+     * Executes all scheduler executors that are
      * saved in {@link #executors}.
      * <p>
      * Then it runs execute method of each executor.
