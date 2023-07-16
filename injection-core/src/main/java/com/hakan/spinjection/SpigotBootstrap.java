@@ -6,6 +6,7 @@ import com.hakan.basicdi.annotations.Service;
 import com.hakan.basicdi.module.Module;
 import com.hakan.basicdi.reflection.Reflection;
 import com.hakan.spinjection.annotations.Scanner;
+import com.hakan.spinjection.cache.BootstrapCache;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.module.PluginModule;
 import com.hakan.spinjection.module.SpigotModule;
@@ -27,6 +28,8 @@ import java.util.TreeSet;
 @Scanner("com.hakan.spinjection")
 public class SpigotBootstrap extends Module {
 
+    private static final BootstrapCache CACHE = new BootstrapCache();
+
     /**
      * Starts automatic injection.
      *
@@ -34,7 +37,20 @@ public class SpigotBootstrap extends Module {
      * @return bootstrap
      */
     public static @Nonnull SpigotBootstrap run(@Nonnull Plugin plugin) {
-        return new SpigotBootstrap(plugin);
+        return CACHE.put(new SpigotBootstrap(plugin));
+    }
+
+    /**
+     * Returns the bootstrap instance if
+     * it is initialized.
+     * <p>
+     * Otherwise, it throws an exception.
+     *
+     * @param pluginClass plugin class
+     * @return bootstrap
+     */
+    public static @Nonnull SpigotBootstrap of(@Nonnull Class<? extends Plugin> pluginClass) {
+        return CACHE.getByClass(pluginClass);
     }
 
 
@@ -58,7 +74,7 @@ public class SpigotBootstrap extends Module {
         this.pluginReflection = ReflectionUtils.createFrom(plugin);
 
         this.injector = Injector.of(this);
-        this.filterEngine = new FilterEngine(this.injector);
+        this.filterEngine = new FilterEngine(this);
 
         this.modules.forEach(SpigotModule::execute);
         this.injector.create();

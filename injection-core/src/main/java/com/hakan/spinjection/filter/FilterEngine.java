@@ -1,6 +1,7 @@
 package com.hakan.spinjection.filter;
 
 import com.hakan.basicdi.Injector;
+import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.annotations.Filter;
 import lombok.SneakyThrows;
 
@@ -33,10 +34,10 @@ public class FilterEngine {
     /**
      * Constructor of {@link FilterEngine}.
      *
-     * @param injector injector
+     * @param bootstrap bootstrap
      */
-    public FilterEngine(@Nonnull Injector injector) {
-        this.injector = injector;
+    public FilterEngine(@Nonnull SpigotBootstrap bootstrap) {
+        this.injector = bootstrap.getInjector();
         this.engine = new ScriptEngineManager(null)
                 .getEngineByName("nashorn");
     }
