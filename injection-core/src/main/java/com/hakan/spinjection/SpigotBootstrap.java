@@ -115,6 +115,7 @@ public class SpigotBootstrap extends Module {
     public void configure() {
         this.bind(Plugin.class).withInstance(this.plugin);
         this.bind(Reflection.class).withInstance(this.pluginReflection);
+        this.bind(SpigotBootstrap.class).withInstance(this);
 
         this.pluginReflection.getTypesAnnotatedWith(Service.class).forEach(this::bind);
         this.pluginReflection.getTypesAnnotatedWith(Component.class).forEach(this::bind);

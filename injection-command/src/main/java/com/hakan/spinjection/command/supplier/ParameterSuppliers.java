@@ -14,7 +14,7 @@ import java.util.Map;
  * get, register and convert
  * parameter to the desired type.
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ParameterSuppliers {
 
     private static final Map<Class<?>, ParameterSupplier<?>> suppliers = new HashMap<>();
@@ -42,6 +42,9 @@ public class ParameterSuppliers {
     public static @Nonnull <T> T apply(@Nonnull Class<T> clazz,
                                        @Nonnull String parameter) {
         try {
+            if (clazz.isEnum())
+                return (T) Enum.valueOf((Class<Enum>) clazz, parameter);
+
             return (T) suppliers.get(clazz).get(parameter);
         } catch (Exception e) {
             throw new InvalidParameterTypeException("could not apply parameter for " + clazz.getName());
@@ -55,6 +58,9 @@ public class ParameterSuppliers {
 
         register(boolean.class, Boolean::parseBoolean);
         register(Boolean.class, Boolean::parseBoolean);
+
+        register(char.class, s -> s.charAt(0));
+        register(Character.class, s -> s.charAt(0));
 
         register(byte.class, Byte::parseByte);
         register(Byte.class, Byte::parseByte);

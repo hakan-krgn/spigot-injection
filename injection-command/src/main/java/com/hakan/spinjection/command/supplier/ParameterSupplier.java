@@ -13,10 +13,11 @@ import javax.annotation.Nonnull;
 public interface ParameterSupplier<I> {
 
     /**
-     * Gets parameter and convert.
+     * Gets the parameter and
+     * converts it to the desired type.
      *
-     * @param parameter The parameter to get.
-     * @return The parameter.
+     * @param parameter parameter to parse
+     * @return parsed parameter
      */
     @Nonnull
     I get(@Nonnull String parameter);
