@@ -10,7 +10,6 @@ import com.hakan.spinjection.cache.BootstrapCache;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.module.PluginModule;
 import com.hakan.spinjection.module.SpigotModule;
-import com.hakan.spinjection.utils.ReflectionUtils;
 import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 
@@ -25,7 +24,6 @@ import java.util.TreeSet;
  * all classes that are specified
  * in modules.
  */
-@Scanner("com.hakan.spinjection")
 public class SpigotBootstrap extends Module {
 
     private static final BootstrapCache CACHE = new BootstrapCache();
@@ -68,10 +66,13 @@ public class SpigotBootstrap extends Module {
      * @param plugin plugin instance
      */
     private SpigotBootstrap(@Nonnull Plugin plugin) {
+        if (plugin.getClass().isAnnotationPresent(Scanner.class))
+            throw new RuntimeException("plugin class must not be annotated with @Scanner");
+
         this.plugin = plugin;
         this.modules = new TreeSet<>();
-        this.spigotReflection = ReflectionUtils.createFrom(this);
-        this.pluginReflection = ReflectionUtils.createFrom(plugin);
+        this.spigotReflection = new Reflection("com.hakan.spinjection");
+        this.pluginReflection = new Reflection(plugin.getClass().getAnnotation(Scanner.class).value());
 
         this.injector = Injector.of(this);
         this.filterEngine = new FilterEngine(this);
