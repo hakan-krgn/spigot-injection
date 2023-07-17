@@ -49,6 +49,9 @@ public class BootstrapCache {
      * @return SpigotBootstrap instance
      */
     public @Nonnull SpigotBootstrap put(@Nonnull SpigotBootstrap bootstrap) {
+        if (this.findByClass(bootstrap.getPlugin().getClass()).isPresent())
+            throw new RuntimeException(bootstrap.getPlugin().getName() + " is already initialized!");
+
         this.cache.put(bootstrap.getPlugin().getClass(), bootstrap);
         return bootstrap;
     }
@@ -61,6 +64,9 @@ public class BootstrapCache {
      * @return SpigotBootstrap instance
      */
     public @Nonnull SpigotBootstrap remove(@Nonnull Class<?> clazz) {
+        if (!this.findByClass(clazz).isPresent())
+            throw new RuntimeException(clazz.getName() + " is not initialized!");
+
         return this.cache.remove(clazz);
     }
 }
