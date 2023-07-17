@@ -24,6 +24,7 @@ import java.util.TreeSet;
  * all classes that are specified
  * in modules.
  */
+@Scanner("com.hakan.spinjection")
 public class SpigotBootstrap extends Module {
 
     private static final BootstrapCache CACHE = new BootstrapCache();
@@ -66,12 +67,16 @@ public class SpigotBootstrap extends Module {
      * @param plugin plugin instance
      */
     private SpigotBootstrap(@Nonnull Plugin plugin) {
-        if (plugin.getClass().isAnnotationPresent(Scanner.class))
-            throw new RuntimeException("plugin class must not be annotated with @Scanner");
+        if (!this.getClass().isAnnotationPresent(Scanner.class))
+            throw new RuntimeException("this class must not be annotated with @Scanner!");
+        if (!plugin.getClass().isAnnotationPresent(Scanner.class))
+            throw new RuntimeException("plugin class must not be annotated with @Scanner!");
+
 
         this.plugin = plugin;
         this.modules = new TreeSet<>();
-        this.spigotReflection = new Reflection("com.hakan.spinjection");
+
+        this.spigotReflection = new Reflection(this.getClass().getAnnotation(Scanner.class).value());
         this.pluginReflection = new Reflection(plugin.getClass().getAnnotation(Scanner.class).value());
 
         this.injector = Injector.of(this);
