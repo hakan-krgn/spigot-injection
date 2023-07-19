@@ -218,7 +218,7 @@ public class DbConnection {
             return entity;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("entity couldn't be saved!", e);
+            throw new IllegalArgumentException("entity couldn't be deleted!", e);
         } finally {
             this.session.getTransaction().commit();
         }
