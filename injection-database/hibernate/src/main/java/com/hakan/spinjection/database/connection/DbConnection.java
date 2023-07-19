@@ -181,6 +181,7 @@ public class DbConnection {
             dbQuery.getQuery().executeUpdate();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("query couldn't be executed!", e);
         } finally {
             this.session.getTransaction().commit();
@@ -197,6 +198,7 @@ public class DbConnection {
             this.session.beginTransaction();
             return this.session.find(entity.getClass(), this.session.save(entity));
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("entity couldn't be saved!", e);
         } finally {
             this.session.getTransaction().commit();
@@ -214,6 +216,7 @@ public class DbConnection {
             this.session.delete(entity);
             return entity;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("entity couldn't be saved!", e);
         } finally {
             this.session.getTransaction().commit();
