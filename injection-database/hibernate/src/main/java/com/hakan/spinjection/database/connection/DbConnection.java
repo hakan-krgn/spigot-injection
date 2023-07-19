@@ -252,7 +252,7 @@ public class DbConnection {
         Configuration configuration = new Configuration();
         configuration.setProperty("hibernate.hbm2ddl.auto", "update");
         configuration.setProperty("hibernate.connection.autocommit", "true");
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
 
         configuration.setProperty("hibernate.connection.url", this.credential.url());
         configuration.setProperty("hibernate.connection.username", this.credential.username());
