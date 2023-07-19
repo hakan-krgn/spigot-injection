@@ -196,7 +196,8 @@ public class DbConnection {
     public synchronized @Nonnull Object save(@Nonnull Object entity) {
         try {
             this.session.beginTransaction();
-            return this.session.find(entity.getClass(), this.session.save(entity));
+            this.session.persist(entity);
+            return entity;
         } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException("entity couldn't be saved!", e);

@@ -1,6 +1,6 @@
 dependencies {
     compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
-    compileOnly 'org.hibernate.orm:hibernate-java8:6.0.0.Alpha7'
+    compileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
 
     implementation project(':injection-core')
     implementation project(':injection-config')
