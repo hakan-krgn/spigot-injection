@@ -4,13 +4,17 @@ import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.database.annotations.Query;
 import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.DbConnection;
+import com.hakan.spinjection.database.connection.credential.DbCredential;
+import com.hakan.spinjection.database.connection.properties.DbProperties;
 import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.utils.ProxyUtils;
+import org.hibernate.Session;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -89,17 +93,18 @@ public class DatabaseExecutor implements SpigotExecutor {
     @Override
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
-        try {
-            this.dbConnection = new DbConnection(bootstrap.getInstance(this.repository.credential()), bootstrap.getReflection());
-        } catch (RuntimeException e) {
-            this.dbConnection = new DbConnection(this.repository, bootstrap.getReflection());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.dbConnection = new DbConnection(
+                DbCredential.of(bootstrap, this.repository),
+                DbProperties.of(bootstrap),
+                bootstrap.getReflection()
+        );
 
-        for (String query : this.repository.queries()) {
-            this.dbConnection.executeUpdate(query);
-        }
+
+        Session session = this.dbConnection.getSession();
+        session.getTransaction().begin();
+        Arrays.stream(this.repository.queries())
+                .forEach(query -> session.createNativeQuery(query).executeUpdate());
+        session.getTransaction().commit();
     }
 
     /**

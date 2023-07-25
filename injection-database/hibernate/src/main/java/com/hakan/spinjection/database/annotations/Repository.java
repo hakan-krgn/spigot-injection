@@ -1,7 +1,5 @@
 package com.hakan.spinjection.database.annotations;
 
-import com.hakan.spinjection.database.connection.credential.DbCredential;
-
 import javax.annotation.Nonnull;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -51,7 +49,6 @@ public @interface Repository {
     @Nonnull
     String password() default "";
 
-
     /**
      * Queries to execute on startup.
      *
@@ -59,14 +56,6 @@ public @interface Repository {
      */
     @Nonnull
     String[] queries() default {};
-
-    /**
-     * Properties to set on creation.
-     *
-     * @return properties
-     */
-    @Nonnull
-    String[] properties() default {};
 
 
     /**
@@ -84,13 +73,4 @@ public @interface Repository {
      */
     @Nonnull
     Class<?> entity();
-
-
-    /**
-     * Credential class to connect to the database.
-     *
-     * @return credential
-     */
-    @Nonnull
-    Class<? extends DbCredential> credential() default DbCredential.class;
 }
