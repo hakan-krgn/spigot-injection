@@ -7,7 +7,7 @@ dependencies {
     implementation project(':injection-command')
     implementation project(':injection-listener')
     implementation project(':injection-scheduler')
-    implementation project(':injection-database:hibernate')
+    implementation project(':injection-database:hibernate8')
 }
 
 tasks.compileJava.dependsOn(

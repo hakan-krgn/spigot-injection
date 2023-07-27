@@ -5,13 +5,13 @@ import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.credential.DbCredential;
 import com.hakan.spinjection.database.connection.properties.DbProperties;
 import com.hakan.spinjection.database.connection.query.DbQuery;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import java.util.List;
 
 /**

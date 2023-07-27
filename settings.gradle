@@ -1,12 +1,13 @@
 rootProject.name = 'spigot-injection'
 
-include 'injection-command'
-include 'injection-config'
 include 'injection-core'
-include 'injection-database:hibernate'
-include 'injection-database:native'
+include 'injection-config'
+include 'injection-command'
 include 'injection-listener'
 include 'injection-scheduler'
+include 'injection-database:native'
+include 'injection-database:hibernate'
+include 'injection-database:hibernate8'
 
 include 'plugin-examples:user-plugin'
 include 'plugin-examples:full-plugin'
