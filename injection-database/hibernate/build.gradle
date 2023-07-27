@@ -1,3 +1,5 @@
+sourceCompatibility = 11
+
 dependencies {
     implementation project(':injection-core')
     compileOnly 'org.hibernate.orm:hibernate-core:6.2.7.Final'

@@ -16,5 +16,5 @@ tasks.compileJava.dependsOn(
         ':injection-command:shadowJar',
         ':injection-listener:shadowJar',
         ':injection-scheduler:shadowJar',
-        ':injection-database:hibernate:shadowJar'
+        ':injection-database:hibernate8:shadowJar'
 )
