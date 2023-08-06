@@ -59,13 +59,4 @@ public @interface Repository {
      */
     @Nonnull
     String[] queries() default {};
-
-
-    /**
-     * Credential class to connect to the database.
-     *
-     * @return credential
-     */
-    @Nonnull
-    Class<? extends DbCredential> credential() default DbCredential.class;
 }

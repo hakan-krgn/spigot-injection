@@ -1,5 +1,6 @@
 package com.hakan.spinjection.database.connection.credential;
 
+import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.database.annotations.Repository;
 
 import javax.annotation.Nonnull;
@@ -9,6 +10,26 @@ import javax.annotation.Nonnull;
  * to connect to the database.
  */
 public class DbCredential {
+
+    /**
+     * Gets or creates a {@link DbCredential}.
+     * <p>
+     * If the {@link DbCredential} is not found
+     * in the {@link SpigotBootstrap} instance,
+     * it will create a new {@link DbCredential}.
+     *
+     * @param bootstrap  spigot bootstrap instance
+     * @param repository repository annotation
+     * @return credential
+     */
+    public static @Nonnull DbCredential of(@Nonnull SpigotBootstrap bootstrap,
+                                           @Nonnull Repository repository) {
+        try {
+            return bootstrap.getInstance(DbCredential.class);
+        } catch (Exception ex) {
+            return of(repository);
+        }
+    }
 
     /**
      * Creates a new {@link DbCredential}.

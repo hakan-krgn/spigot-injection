@@ -4,6 +4,7 @@ import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.database.annotations.Query;
 import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.connection.DbConnection;
+import com.hakan.spinjection.database.connection.credential.DbCredential;
 import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.database.connection.result.DbResult;
 import com.hakan.spinjection.executor.SpigotExecutor;
@@ -12,6 +13,7 @@ import com.hakan.spinjection.utils.ProxyUtils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * DatabaseExecutor is the executor class
@@ -88,17 +90,8 @@ public class DatabaseExecutor implements SpigotExecutor {
     @Override
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
-        try {
-            this.dbConnection = new DbConnection(bootstrap.getInstance(this.repository.credential()));
-        } catch (RuntimeException e) {
-            this.dbConnection = new DbConnection(this.repository);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (String query : this.repository.queries()) {
-            this.dbConnection.executeUpdate(query);
-        }
+        this.dbConnection = new DbConnection(DbCredential.of(bootstrap, this.repository));
+        Arrays.stream(this.repository.queries()).forEach(query -> this.dbConnection.executeUpdate(query));
     }
 
     /**
