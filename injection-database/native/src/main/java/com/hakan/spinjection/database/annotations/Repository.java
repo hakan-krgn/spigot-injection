@@ -1,7 +1,5 @@
 package com.hakan.spinjection.database.annotations;
 
-import com.hakan.spinjection.database.connection.credential.DbCredential;
-
 import javax.annotation.Nonnull;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
