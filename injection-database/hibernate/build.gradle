@@ -21,4 +21,7 @@ publishing {
     }
 }
 
-tasks.compileJava.dependsOn(':injection-core:shadowJar')
+tasks.compileJava.dependsOn(
+        ':injection-core:jar',
+        ':injection-core:shadowJar'
+)

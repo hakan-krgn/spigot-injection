@@ -8,8 +8,15 @@ dependencies {
 }
 
 tasks.compileJava.dependsOn(
+        ':injection-core:jar',
         ':injection-core:shadowJar',
+
+        ':injection-config:jar',
         ':injection-config:shadowJar',
+
+        ':injection-command:jar',
         ':injection-command:shadowJar',
+
+        ':injection-listener:jar',
         ':injection-listener:shadowJar',
 )

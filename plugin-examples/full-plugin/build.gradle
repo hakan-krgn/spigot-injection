@@ -11,10 +11,21 @@ dependencies {
 }
 
 tasks.compileJava.dependsOn(
+        ':injection-core:jar',
         ':injection-core:shadowJar',
+
+        ':injection-config:jar',
         ':injection-config:shadowJar',
+
+        ':injection-command:jar',
         ':injection-command:shadowJar',
+
+        ':injection-listener:jar',
         ':injection-listener:shadowJar',
+
+        ':injection-scheduler:jar',
         ':injection-scheduler:shadowJar',
+
+        ':injection-database:hibernate8:jar',
         ':injection-database:hibernate8:shadowJar'
 )
