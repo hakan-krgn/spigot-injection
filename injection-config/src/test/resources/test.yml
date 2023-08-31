@@ -1,4 +1,0 @@
-test:
-  message: "Hello, World!"
-  amount: 3
-  enabled: true
