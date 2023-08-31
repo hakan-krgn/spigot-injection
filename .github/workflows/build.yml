@@ -37,11 +37,11 @@ jobs:
       - name: 'Gradle permissions'
         run: 'chmod +x gradlew'
 
-      - name: 'Clean and build project'
-        run: './gradlew clean build'
-
       - name: 'Test project'
         run: './gradlew test'
+
+      - name: 'Clean and build project'
+        run: './gradlew clean build'
 
       - name: 'Publish project'
         run: './gradlew publishToMavenLocal'
