@@ -36,7 +36,6 @@ subprojects {
         compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
         implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.5.0'
 
-        testImplementation 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     }
