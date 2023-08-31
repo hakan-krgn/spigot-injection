@@ -10,26 +10,26 @@ import java.util.stream.IntStream;
 @Service
 public class TestService {
 
-	private final TestConfig config;
+    private final TestConfig config;
 
-	@Autowired
-	public TestService(TestConfig config) {
-		this.config = config;
-		System.out.println(this.config.getMessage());
-	}
+    @Autowired
+    public TestService(TestConfig config) {
+        this.config = config;
+        System.out.println(this.config.getMessage());
+    }
 
-	public void saveConfig() {
-		this.config.save();
-	}
+    public void saveConfig() {
+        this.config.save();
+    }
 
-	public void reloadConfig() {
-		this.config.reload();
-	}
+    public void reloadConfig() {
+        this.config.reload();
+    }
 
-	public void sendMessage(Player player) {
-		IntStream.range(0, this.config.getAmount())
-			.filter(i -> this.config.isEnabled())
-			.mapToObj(i -> this.config.getMessage())
-			.forEach(player::sendMessage);
-	}
+    public void sendMessage(Player player) {
+        IntStream.range(0, this.config.getAmount())
+                .filter(i -> this.config.isEnabled())
+                .mapToObj(i -> this.config.getMessage())
+                .forEach(player::sendMessage);
+    }
 }

@@ -9,18 +9,18 @@ import org.bukkit.event.player.PlayerJoinEvent;
 @Component
 public class TestListener {
 
-	private final TestService service;
+    private final TestService service;
 
-	@Autowired
-	public TestListener(TestService service) {
-		this.service = service;
-	}
+    @Autowired
+    public TestListener(TestService service) {
+        this.service = service;
+    }
 
-	@EventListener
-	public void onJoin(PlayerJoinEvent event) {
-		this.service.create(
-			event.getPlayer().getName(),
-			event.getPlayer().getDisplayName()
-		);
-	}
+    @EventListener
+    public void onJoin(PlayerJoinEvent event) {
+        this.service.create(
+                event.getPlayer().getName(),
+                event.getPlayer().getDisplayName()
+        );
+    }
 }

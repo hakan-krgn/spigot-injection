@@ -19,99 +19,99 @@ import java.lang.reflect.Method;
  */
 public class SchedulerExecutor extends BukkitRunnable implements SpigotExecutor {
 
-	private Object instance;
-	private FilterEngine filterEngine;
-	private final Plugin plugin;
-	private final Method method;
-	private final long delay;
-	private final long period;
-	private final boolean async;
+    private Object instance;
+    private FilterEngine filterEngine;
+    private final Plugin plugin;
+    private final Method method;
+    private final long delay;
+    private final long period;
+    private final boolean async;
 
-	/**
-	 * Constructor of SchedulerRunnable.
-	 *
-	 * @param plugin plugin
-	 * @param method method
-	 */
-	public SchedulerExecutor(@Nonnull Plugin plugin,
-							 @Nonnull Method method) {
-		this(plugin, method, method.getAnnotation(Scheduler.class));
-	}
+    /**
+     * Constructor of SchedulerRunnable.
+     *
+     * @param plugin plugin
+     * @param method method
+     */
+    public SchedulerExecutor(@Nonnull Plugin plugin,
+                             @Nonnull Method method) {
+        this(plugin, method, method.getAnnotation(Scheduler.class));
+    }
 
-	/**
-	 * Constructor of SchedulerRunnable.
-	 *
-	 * @param plugin    plugin
-	 * @param scheduler scheduler annotation
-	 * @param method    method
-	 */
-	public SchedulerExecutor(@Nonnull Plugin plugin,
-							 @Nonnull Method method,
-							 @Nonnull Scheduler scheduler) {
-		this.plugin = plugin;
-		this.method = method;
-		this.async = method.isAnnotationPresent(Async.class);
-		this.delay = scheduler.timeUnit().toMillis(scheduler.delay()) / 50;
-		this.period = scheduler.timeUnit().toMillis(scheduler.period()) / 50;
-	}
+    /**
+     * Constructor of SchedulerRunnable.
+     *
+     * @param plugin    plugin
+     * @param scheduler scheduler annotation
+     * @param method    method
+     */
+    public SchedulerExecutor(@Nonnull Plugin plugin,
+                             @Nonnull Method method,
+                             @Nonnull Scheduler scheduler) {
+        this.plugin = plugin;
+        this.method = method;
+        this.async = method.isAnnotationPresent(Async.class);
+        this.delay = scheduler.timeUnit().toMillis(scheduler.delay()) / 50;
+        this.period = scheduler.timeUnit().toMillis(scheduler.period()) / 50;
+    }
 
-	/**
-	 * Gets the instance of the method
-	 * that is annotated with {@link Scheduler}.
-	 *
-	 * @return instance
-	 */
-	@Override
-	public @Nullable Object getInstance() {
-		return this.instance;
-	}
+    /**
+     * Gets the instance of the method
+     * that is annotated with {@link Scheduler}.
+     *
+     * @return instance
+     */
+    @Override
+    public @Nullable Object getInstance() {
+        return this.instance;
+    }
 
-	/**
-	 * Gets the declaring class of the method
-	 * that is annotated with {@link Scheduler}.
-	 *
-	 * @return declaring class
-	 */
-	@Override
-	public @Nonnull Class<?> getDeclaringClass() {
-		return this.method.getDeclaringClass();
-	}
+    /**
+     * Gets the declaring class of the method
+     * that is annotated with {@link Scheduler}.
+     *
+     * @return declaring class
+     */
+    @Override
+    public @Nonnull Class<?> getDeclaringClass() {
+        return this.method.getDeclaringClass();
+    }
 
 
 
-	/**
-	 * Starts the scheduler.
-	 *
-	 * @param bootstrap injector
-	 * @param instance  instance
-	 */
-	@Override
-	public void execute(@Nonnull SpigotBootstrap bootstrap,
-						@Nonnull Object instance) {
-		this.instance = instance;
-		this.filterEngine = bootstrap.getFilterEngine();
+    /**
+     * Starts the scheduler.
+     *
+     * @param bootstrap injector
+     * @param instance  instance
+     */
+    @Override
+    public void execute(@Nonnull SpigotBootstrap bootstrap,
+                        @Nonnull Object instance) {
+        this.instance = instance;
+        this.filterEngine = bootstrap.getFilterEngine();
 
-		if (this.period == 0 && this.async) {
-			this.runTaskLaterAsynchronously(this.plugin, this.delay);
-		} else if (this.period == 0) {
-			this.runTaskLater(this.plugin, this.delay);
-		} else if (this.async) {
-			this.runTaskTimerAsynchronously(this.plugin, this.delay, this.period);
-		} else {
-			this.runTaskTimer(this.plugin, this.delay, this.period);
-		}
-	}
+        if (this.period == 0 && this.async) {
+            this.runTaskLaterAsynchronously(this.plugin, this.delay);
+        } else if (this.period == 0) {
+            this.runTaskLater(this.plugin, this.delay);
+        } else if (this.async) {
+            this.runTaskTimerAsynchronously(this.plugin, this.delay, this.period);
+        } else {
+            this.runTaskTimer(this.plugin, this.delay, this.period);
+        }
+    }
 
-	/**
-	 * Executes the method which is
-	 * annotated with {@link Scheduler}.
-	 */
-	@Override
-	@SneakyThrows
-	public void run() {
-		if (!this.filterEngine.run(this.method, new Object[0]))
-			return;
+    /**
+     * Executes the method which is
+     * annotated with {@link Scheduler}.
+     */
+    @Override
+    @SneakyThrows
+    public void run() {
+        if (!this.filterEngine.run(this.method, new Object[0]))
+            return;
 
-		this.method.invoke(this.instance);
-	}
+        this.method.invoke(this.instance);
+    }
 }

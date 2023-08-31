@@ -16,45 +16,45 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Repository {
 
-	/**
-	 * Database url to connect.
-	 * Default value is "jdbc:mysql://localhost:3306".
-	 *
-	 * @return url
-	 */
-	@Nonnull
-	String url() default "jdbc:mysql://localhost:3306";
+    /**
+     * Database url to connect.
+     * Default value is "jdbc:mysql://localhost:3306".
+     *
+     * @return url
+     */
+    @Nonnull
+    String url() default "jdbc:mysql://localhost:3306";
 
-	/**
-	 * Database driver.
-	 *
-	 * @return driver
-	 */
-	@Nonnull
-	String driver() default "com.mysql.cj.jdbc.Driver";
+    /**
+     * Database driver.
+     *
+     * @return driver
+     */
+    @Nonnull
+    String driver() default "com.mysql.cj.jdbc.Driver";
 
-	/**
-	 * Username to connect to the database.
-	 *
-	 * @return username
-	 */
-	@Nonnull
-	String username() default "root";
+    /**
+     * Username to connect to the database.
+     *
+     * @return username
+     */
+    @Nonnull
+    String username() default "root";
 
-	/**
-	 * Password to connect to the database.
-	 *
-	 * @return password
-	 */
-	@Nonnull
-	String password() default "";
+    /**
+     * Password to connect to the database.
+     *
+     * @return password
+     */
+    @Nonnull
+    String password() default "";
 
 
-	/**
-	 * Queries to execute on startup.
-	 *
-	 * @return queries
-	 */
-	@Nonnull
-	String[] queries() default {};
+    /**
+     * Queries to execute on startup.
+     *
+     * @return queries
+     */
+    @Nonnull
+    String[] queries() default {};
 }

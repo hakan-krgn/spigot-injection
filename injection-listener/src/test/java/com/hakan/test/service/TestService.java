@@ -7,13 +7,13 @@ import org.bukkit.entity.Player;
 @Service
 public class TestService {
 
-	@Autowired
-	public TestService() {
+    @Autowired
+    public TestService() {
 
-	}
+    }
 
-	public void sendMessage(Player player, String message) {
-		System.out.println(message);
-		player.sendMessage(message);
-	}
+    public void sendMessage(Player player, String message) {
+        System.out.println(message);
+        player.sendMessage(message);
+    }
 }

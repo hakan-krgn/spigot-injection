@@ -9,15 +9,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 @Component
 public class TestListener {
 
-	private final TestService service;
+    private final TestService service;
 
-	@Autowired
-	public TestListener(TestService service) {
-		this.service = service;
-	}
+    @Autowired
+    public TestListener(TestService service) {
+        this.service = service;
+    }
 
-	@EventListener
-	public void playerJoin(PlayerJoinEvent event) {
-		this.service.sendMessage(event.getPlayer(), "welcome to the server!");
-	}
+    @EventListener
+    public void playerJoin(PlayerJoinEvent event) {
+        this.service.sendMessage(event.getPlayer(), "welcome to the server!");
+    }
 }

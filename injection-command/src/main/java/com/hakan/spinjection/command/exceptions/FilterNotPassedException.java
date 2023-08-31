@@ -7,12 +7,12 @@ import javax.annotation.Nonnull;
  */
 public class FilterNotPassedException extends RuntimeException {
 
-	/**
-	 * Constructor of {@link FilterNotPassedException}
-	 *
-	 * @param message the message that will be sent to the user
-	 */
-	public FilterNotPassedException(@Nonnull String message) {
-		super(message);
-	}
+    /**
+     * Constructor of {@link FilterNotPassedException}
+     *
+     * @param message the message that will be sent to the user
+     */
+    public FilterNotPassedException(@Nonnull String message) {
+        super(message);
+    }
 }

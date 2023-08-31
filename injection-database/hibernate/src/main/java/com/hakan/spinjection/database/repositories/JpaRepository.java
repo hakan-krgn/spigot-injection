@@ -15,20 +15,20 @@ import java.util.List;
  */
 public interface JpaRepository<ID, ENTITY> extends CrudRepository<ID, ENTITY> {
 
-	/**
-	 * Finds an entity by id.
-	 *
-	 * @param id id
-	 * @return entity
-	 */
-	@Nullable
-	ENTITY findById(@Nonnull ID id);
+    /**
+     * Finds an entity by id.
+     *
+     * @param id id
+     * @return entity
+     */
+    @Nullable
+    ENTITY findById(@Nonnull ID id);
 
-	/**
-	 * Finds all entities.
-	 *
-	 * @return entities
-	 */
-	@Nonnull
-	List<ENTITY> findAll();
+    /**
+     * Finds all entities.
+     *
+     * @return entities
+     */
+    @Nonnull
+    List<ENTITY> findAll();
 }

@@ -19,40 +19,40 @@ import java.util.Set;
 @SuppressWarnings({"rawtypes"})
 public class CommandModule extends SpigotModule<Class, Command> {
 
-	/**
-	 * Constructor of {@link CommandModule}.
-	 *
-	 * @param bootstrap bootstrap
-	 */
-	public CommandModule(@Nonnull SpigotBootstrap bootstrap) {
-		super(bootstrap, Class.class, Command.class);
-	}
+    /**
+     * Constructor of {@link CommandModule}.
+     *
+     * @param bootstrap bootstrap
+     */
+    public CommandModule(@Nonnull SpigotBootstrap bootstrap) {
+        super(bootstrap, Class.class, Command.class);
+    }
 
-	/**
-	 * Loads classes which are annotated with {@link Command}.
-	 * And creates {@link CommandExecutor} for each class to
-	 * handle command processes.
-	 *
-	 * @param classes classes that are annotated with {@link Command}.
-	 */
-	@Override
-	public void load(@Nonnull Set<Class> classes) {
-		for (Class clazz : classes) {
-			super.bind(new ClassEntity(super.bootstrap, clazz, Scope.SINGLETON));
-			super.executors.add(new CommandExecutor(super.plugin, clazz));
-		}
-	}
+    /**
+     * Loads classes which are annotated with {@link Command}.
+     * And creates {@link CommandExecutor} for each class to
+     * handle command processes.
+     *
+     * @param classes classes that are annotated with {@link Command}.
+     */
+    @Override
+    public void load(@Nonnull Set<Class> classes) {
+        for (Class clazz : classes) {
+            super.bind(new ClassEntity(super.bootstrap, clazz, Scope.SINGLETON));
+            super.executors.add(new CommandExecutor(super.plugin, clazz));
+        }
+    }
 
-	/**
-	 * Executes all command executors that are
-	 * saved in {@link #executors}.
-	 * <p>
-	 * Then it runs execute method of each executor.
-	 */
-	@Override
-	public void execute() {
-		for (SpigotExecutor executor : super.executors) {
-			executor.execute(super.bootstrap, super.bootstrap.getInstance(executor.getDeclaringClass()));
-		}
-	}
+    /**
+     * Executes all command executors that are
+     * saved in {@link #executors}.
+     * <p>
+     * Then it runs execute method of each executor.
+     */
+    @Override
+    public void execute() {
+        for (SpigotExecutor executor : super.executors) {
+            executor.execute(super.bootstrap, super.bootstrap.getInstance(executor.getDeclaringClass()));
+        }
+    }
 }

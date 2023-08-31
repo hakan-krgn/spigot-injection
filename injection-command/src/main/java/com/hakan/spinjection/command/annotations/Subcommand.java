@@ -16,19 +16,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Subcommand {
 
-	/**
-	 * Gets permission of annotation.
-	 *
-	 * @return Permission of annotation.
-	 */
-	@Nonnull
-	String permission() default "";
+    /**
+     * Gets permission of annotation.
+     *
+     * @return Permission of annotation.
+     */
+    @Nonnull
+    String permission() default "";
 
-	/**
-	 * Gets the permission message of annotation.
-	 *
-	 * @return Permission message of annotation.
-	 */
-	@Nonnull
-	String permissionMessage() default "";
+    /**
+     * Gets the permission message of annotation.
+     *
+     * @return Permission message of annotation.
+     */
+    @Nonnull
+    String permissionMessage() default "";
 }

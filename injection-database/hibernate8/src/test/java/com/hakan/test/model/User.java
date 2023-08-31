@@ -16,54 +16,54 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	@Column(name = "surname", nullable = false)
-	private String surname;
+    @Column(name = "surname", nullable = false)
+    private String surname;
 
-	@Column(name = "age", nullable = false)
-	private int age;
+    @Column(name = "age", nullable = false)
+    private int age;
 
-	@OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private UserCredential credential;
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private UserCredential credential;
 
-	public User() {
+    public User() {
 
-	}
+    }
 
-	public User(String name,
-				String surname,
-				int age,
-				String email,
-				String password) {
-		this.age = age;
-		this.name = name;
-		this.surname = surname;
-		this.credential = new UserCredential(this, email, password);
-	}
+    public User(String name,
+                String surname,
+                int age,
+                String email,
+                String password) {
+        this.age = age;
+        this.name = name;
+        this.surname = surname;
+        this.credential = new UserCredential(this, email, password);
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getSurname() {
-		return this.surname;
-	}
+    public String getSurname() {
+        return this.surname;
+    }
 
-	public int getAge() {
-		return this.age;
-	}
+    public int getAge() {
+        return this.age;
+    }
 
-	public UserCredential getCredential() {
-		return this.credential;
-	}
+    public UserCredential getCredential() {
+        return this.credential;
+    }
 }
