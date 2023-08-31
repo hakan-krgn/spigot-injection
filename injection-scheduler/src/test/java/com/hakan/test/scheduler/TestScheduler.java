@@ -13,22 +13,22 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TestScheduler {
 
-    private final TestService service;
+	private final TestService service;
 
-    @Autowired
-    public TestScheduler(TestService service) {
-        this.service = service;
-    }
+	@Autowired
+	public TestScheduler(TestService service) {
+		this.service = service;
+	}
 
-    @Async
-    @Scheduler(
-            delay = 1,
-            period = 5,
-            timeUnit = TimeUnit.MINUTES
-    )
-    public void run() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            this.service.sendMessage(player, "test");
-        }
-    }
+	@Async
+	@Scheduler(
+		delay = 1,
+		period = 5,
+		timeUnit = TimeUnit.MINUTES
+	)
+	public void run() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			this.service.sendMessage(player, "test");
+		}
+	}
 }

@@ -12,13 +12,13 @@ import javax.annotation.Nonnull;
 @FunctionalInterface
 public interface ParameterSupplier<I> {
 
-    /**
-     * Gets the parameter and
-     * converts it to the desired type.
-     *
-     * @param parameter parameter to parse
-     * @return parsed parameter
-     */
-    @Nonnull
-    I get(@Nonnull String parameter);
+	/**
+	 * Gets the parameter and
+	 * converts it to the desired type.
+	 *
+	 * @param parameter parameter to parse
+	 * @return parsed parameter
+	 */
+	@Nonnull
+	I get(@Nonnull String parameter);
 }

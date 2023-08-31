@@ -8,12 +8,12 @@ import javax.annotation.Nonnull;
  */
 public class InvalidArgsLengthException extends RuntimeException {
 
-    /**
-     * Constructor of {@link InvalidArgsLengthException}
-     *
-     * @param message the message that will be sent
-     */
-    public InvalidArgsLengthException(@Nonnull String message) {
-        super(message);
-    }
+	/**
+	 * Constructor of {@link InvalidArgsLengthException}
+	 *
+	 * @param message the message that will be sent
+	 */
+	public InvalidArgsLengthException(@Nonnull String message) {
+		super(message);
+	}
 }

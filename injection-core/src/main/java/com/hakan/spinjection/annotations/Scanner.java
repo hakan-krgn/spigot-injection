@@ -16,11 +16,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scanner {
 
-    /**
-     * Package path to scan.
-     *
-     * @return Package path to scan.
-     */
-    @Nonnull
-    String value() default "";
+	/**
+	 * Package path to scan.
+	 *
+	 * @return Package path to scan.
+	 */
+	@Nonnull
+	String value() default "";
 }

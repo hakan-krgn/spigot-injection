@@ -5,6 +5,6 @@ package com.hakan.spinjection.config.container;
  */
 public enum ContainerType {
 
-    JSON,
-    YAML
+	JSON,
+	YAML
 }

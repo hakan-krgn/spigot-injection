@@ -18,46 +18,46 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigFile {
 
-    /**
-     * Path of the config file.
-     *
-     * @return Path of the config file.
-     */
-    @Nonnull
-    String path();
+	/**
+	 * Path of the config file.
+	 *
+	 * @return Path of the config file.
+	 */
+	@Nonnull
+	String path();
 
-    /**
-     * Resource to include
-     * the config file.
-     *
-     * @return Resource to include
-     * the config file
-     */
-    @Nonnull
-    String resource() default "";
+	/**
+	 * Resource to include
+	 * the config file.
+	 *
+	 * @return Resource to include
+	 * the config file
+	 */
+	@Nonnull
+	String resource() default "";
 
-    /**
-     * Config type of the file.
-     *
-     * @return config type of the file
-     */
-    @Nonnull
-    ContainerType type() default ContainerType.YAML;
+	/**
+	 * Config type of the file.
+	 *
+	 * @return config type of the file
+	 */
+	@Nonnull
+	ContainerType type() default ContainerType.YAML;
 
 
-    /**
-     * Save timer settings
-     * for the config file.
-     *
-     * @return save timer settings
-     */
-    ConfigTimer saveTimer() default @ConfigTimer;
+	/**
+	 * Save timer settings
+	 * for the config file.
+	 *
+	 * @return save timer settings
+	 */
+	ConfigTimer saveTimer() default @ConfigTimer;
 
-    /**
-     * Reload timer settings
-     * for the config file.
-     *
-     * @return reload timer settings
-     */
-    ConfigTimer reloadTimer() default @ConfigTimer;
+	/**
+	 * Reload timer settings
+	 * for the config file.
+	 *
+	 * @return reload timer settings
+	 */
+	ConfigTimer reloadTimer() default @ConfigTimer;
 }

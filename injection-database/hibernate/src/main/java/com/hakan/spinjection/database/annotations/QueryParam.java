@@ -18,11 +18,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QueryParam {
 
-    /**
-     * Query parameter name.
-     *
-     * @return parameter name
-     */
-    @Nonnull
-    String value();
+	/**
+	 * Query parameter name.
+	 *
+	 * @return parameter name
+	 */
+	@Nonnull
+	String value();
 }

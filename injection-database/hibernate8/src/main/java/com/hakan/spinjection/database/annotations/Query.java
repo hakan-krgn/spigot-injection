@@ -17,11 +17,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Query {
 
-    /**
-     * HQL query to execute.
-     *
-     * @return query
-     */
-    @Nonnull
-    String value();
+	/**
+	 * HQL query to execute.
+	 *
+	 * @return query
+	 */
+	@Nonnull
+	String value();
 }

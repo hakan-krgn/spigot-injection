@@ -15,12 +15,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExecutorOrder {
 
-    /**
-     * Order of the executor.
-     * If the value is smaller, the
-     * executor will be executed first.
-     *
-     * @return Order of the executor.
-     */
-    int value();
+	/**
+	 * Order of the executor.
+	 * If the value is smaller, the
+	 * executor will be executed first.
+	 *
+	 * @return Order of the executor.
+	 */
+	int value();
 }

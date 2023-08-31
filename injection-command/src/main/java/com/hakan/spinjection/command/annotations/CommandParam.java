@@ -16,14 +16,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandParam {
 
-    /**
-     * If the value is not empty, the parameter
-     * must be equal to the value of the annotation.
-     * And if value and parameter are equal, the
-     * method won't be executed.
-     *
-     * @return value
-     */
-    @Nonnull
-    String value() default "";
+	/**
+	 * If the value is not empty, the parameter
+	 * must be equal to the value of the annotation.
+	 * And if value and parameter are equal, the
+	 * method won't be executed.
+	 *
+	 * @return value
+	 */
+	@Nonnull
+	String value() default "";
 }

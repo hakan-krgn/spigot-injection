@@ -14,59 +14,59 @@ import java.util.Optional;
  */
 public class BootstrapCache {
 
-    private final Map<Class<?>, SpigotBootstrap> cache = new HashMap<>();
+	private final Map<Class<?>, SpigotBootstrap> cache = new HashMap<>();
 
 
-    /**
-     * Finds a SpigotBootstrap by class.
-     *
-     * @param clazz class of the plugin
-     * @return SpigotBootstrap instance
-     */
-    public @Nonnull Optional<SpigotBootstrap> findByClass(@Nonnull Class<?> clazz) {
-        return Optional.ofNullable(this.cache.get(clazz));
-    }
+	/**
+	 * Finds a SpigotBootstrap by class.
+	 *
+	 * @param clazz class of the plugin
+	 * @return SpigotBootstrap instance
+	 */
+	public @Nonnull Optional<SpigotBootstrap> findByClass(@Nonnull Class<?> clazz) {
+		return Optional.ofNullable(this.cache.get(clazz));
+	}
 
-    /**
-     * Returns the SpigotBootstrap instance
-     * if it is initialized.
-     * <p>
-     * Otherwise, it throws an exception.
-     *
-     * @param clazz class of the plugin
-     * @return SpigotBootstrap instance
-     */
-    public @Nonnull SpigotBootstrap getByClass(@Nonnull Class<?> clazz) {
-        return this.findByClass(clazz).orElseThrow(() -> new RuntimeException("SpigotBootstrap is not initialized!"));
-    }
+	/**
+	 * Returns the SpigotBootstrap instance
+	 * if it is initialized.
+	 * <p>
+	 * Otherwise, it throws an exception.
+	 *
+	 * @param clazz class of the plugin
+	 * @return SpigotBootstrap instance
+	 */
+	public @Nonnull SpigotBootstrap getByClass(@Nonnull Class<?> clazz) {
+		return this.findByClass(clazz).orElseThrow(() -> new RuntimeException("SpigotBootstrap is not initialized!"));
+	}
 
 
-    /**
-     * Puts a SpigotBootstrap
-     * instance to the cache.
-     *
-     * @param bootstrap SpigotBootstrap instance
-     * @return SpigotBootstrap instance
-     */
-    public @Nonnull SpigotBootstrap put(@Nonnull SpigotBootstrap bootstrap) {
-        if (this.findByClass(bootstrap.getPlugin().getClass()).isPresent())
-            throw new RuntimeException(bootstrap.getPlugin().getName() + " is already initialized!");
+	/**
+	 * Puts a SpigotBootstrap
+	 * instance to the cache.
+	 *
+	 * @param bootstrap SpigotBootstrap instance
+	 * @return SpigotBootstrap instance
+	 */
+	public @Nonnull SpigotBootstrap put(@Nonnull SpigotBootstrap bootstrap) {
+		if (this.findByClass(bootstrap.getPlugin().getClass()).isPresent())
+			throw new RuntimeException(bootstrap.getPlugin().getName() + " is already initialized!");
 
-        this.cache.put(bootstrap.getPlugin().getClass(), bootstrap);
-        return bootstrap;
-    }
+		this.cache.put(bootstrap.getPlugin().getClass(), bootstrap);
+		return bootstrap;
+	}
 
-    /**
-     * Removes a SpigotBootstrap
-     * instance from the cache.
-     *
-     * @param clazz class of the plugin
-     * @return SpigotBootstrap instance
-     */
-    public @Nonnull SpigotBootstrap remove(@Nonnull Class<?> clazz) {
-        if (!this.findByClass(clazz).isPresent())
-            throw new RuntimeException(clazz.getName() + " is not initialized!");
+	/**
+	 * Removes a SpigotBootstrap
+	 * instance from the cache.
+	 *
+	 * @param clazz class of the plugin
+	 * @return SpigotBootstrap instance
+	 */
+	public @Nonnull SpigotBootstrap remove(@Nonnull Class<?> clazz) {
+		if (!this.findByClass(clazz).isPresent())
+			throw new RuntimeException(clazz.getName() + " is not initialized!");
 
-        return this.cache.remove(clazz);
-    }
+		return this.cache.remove(clazz);
+	}
 }

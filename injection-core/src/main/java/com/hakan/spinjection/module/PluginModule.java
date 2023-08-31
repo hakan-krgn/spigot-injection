@@ -9,11 +9,11 @@ import com.hakan.basicdi.module.Module;
  */
 public abstract class PluginModule extends Module {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void configure() {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void configure() {
 
-    }
+	}
 }

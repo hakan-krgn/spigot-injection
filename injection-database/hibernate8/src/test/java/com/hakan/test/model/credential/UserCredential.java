@@ -14,37 +14,37 @@ import javax.persistence.Table;
 @Table(name = "users_credentials")
 public class UserCredential {
 
-    @Id
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private User user;
+	@Id
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private User user;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+	@Column(name = "email", nullable = false)
+	private String email;
 
-    @Column(name = "password", nullable = false, length = 64)
-    private String password;
+	@Column(name = "password", nullable = false, length = 64)
+	private String password;
 
-    public UserCredential() {
+	public UserCredential() {
 
-    }
+	}
 
-    public UserCredential(User user,
-                          String email,
-                          String password) {
-        this.user = user;
-        this.email = email;
-        this.password = password;
-    }
+	public UserCredential(User user,
+						  String email,
+						  String password) {
+		this.user = user;
+		this.email = email;
+		this.password = password;
+	}
 
-    public User getUser() {
-        return this.user;
-    }
+	public User getUser() {
+		return this.user;
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public String getPassword() {
-        return this.password;
-    }
+	public String getPassword() {
+		return this.password;
+	}
 }

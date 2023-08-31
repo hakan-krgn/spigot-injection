@@ -8,12 +8,12 @@ import javax.annotation.Nonnull;
  */
 public class MissingAnnotationException extends RuntimeException {
 
-    /**
-     * Constructor of {@link MissingAnnotationException}
-     *
-     * @param message the message that will be sent
-     */
-    public MissingAnnotationException(@Nonnull String message) {
-        super(message);
-    }
+	/**
+	 * Constructor of {@link MissingAnnotationException}
+	 *
+	 * @param message the message that will be sent
+	 */
+	public MissingAnnotationException(@Nonnull String message) {
+		super(message);
+	}
 }

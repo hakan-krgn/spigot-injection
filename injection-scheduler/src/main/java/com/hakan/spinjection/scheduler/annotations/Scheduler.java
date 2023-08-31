@@ -17,25 +17,25 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Scheduler {
 
-    /**
-     * Gets scheduler delay of annotation.
-     *
-     * @return Scheduler delay of annotation.
-     */
-    long delay() default 0L;
+	/**
+	 * Gets scheduler delay of annotation.
+	 *
+	 * @return Scheduler delay of annotation.
+	 */
+	long delay() default 0L;
 
-    /**
-     * Gets a scheduler period of annotation.
-     *
-     * @return Scheduler period of annotation.
-     */
-    long period() default 0L;
+	/**
+	 * Gets a scheduler period of annotation.
+	 *
+	 * @return Scheduler period of annotation.
+	 */
+	long period() default 0L;
 
-    /**
-     * Gets scheduler time unit of annotation.
-     *
-     * @return Scheduler time unit of annotation.
-     */
-    @Nonnull
-    TimeUnit timeUnit() default TimeUnit.SECONDS;
+	/**
+	 * Gets scheduler time unit of annotation.
+	 *
+	 * @return Scheduler time unit of annotation.
+	 */
+	@Nonnull
+	TimeUnit timeUnit() default TimeUnit.SECONDS;
 }

@@ -17,19 +17,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigValue {
 
-    /**
-     * Key of the value.
-     *
-     * @return key of the value
-     */
-    @Nonnull
-    String value();
+	/**
+	 * Key of the value.
+	 *
+	 * @return key of the value
+	 */
+	@Nonnull
+	String value();
 
-    /**
-     * If the value is text, it will be
-     * colored if this setting is true.
-     *
-     * @return if the value is text, it will be colored
-     */
-    boolean colored() default true;
+	/**
+	 * If the value is text, it will be
+	 * colored if this setting is true.
+	 *
+	 * @return if the value is text, it will be colored
+	 */
+	boolean colored() default true;
 }

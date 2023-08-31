@@ -8,12 +8,12 @@ import javax.annotation.Nonnull;
  */
 public class InsufficientPermissionException extends RuntimeException {
 
-    /**
-     * Constructor of {@link InsufficientPermissionException}
-     *
-     * @param message the message that will be sent to the user
-     */
-    public InsufficientPermissionException(@Nonnull String message) {
-        super(message);
-    }
+	/**
+	 * Constructor of {@link InsufficientPermissionException}
+	 *
+	 * @param message the message that will be sent to the user
+	 */
+	public InsufficientPermissionException(@Nonnull String message) {
+		super(message);
+	}
 }

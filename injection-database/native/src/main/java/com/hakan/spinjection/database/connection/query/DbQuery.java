@@ -14,83 +14,83 @@ import java.util.regex.Pattern;
  */
 public class DbQuery {
 
-    private static final Pattern PATTERN = Pattern.compile("(?<=:)([a-zA-Z0-9.])+");
+	private static final Pattern PATTERN = Pattern.compile("(?<=:)([a-zA-Z0-9.])+");
 
-    /**
-     * Creates a query from arguments,
-     * parameters and base query text.
-     * <p>
-     * Replaces base query text with arguments
-     * and parameters.
-     *
-     * @param parameters parameters
-     * @param values     arguments values
-     * @param queryText  query text
-     * @return DbQuery instance
-     */
-    public static @Nonnull DbQuery create(@Nonnull Parameter[] parameters,
-                                          @Nonnull Object[] values,
-                                          @Nonnull String queryText) {
-        DbQuery dbQuery = new DbQuery(queryText);
+	/**
+	 * Creates a query from arguments,
+	 * parameters and base query text.
+	 * <p>
+	 * Replaces base query text with arguments
+	 * and parameters.
+	 *
+	 * @param parameters parameters
+	 * @param values     arguments values
+	 * @param queryText  query text
+	 * @return DbQuery instance
+	 */
+	public static @Nonnull DbQuery create(@Nonnull Parameter[] parameters,
+										  @Nonnull Object[] values,
+										  @Nonnull String queryText) {
+		DbQuery dbQuery = new DbQuery(queryText);
 
-        for (int i = 0; i < parameters.length; i++) {
-            QueryParam queryParam = parameters[i].getAnnotation(QueryParam.class);
+		for (int i = 0; i < parameters.length; i++) {
+			QueryParam queryParam = parameters[i].getAnnotation(QueryParam.class);
 
-            if (queryParam == null)
-                throw new RuntimeException("parameter must be annotated with @QueryParam!");
-            if (queryParam.value().isEmpty())
-                throw new RuntimeException("parameter value cannot be empty!");
+			if (queryParam == null)
+				throw new RuntimeException("parameter must be annotated with @QueryParam!");
+			if (queryParam.value().isEmpty())
+				throw new RuntimeException("parameter value cannot be empty!");
 
-            dbQuery.replace(queryParam.value(), values[i]);
-        }
+			dbQuery.replace(queryParam.value(), values[i]);
+		}
 
-        return dbQuery;
-    }
+		return dbQuery;
+	}
 
 
 
-    private String query;
+	private String query;
 
-    /**
-     * Constructor of {@link DbQuery}.
-     *
-     * @param query query
-     */
-    public DbQuery(@Nonnull String query) {
-        this.query = query;
-    }
+	/**
+	 * Constructor of {@link DbQuery}.
+	 *
+	 * @param query query
+	 */
+	public DbQuery(@Nonnull String query) {
+		this.query = query;
+	}
 
-    /**
-     * Gets the query.
-     *
-     * @return query
-     */
-    public @Nonnull String getQuery() {
-        return this.query;
-    }
+	/**
+	 * Gets the query.
+	 *
+	 * @return query
+	 */
+	public @Nonnull String getQuery() {
+		return this.query;
+	}
 
-    /**
-     * Replaces the key with the value
-     * from the entity instance.
-     *
-     * @param paramKey   parameter key (Example: :u.credential.password)
-     * @param paramValue parameter value (Example: 123456)
-     */
-    public void replace(@Nonnull String paramKey,
-                        @Nonnull Object paramValue) {
-        Matcher matcher = PATTERN.matcher(this.query);
+	/**
+	 * Replaces the key with the value
+	 * from the entity instance.
+	 *
+	 * @param paramKey   parameter key (Example: :u.credential.password)
+	 * @param paramValue parameter value (Example: 123456)
+	 */
+	public void replace(@Nonnull String paramKey,
+						@Nonnull Object paramValue) {
+		Matcher matcher = PATTERN.matcher(this.query);
 
-        while (matcher.find()) {
-            String key = matcher.group();
-            String[] keys = key.split("\\.");
+		while (matcher.find()) {
+			String key = matcher.group();
+			String[] keys = key.split("\\.");
 
-            if (keys.length == 0 || !keys[0].equals(paramKey))
-                continue;
+			if (keys.length == 0 || !keys[0].equals(paramKey))
+				continue;
 
-            Object instance = paramValue;
-            for (int i = 1; i < keys.length; i++)
-                instance = ReflectionUtils.getValue(instance, keys[i]);
-            this.query = this.query.replace(":" + key, instance.toString());
-        }
-    }
+			Object instance = paramValue;
+			for (int i = 1; i < keys.length; i++)
+				instance = ReflectionUtils.getValue(instance, keys[i]);
+			this.query = this.query.replace(":" + key, instance.toString());
+		}
+	}
 }
