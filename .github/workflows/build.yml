@@ -11,7 +11,6 @@ permissions:
 jobs:
   validate:
     name: 'Validate'
-    needs: 'checkout'
     runs-on: 'ubuntu-latest'
 
     steps:
