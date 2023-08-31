@@ -34,6 +34,9 @@ jobs:
       - name: 'Checkout repository'
         uses: 'actions/checkout@v3'
 
+      - name: 'Gradle permissions'
+        run: 'chmod +x gradlew'
+
       - name: 'Clean and build project'
         run: './gradlew clean build'
 
