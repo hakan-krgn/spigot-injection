@@ -18,19 +18,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventListener {
 
-	/**
-	 * If true, the event won't be called
-	 * if the event is canceled by another plugin.
-	 *
-	 * @return Should ignore if the event is canceled.
-	 */
-	boolean ignoreCancelled() default false;
+    /**
+     * If true, the event won't be called
+     * if the event is canceled by another plugin.
+     *
+     * @return Should ignore if the event is canceled.
+     */
+    boolean ignoreCancelled() default false;
 
-	/**
-	 * Gets event priority of annotation.
-	 *
-	 * @return Event priority of annotation.
-	 */
-	@Nonnull
-	EventPriority priority() default EventPriority.NORMAL;
+    /**
+     * Gets event priority of annotation.
+     *
+     * @return Event priority of annotation.
+     */
+    @Nonnull
+    EventPriority priority() default EventPriority.NORMAL;
 }

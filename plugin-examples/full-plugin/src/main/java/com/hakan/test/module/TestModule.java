@@ -7,13 +7,13 @@ import com.hakan.test.config.TestConfig;
 
 public class TestModule extends PluginModule {
 
-	@Provide
-	public DbCredential dbCredential(TestConfig config) {
-		return new DbCredential(
-			config.getDatabaseUrl(),
-			config.getDatabaseDriver(),
-			config.getDatabaseUsername(),
-			config.getDatabasePassword()
-		);
-	}
+    @Provide
+    public DbCredential dbCredential(TestConfig config) {
+        return new DbCredential(
+                config.getDatabaseUrl(),
+                config.getDatabaseDriver(),
+                config.getDatabaseUsername(),
+                config.getDatabasePassword()
+        );
+    }
 }

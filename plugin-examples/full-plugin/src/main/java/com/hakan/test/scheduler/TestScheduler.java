@@ -13,23 +13,23 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TestScheduler {
 
-	private final TestService service;
+    private final TestService service;
 
-	@Autowired
-	public TestScheduler(TestService service) {
-		this.service = service;
-	}
+    @Autowired
+    public TestScheduler(TestService service) {
+        this.service = service;
+    }
 
-	@Async
-	@Scheduler(
-		delay = 0,
-		period = 3,
-		timeUnit = TimeUnit.SECONDS
-	)
-	public void saveAll() {
-		TestCache testCache = this.service.getCache();
-		TestRepository testRepository = this.service.getRepository();
+    @Async
+    @Scheduler(
+            delay = 0,
+            period = 3,
+            timeUnit = TimeUnit.SECONDS
+    )
+    public void saveAll() {
+        TestCache testCache = this.service.getCache();
+        TestRepository testRepository = this.service.getRepository();
 
-		testCache.getEntities().values().forEach(testRepository::save);
-	}
+        testCache.getEntities().values().forEach(testRepository::save);
+    }
 }

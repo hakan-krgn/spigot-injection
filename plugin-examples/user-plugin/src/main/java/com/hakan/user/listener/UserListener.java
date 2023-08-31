@@ -11,27 +11,27 @@ import org.bukkit.event.player.PlayerQuitEvent;
 @Component
 public class UserListener {
 
-	private final UserConfig config;
-	private final UserService service;
+    private final UserConfig config;
+    private final UserService service;
 
-	@Autowired
-	public UserListener(UserConfig config,
-						UserService service) {
-		this.config = config;
-		this.service = service;
-	}
+    @Autowired
+    public UserListener(UserConfig config,
+                        UserService service) {
+        this.config = config;
+        this.service = service;
+    }
 
-	@EventListener
-	public void onJoin(PlayerJoinEvent event) {
-		this.service.add(event.getPlayer());
+    @EventListener
+    public void onJoin(PlayerJoinEvent event) {
+        this.service.add(event.getPlayer());
 
-		for (int i = 0; i < this.config.getRepeatCount(); i++) {
-			event.getPlayer().sendMessage(this.config.getWelcomeMessage());
-		}
-	}
+        for (int i = 0; i < this.config.getRepeatCount(); i++) {
+            event.getPlayer().sendMessage(this.config.getWelcomeMessage());
+        }
+    }
 
-	@EventListener
-	public void onQuit(PlayerQuitEvent event) {
-		this.service.remove(event.getPlayer());
-	}
+    @EventListener
+    public void onQuit(PlayerQuitEvent event) {
+        this.service.remove(event.getPlayer());
+    }
 }

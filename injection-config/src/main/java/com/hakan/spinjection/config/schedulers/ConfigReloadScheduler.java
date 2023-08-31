@@ -14,52 +14,52 @@ import javax.annotation.Nonnull;
  */
 public class ConfigReloadScheduler extends BukkitRunnable {
 
-	private final Plugin plugin;
-	private final Container container;
-	private final ConfigTimer configTimer;
+    private final Plugin plugin;
+    private final Container container;
+    private final ConfigTimer configTimer;
 
-	/**
-	 * Constructor of {@link ConfigReloadScheduler}
-	 *
-	 * @param plugin     plugin
-	 * @param container  container
-	 * @param annotation annotation
-	 */
-	public ConfigReloadScheduler(@Nonnull Plugin plugin,
-								 @Nonnull Container container,
-								 @Nonnull ConfigFile annotation) {
-		this.plugin = plugin;
-		this.container = container;
-		this.configTimer = annotation.reloadTimer();
-	}
+    /**
+     * Constructor of {@link ConfigReloadScheduler}
+     *
+     * @param plugin     plugin
+     * @param container  container
+     * @param annotation annotation
+     */
+    public ConfigReloadScheduler(@Nonnull Plugin plugin,
+                                 @Nonnull Container container,
+                                 @Nonnull ConfigFile annotation) {
+        this.plugin = plugin;
+        this.container = container;
+        this.configTimer = annotation.reloadTimer();
+    }
 
-	/**
-	 * Starts the scheduler.
-	 */
-	public void start() {
-		if (!this.configTimer.enabled())
-			return;
+    /**
+     * Starts the scheduler.
+     */
+    public void start() {
+        if (!this.configTimer.enabled())
+            return;
 
-		long delay = this.configTimer.timeUnit().toMillis(this.configTimer.delay()) / 50L;
-		long period = this.configTimer.timeUnit().toMillis(this.configTimer.period()) / 50L;
-		boolean async = this.configTimer.async();
+        long delay = this.configTimer.timeUnit().toMillis(this.configTimer.delay()) / 50L;
+        long period = this.configTimer.timeUnit().toMillis(this.configTimer.period()) / 50L;
+        boolean async = this.configTimer.async();
 
-		if (period == 0 && async) {
-			this.runTaskLaterAsynchronously(this.plugin, delay);
-		} else if (period == 0) {
-			this.runTaskLater(this.plugin, delay);
-		} else if (async) {
-			this.runTaskTimerAsynchronously(this.plugin, delay, period);
-		} else {
-			this.runTaskTimer(this.plugin, delay, period);
-		}
-	}
+        if (period == 0 && async) {
+            this.runTaskLaterAsynchronously(this.plugin, delay);
+        } else if (period == 0) {
+            this.runTaskLater(this.plugin, delay);
+        } else if (async) {
+            this.runTaskTimerAsynchronously(this.plugin, delay, period);
+        } else {
+            this.runTaskTimer(this.plugin, delay, period);
+        }
+    }
 
-	/**
-	 * Reloads the config file.
-	 */
-	@Override
-	public void run() {
-		this.container.reload();
-	}
+    /**
+     * Reloads the config file.
+     */
+    @Override
+    public void run() {
+        this.container.reload();
+    }
 }

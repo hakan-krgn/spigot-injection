@@ -17,77 +17,77 @@ import java.lang.reflect.Method;
 @SuppressWarnings({"unchecked"})
 public class JsonContainer extends Container {
 
-	private JsonObject jsonObject;
+    private JsonObject jsonObject;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public JsonContainer(@Nonnull String path) {
-		super(path);
-		this.jsonObject = JsonUtils.loadFromFile(super.path);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public JsonContainer(@Nonnull String path) {
+        super(path);
+        this.jsonObject = JsonUtils.loadFromFile(super.path);
+    }
 
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public @Nullable <T> T get(@Nonnull String key) {
-		return (T) JsonUtils.getValue(this.jsonObject, key);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable <T> T get(@Nonnull String key) {
+        return (T) JsonUtils.getValue(this.jsonObject, key);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
-		return clazz.cast(JsonUtils.getValue(this.jsonObject, key));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
+        return clazz.cast(JsonUtils.getValue(this.jsonObject, key));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation) {
-		Object value = this.get(annotation.value(), method.getReturnType());
-		return ((value instanceof String) && (annotation.colored())) ?
-			(T) ColorUtils.colored(value.toString()) : (T) value;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation) {
+        Object value = this.get(annotation.value(), method.getReturnType());
+        return ((value instanceof String) && (annotation.colored())) ?
+                (T) ColorUtils.colored(value.toString()) : (T) value;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
-		return this.set(key, value, true);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
+        return this.set(key, value, true);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
-		JsonUtils.setValue(this.jsonObject, key, value);
-		if (save) this.save();
-		return this;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
+        JsonUtils.setValue(this.jsonObject, key, value);
+        if (save) this.save();
+        return this;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public synchronized @Nonnull Container save() {
-		JsonUtils.saveToFile(this.jsonObject, super.path);
-		return this;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public synchronized @Nonnull Container save() {
+        JsonUtils.saveToFile(this.jsonObject, super.path);
+        return this;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SneakyThrows
-	public synchronized @Nonnull Container reload() {
-		this.jsonObject = JsonUtils.loadFromFile(super.path);
-		return this;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SneakyThrows
+    public synchronized @Nonnull Container reload() {
+        this.jsonObject = JsonUtils.loadFromFile(super.path);
+        return this;
+    }
 }

@@ -1,31 +1,31 @@
 dependencies {
-	compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
-	compileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
+    compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
+    compileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
 
-	implementation project(':injection-core')
-	implementation project(':injection-config')
-	implementation project(':injection-command')
-	implementation project(':injection-listener')
-	implementation project(':injection-scheduler')
-	implementation project(':injection-database:hibernate8')
+    implementation project(':injection-core')
+    implementation project(':injection-config')
+    implementation project(':injection-command')
+    implementation project(':injection-listener')
+    implementation project(':injection-scheduler')
+    implementation project(':injection-database:hibernate8')
 }
 
 tasks.compileJava.dependsOn(
-	':injection-core:jar',
-	':injection-core:shadowJar',
+        ':injection-core:jar',
+        ':injection-core:shadowJar',
 
-	':injection-config:jar',
-	':injection-config:shadowJar',
+        ':injection-config:jar',
+        ':injection-config:shadowJar',
 
-	':injection-command:jar',
-	':injection-command:shadowJar',
+        ':injection-command:jar',
+        ':injection-command:shadowJar',
 
-	':injection-listener:jar',
-	':injection-listener:shadowJar',
+        ':injection-listener:jar',
+        ':injection-listener:shadowJar',
 
-	':injection-scheduler:jar',
-	':injection-scheduler:shadowJar',
+        ':injection-scheduler:jar',
+        ':injection-scheduler:shadowJar',
 
-	':injection-database:hibernate8:jar',
-	':injection-database:hibernate8:shadowJar'
+        ':injection-database:hibernate8:jar',
+        ':injection-database:hibernate8:shadowJar'
 )

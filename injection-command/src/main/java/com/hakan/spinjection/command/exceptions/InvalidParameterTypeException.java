@@ -9,12 +9,12 @@ import javax.annotation.Nonnull;
  */
 public class InvalidParameterTypeException extends RuntimeException {
 
-	/**
-	 * Constructor of {@link InvalidParameterTypeException}
-	 *
-	 * @param message the message that will be sent
-	 */
-	public InvalidParameterTypeException(@Nonnull String message) {
-		super(message);
-	}
+    /**
+     * Constructor of {@link InvalidParameterTypeException}
+     *
+     * @param message the message that will be sent
+     */
+    public InvalidParameterTypeException(@Nonnull String message) {
+        super(message);
+    }
 }
