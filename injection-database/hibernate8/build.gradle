@@ -1,25 +1,25 @@
 dependencies {
-    implementation project(':injection-core')
-    compileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
-    compileOnly 'javax.persistence:javax.persistence-api:2.2'
+	implementation project(':injection-core')
+	compileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
+	compileOnly 'javax.persistence:javax.persistence-api:2.2'
 
-    testImplementation project(':injection-core')
-    testCompileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
-    testCompileOnly 'javax.persistence:javax.persistence-api:2.2'
+	testImplementation project(':injection-core')
+	testCompileOnly 'org.hibernate:hibernate-java8:5.6.15.Final'
+	testCompileOnly 'javax.persistence:javax.persistence-api:2.2'
 }
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = project.group
-            version = project.version
-            artifactId = "injection-database-" + project.name
-            from components.java
-        }
-    }
+	publications {
+		maven(MavenPublication) {
+			groupId = project.group
+			version = project.version
+			artifactId = "injection-database-" + project.name
+			from components.java
+		}
+	}
 }
 
 tasks.compileJava.dependsOn(
-        ':injection-core:jar',
-        ':injection-core:shadowJar'
+	':injection-core:jar',
+	':injection-core:shadowJar'
 )
