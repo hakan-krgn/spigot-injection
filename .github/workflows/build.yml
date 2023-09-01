@@ -1,4 +1,4 @@
-name: 'Validate and Build'
+name: 'Build'
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   validate:
-    name: 'Validate'
+    name: 'validate'
     runs-on: 'ubuntu-latest'
 
     steps:
@@ -21,7 +21,7 @@ jobs:
         uses: 'gradle/wrapper-validation-action@v1'
 
   build:
-    name: 'Build, test and publish'
+    name: 'build, test and publish'
     runs-on: 'ubuntu-latest'
 
     steps:
