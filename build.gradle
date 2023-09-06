@@ -9,10 +9,6 @@ version '0.1.4.0'
 sourceCompatibility = 8
 compileJava.options.encoding = 'UTF-8'
 
-tasks.jar {
-    enabled = false
-}
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
@@ -34,7 +30,7 @@ subprojects {
 
         compileOnly 'org.projectlombok:lombok:1.18.28'
         compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
-        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.5.0'
+        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.5.1'
 
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
@@ -53,4 +49,8 @@ subprojects {
     tasks.shadowJar {
         archiveFileName.set("${project.name}-${project.version}.jar")
     }
+}
+
+tasks.jar {
+    enabled = false
 }
