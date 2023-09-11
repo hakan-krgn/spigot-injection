@@ -1,16 +1,17 @@
 package com.hakan.spinjection.config.container;
 
 import com.hakan.spinjection.config.annotations.ConfigValue;
+import com.hakan.spinjection.config.utils.ColorUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.lang.reflect.Method;
 
 /**
  * ConfigContainer is an abstract class
  * that is used to load and save config files.
  */
+@SuppressWarnings({"unchecked"})
 public abstract class Container {
 
     protected final String path;
@@ -46,6 +47,72 @@ public abstract class Container {
     }
 
 
+    /**
+     * Gets value from config file
+     * with the given key.
+     *
+     * @param key          value key
+     * @param defaultValue default value
+     * @param <T>          value type
+     * @return value
+     */
+    public @Nullable <T> T get(@Nonnull String key,
+                               @Nullable T defaultValue) {
+        T value = this.get(key);
+        return (value == null) ? defaultValue : value;
+    }
+
+    /**
+     * Gets value from config file
+     * with the given key.
+     *
+     * @param key          value key
+     * @param clazz        value class
+     * @param defaultValue default value
+     * @param <T>          value type
+     * @return value
+     */
+    public @Nullable <T> T get(@Nonnull String key,
+                               @Nonnull Class<T> clazz,
+                               @Nullable T defaultValue) {
+        T value = this.get(key, clazz);
+        return (value == null) ? defaultValue : value;
+    }
+
+    /**
+     * Gets value from config file with the given key, and if
+     * colored is true and value is String, it will be colored.
+     *
+     * @param annotation ConfigValue annotation
+     * @param <T>        value type
+     * @return value
+     */
+    public @Nullable <T> T get(@Nonnull ConfigValue annotation) {
+        return this.get(annotation, null);
+    }
+
+    /**
+     * Gets value from config file with the given key, and if
+     * colored is true and value is String, it will be colored.
+     *
+     * @param annotation   ConfigValue annotation
+     * @param defaultValue default value
+     * @param <T>          value type
+     * @return value
+     */
+    public @Nullable <T> T get(@Nonnull ConfigValue annotation,
+                               @Nullable T defaultValue) {
+        T value = this.get(annotation.value());
+
+        if (value == null)
+            return defaultValue;
+        if (value instanceof String && annotation.colored())
+            return (T) ColorUtils.colored(value.toString());
+
+        return value;
+    }
+
+
 
     /**
      * Gets value from config file
@@ -62,22 +129,12 @@ public abstract class Container {
      * with the given key.
      *
      * @param key   value key
-     * @param clazz value class
+     * @param clazz value class,
      * @param <T>   value type
      * @return value
      */
     public abstract @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz);
 
-    /**
-     * Gets value from config file with the given key, and if
-     * colored is true and value is String, it will be colored.
-     *
-     * @param method     method
-     * @param annotation ConfigValue annotation
-     * @param <T>        value type
-     * @return value
-     */
-    public abstract @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation);
 
     /**
      * Sets value to config file
@@ -101,6 +158,7 @@ public abstract class Container {
      * @return instance of the class
      */
     public abstract @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save);
+
 
     /**
      * Saves last data to

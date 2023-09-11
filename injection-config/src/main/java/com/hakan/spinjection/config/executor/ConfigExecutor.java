@@ -106,7 +106,7 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getName().equals("reload") && args.length == 0)
             return this.container.reload();
 
-        return this.postCall(method);
+        return this.postCall(method, args);
     }
 
     /**
@@ -116,12 +116,16 @@ public class ConfigExecutor implements SpigotExecutor {
      * @param method method
      * @return method result
      */
-    public @Nullable Object postCall(@Nonnull Method method) {
+    public @Nullable Object postCall(@Nonnull Method method,
+                                     @Nonnull Object[] args) {
         if (!method.isAnnotationPresent(ConfigValue.class))
             throw new RuntimeException("method is not registered!");
-        if (method.getParameterCount() != 0)
-            throw new RuntimeException("parameter count must be 0!");
+        if (method.getParameterCount() > 1)
+            throw new RuntimeException("parameter count must be 0 or 1!");
 
-        return this.container.get(method, method.getAnnotation(ConfigValue.class));
+
+        return method.getParameterCount() == 0 ?
+                this.container.get(method.getAnnotation(ConfigValue.class)) :
+                this.container.get(method.getAnnotation(ConfigValue.class), args[0]);
     }
 }
