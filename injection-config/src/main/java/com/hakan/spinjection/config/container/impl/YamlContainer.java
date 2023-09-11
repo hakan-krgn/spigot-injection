@@ -1,8 +1,6 @@
 package com.hakan.spinjection.config.container.impl;
 
-import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.container.Container;
-import com.hakan.spinjection.config.utils.ColorUtils;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
