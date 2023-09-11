@@ -33,7 +33,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-core</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 
@@ -41,7 +41,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-config</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 
@@ -49,7 +49,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-command</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 
@@ -57,7 +57,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-listener</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 
@@ -65,14 +65,14 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-scheduler</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
     <scope>compile</scope>
 
     <!-- Native database support -->
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-database-native</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 
@@ -80,7 +80,7 @@ to use it. Then you can create your main class and start the injection process.
     <dependency>
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-database-hibernate</artifactId>
-        <version>0.1.4.3</version>
+        <version>0.1.4.4</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
@@ -95,25 +95,25 @@ repositories {
 
 dependencies {
     //Core of dependency injection
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-core:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-core:0.1.4.4'
 
     //Annotation based config support
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-config:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-config:0.1.4.4'
 
     //Annotation based command support
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-command:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-command:0.1.4.4'
 
     //Annotation based listener support
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-listener:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-listener:0.1.4.4'
 
     //Annotation based scheduler support
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-scheduler:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-scheduler:0.1.4.4'
 
     //Native database support
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-database-native:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-database-native:0.1.4.4'
 
     //Hibernate database support (you need to add hibernate dependency to your project as extra)
-    implementation 'com.github.hakan-krgn.spigot-injection:injection-database-hibernate:0.1.4.3'
+    implementation 'com.github.hakan-krgn.spigot-injection:injection-database-hibernate:0.1.4.4'
 }
 ```
 
