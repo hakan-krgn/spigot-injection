@@ -1,15 +1,12 @@
 package com.hakan.spinjection.config.container.impl;
 
-import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.container.Container;
-import com.hakan.spinjection.config.utils.ColorUtils;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Method;
 
 /**
  * {@inheritDoc}
@@ -33,32 +30,25 @@ public class YamlContainer extends Container {
      */
     @Override
     public @Nullable <T> T get(@Nonnull String key) {
-        return (T) this.configuration.get(key);
+        return this.configuration.contains(key) ? (T) this.configuration.get(key) : null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nullable <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
-        return clazz.cast(this.configuration.get(key));
+    public @Nullable <T> T get(@Nonnull String key,
+                               @Nonnull Class<T> clazz) {
+        return this.configuration.contains(key) ? clazz.cast(this.configuration.get(key)) : null;
     }
+
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @Nullable <T> T get(@Nonnull Method method, @Nonnull ConfigValue annotation) {
-        Object value = this.get(annotation.value(), method.getReturnType());
-        return ((value instanceof String) && (annotation.colored())) ?
-                (T) ColorUtils.colored(value.toString()) : (T) value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value) {
+    public @Nonnull Container set(@Nonnull String key,
+                                  @Nonnull Object value) {
         return this.set(key, value, true);
     }
 
@@ -66,11 +56,14 @@ public class YamlContainer extends Container {
      * {@inheritDoc}
      */
     @Override
-    public @Nonnull Container set(@Nonnull String key, @Nonnull Object value, boolean save) {
+    public @Nonnull Container set(@Nonnull String key,
+                                  @Nonnull Object value,
+                                  boolean save) {
         this.configuration.set(key, value);
         if (save) this.save();
         return this;
     }
+
 
     /**
      * {@inheritDoc}

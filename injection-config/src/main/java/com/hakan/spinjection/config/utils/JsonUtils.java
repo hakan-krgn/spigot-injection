@@ -59,15 +59,35 @@ public class JsonUtils {
      */
     public static @Nullable Object getValue(@Nonnull JsonObject parent,
                                             @Nonnull String key) {
+        return getValue(parent, key, null);
+    }
+
+    /**
+     * Gets the element from the parent
+     * json object by given key.
+     *
+     * @param parent parent json object
+     * @param key    key to get
+     * @return element
+     */
+    public static @Nullable Object getValue(@Nonnull JsonObject parent,
+                                            @Nonnull String key,
+                                            @Nullable Object defaultValue) {
         String[] keys = key.split("\\.");
+
         JsonObject jsonObject = parent;
-        for (int i = 0; i < keys.length - 1; i++)
-            jsonObject = jsonObject.getAsJsonObject(keys[i]);
+        for (int i = 0; i < keys.length - 1; i++) {
+            try {
+                jsonObject = jsonObject.getAsJsonObject(keys[i]);
+            } catch (Exception e) {
+                return defaultValue;
+            }
+        }
 
         JsonElement element = jsonObject.get(keys[keys.length - 1]);
 
         if (element == null || element instanceof JsonNull)
-            return null;
+            return defaultValue;
         if (element instanceof JsonObject || element instanceof JsonArray)
             return element;
 
