@@ -253,9 +253,6 @@ to specify the credentials in the @Repository annotation.
         driver = "com.mysql.cj.jdbc.Driver",
         url = "jdbc:mysql://localhost:3306",
 
-        id = Integer.class,
-        entity = User.class,
-
         queries = {
                 "create database hakan;",
         }
