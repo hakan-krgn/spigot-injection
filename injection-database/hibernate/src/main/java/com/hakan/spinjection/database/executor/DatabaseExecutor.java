@@ -27,6 +27,8 @@ public class DatabaseExecutor implements SpigotExecutor {
     private DbConnection dbConnection;
     private final Object instance;
     private final Class<?> clazz;
+    private final Class<?> idType;
+    private final Class<?> entityType;
     private final Repository repository;
 
     /**
@@ -36,6 +38,8 @@ public class DatabaseExecutor implements SpigotExecutor {
      */
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
+        this.idType = ProxyUtils.getGenericTypes(clazz)[0];
+        this.entityType = ProxyUtils.getGenericTypes(clazz)[1];
         this.repository = clazz.getAnnotation(Repository.class);
         this.instance = ProxyUtils.create(clazz, this::preCall);
     }
@@ -127,11 +131,11 @@ public class DatabaseExecutor implements SpigotExecutor {
         if (method.getName().equals("delete") && args.length == 1)
             return this.dbConnection.delete(args[0]);
         if (method.getName().equals("deleteById") && args.length == 1)
-            return this.dbConnection.deleteById(this.repository.entity(), args[0]);
+            return this.dbConnection.deleteById(this.entityType, args[0]);
         if (method.getName().equals("findById") && args.length == 1)
-            return this.dbConnection.getSession().find(this.repository.entity(), args[0]);
+            return this.dbConnection.getSession().find(this.entityType, args[0]);
         if (method.getName().equals("findAll") && args.length == 0)
-            return this.dbConnection.getSession().createQuery("from " + this.repository.entity().getSimpleName()).list();
+            return this.dbConnection.getSession().createQuery("from " + this.entityType.getSimpleName()).list();
 
         return this.postCall(method, args);
     }
