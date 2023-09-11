@@ -6,10 +6,7 @@ import com.hakan.spinjection.database.annotations.Repository;
 import com.hakan.spinjection.database.repositories.JpaRepository;
 import com.hakan.test.model.TestEntity;
 
-@Repository(
-        id = Long.class,
-        entity = TestEntity.class
-)
+@Repository
 public interface TestRepository extends JpaRepository<Long, TestEntity> {
 
     @Query("select t from TestEntity t where t.name = :name")
