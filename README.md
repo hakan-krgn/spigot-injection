@@ -235,7 +235,7 @@ public interface MyConfig extends BaseConfiguration {
     String getMessage();
 
     @ConfigValue("settings.repeat")
-    Integer getRepeat();
+    Integer getRepeat(Integer defaultValue);
 }
 ```
 
