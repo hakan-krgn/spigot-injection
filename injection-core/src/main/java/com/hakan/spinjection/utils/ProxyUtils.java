@@ -6,8 +6,6 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,12 +39,12 @@ public class ProxyUtils {
      * Gets generic types from the interface
      * which is inherited by a generic class.
      *
-     * @param clazz class with generic types
+     * @param instance instance
      * @return generic types
      */
     @SneakyThrows
-    public static @Nonnull Class<?>[] getGenericTypes(@Nonnull Class<?> clazz) {
-        String typeName = clazz
+    public static @Nonnull Class<?>[] getGenericTypes(@Nonnull Object instance) {
+        String typeName = instance.getClass()
                 .getInterfaces()[0]
                 .getGenericInterfaces()[0]
                 .getTypeName();

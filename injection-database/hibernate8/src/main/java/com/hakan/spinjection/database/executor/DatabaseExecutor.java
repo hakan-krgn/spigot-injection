@@ -38,10 +38,10 @@ public class DatabaseExecutor implements SpigotExecutor {
      */
     public DatabaseExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
-        this.idType = ProxyUtils.getGenericTypes(clazz)[0];
-        this.entityType = ProxyUtils.getGenericTypes(clazz)[1];
         this.repository = clazz.getAnnotation(Repository.class);
         this.instance = ProxyUtils.create(clazz, this::preCall);
+        this.idType = ProxyUtils.getGenericTypes(this.instance)[0];
+        this.entityType = ProxyUtils.getGenericTypes(this.instance)[1];
     }
 
     /**
