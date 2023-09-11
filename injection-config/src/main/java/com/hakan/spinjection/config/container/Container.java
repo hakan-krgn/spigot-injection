@@ -73,8 +73,8 @@ public abstract class Container {
      * @return value
      */
     public @Nullable <T> T get(@Nonnull String key,
-                               @Nonnull Class<T> clazz,
-                               @Nullable T defaultValue) {
+                               @Nullable T defaultValue,
+                               @Nonnull Class<T> clazz) {
         T value = this.get(key, clazz);
         return (value == null) ? defaultValue : value;
     }

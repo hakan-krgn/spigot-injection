@@ -96,7 +96,7 @@ public class ConfigExecutor implements SpigotExecutor {
         if (method.getName().equals("get") && args.length == 1)
             return this.container.get(args[0].toString());
         if (method.getName().equals("get") && args.length == 2)
-            return this.container.get(args[0].toString(), (Class<?>) args[1]);
+            return this.container.get(args[0].toString(), args[1]);
         if (method.getName().equals("set") && args.length == 2)
             return this.container.set(args[0].toString(), args[1]);
         if (method.getName().equals("set") && args.length == 3)
