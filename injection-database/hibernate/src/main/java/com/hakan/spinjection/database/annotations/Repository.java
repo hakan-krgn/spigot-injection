@@ -56,21 +56,4 @@ public @interface Repository {
      */
     @Nonnull
     String[] queries() default {};
-
-
-    /**
-     * ID class of the repository.
-     *
-     * @return id class
-     */
-    @Nonnull
-    Class<?> id();
-
-    /**
-     * Main entity class of the repository.
-     *
-     * @return entity class
-     */
-    @Nonnull
-    Class<?> entity();
 }
