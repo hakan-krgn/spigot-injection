@@ -73,6 +73,16 @@ public class DbProperties extends Configuration {
     }
 
     /**
+     * Sets the value of the key.
+     *
+     * @param key   key
+     * @param value value
+     */
+    public void set(@Nonnull Object key, @Nonnull Object value) {
+        this.set(key.toString(), value.toString());
+    }
+
+    /**
      * Removes the key.
      *
      * @param key key

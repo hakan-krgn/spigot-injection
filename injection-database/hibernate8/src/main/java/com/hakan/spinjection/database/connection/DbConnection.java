@@ -235,17 +235,20 @@ public class DbConnection {
      * @return session factory
      */
     public @Nonnull SessionFactory buildFactory() {
-        this.properties.set("hibernate.connection.url", this.credential.url());
-        this.properties.set("hibernate.connection.username", this.credential.username());
-        this.properties.set("hibernate.connection.password", this.credential.password());
-        this.properties.set("hibernate.connection.driver_class", this.credential.driver());
+        DbProperties properties = new DbProperties();
+        properties.set("hibernate.connection.url", this.credential.url());
+        properties.set("hibernate.connection.username", this.credential.username());
+        properties.set("hibernate.connection.password", this.credential.password());
+        properties.set("hibernate.connection.driver_class", this.credential.driver());
 
+        this.properties.getProperties()
+                .forEach(properties::set);
         this.reflections.getTypesAnnotatedWith(Entity.class)
-                .forEach(this.properties::addAnnotatedClass);
+                .forEach(properties::addAnnotatedClass);
         this.reflections.getTypesAnnotatedWith(Embeddable.class)
-                .forEach(this.properties::addAnnotatedClass);
+                .forEach(properties::addAnnotatedClass);
 
-        return this.properties.buildSessionFactory();
+        return properties.buildSessionFactory();
     }
 
     /**
