@@ -1,4 +1,4 @@
 name: 'TestPlugin'
 author: 'Hakan'
-version: 0.1.4.6
+version: 0.1.4.7
 main: com.hakan.test.TestPlugin
