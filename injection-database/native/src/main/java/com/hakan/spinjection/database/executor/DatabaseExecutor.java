@@ -97,7 +97,7 @@ public class DatabaseExecutor implements SpigotExecutor {
             Arrays.stream(this.repository.queries())
                     .forEach(query -> this.dbConnection.executeUpdate(query));
         } catch (Exception e) {
-            Bukkit.getLogger().warning("error while executing queries!");
+            Bukkit.getLogger().warning("Error while executing queries!");
         }
     }
 

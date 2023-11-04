@@ -111,7 +111,7 @@ public class DatabaseExecutor implements SpigotExecutor {
                     .forEach(query -> session.createNativeQuery(query).executeUpdate());
             session.getTransaction().commit();
         } catch (Exception e) {
-            Bukkit.getLogger().warning("error while executing queries!");
+            Bukkit.getLogger().warning("Error while executing queries!");
         }
     }
 
