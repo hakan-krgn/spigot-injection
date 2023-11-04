@@ -92,8 +92,14 @@ public class DatabaseExecutor implements SpigotExecutor {
                         @Nonnull Object instance) {
         this.dbConnection = new DbConnection(DbCredential.of(bootstrap, this.repository));
 
-        Arrays.stream(this.repository.queries())
-                .forEach(query -> this.dbConnection.executeUpdate(query));
+        try {
+            this.dbConnection.executeUpdate("BEGIN TRANSACTION;");
+            Arrays.stream(this.repository.queries())
+                    .forEach(query -> this.dbConnection.executeUpdate(query));
+            this.dbConnection.executeUpdate("COMMIT;");
+        } catch (Exception e) {
+            this.dbConnection.executeUpdate("ROLLBACK;");
+        }
     }
 
     /**

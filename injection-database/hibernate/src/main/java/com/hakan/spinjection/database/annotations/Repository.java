@@ -49,6 +49,7 @@ public @interface Repository {
     @Nonnull
     String password() default "";
 
+
     /**
      * Queries to execute on startup.
      *
@@ -56,4 +57,11 @@ public @interface Repository {
      */
     @Nonnull
     String[] queries() default {};
+
+    /**
+     * Transaction will be rollbacked on exception.
+     *
+     * @return rollback on exception
+     */
+    boolean rollbackOnException() default false;
 }

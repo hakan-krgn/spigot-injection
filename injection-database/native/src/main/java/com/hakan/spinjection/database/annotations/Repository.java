@@ -57,4 +57,11 @@ public @interface Repository {
      */
     @Nonnull
     String[] queries() default {};
+
+    /**
+     * Transaction will be rollbacked on exception.
+     *
+     * @return rollback on exception
+     */
+    boolean rollbackOnException() default false;
 }

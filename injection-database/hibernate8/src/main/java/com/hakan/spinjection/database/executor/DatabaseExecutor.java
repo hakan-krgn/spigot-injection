@@ -10,6 +10,7 @@ import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.utils.ProxyUtils;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -103,11 +104,20 @@ public class DatabaseExecutor implements SpigotExecutor {
                 bootstrap.getReflection()
         );
 
+
         Session session = this.dbConnection.getSession();
-        session.getTransaction().begin();
-        Arrays.stream(this.repository.queries())
-                .forEach(query -> session.createNativeQuery(query).executeUpdate());
-        session.getTransaction().commit();
+        Transaction transaction = session.getTransaction();
+
+        try {
+            transaction.begin();
+            Arrays.stream(this.repository.queries())
+                    .forEach(query -> session.createNativeQuery(query).executeUpdate());
+            transaction.commit();
+        } catch (Exception e) {
+            if (this.repository.rollbackOnException())
+                transaction.rollback();
+            else e.printStackTrace();
+        }
     }
 
     /**
