@@ -9,7 +9,6 @@ import com.hakan.spinjection.database.connection.properties.DbProperties;
 import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.utils.ProxyUtils;
-import org.bukkit.Bukkit;
 import org.hibernate.Session;
 
 import javax.annotation.Nonnull;
@@ -104,15 +103,11 @@ public class DatabaseExecutor implements SpigotExecutor {
                 bootstrap.getReflection()
         );
 
-        try {
-            Session session = this.dbConnection.getSession();
-            session.getTransaction().begin();
-            Arrays.stream(this.repository.queries())
-                    .forEach(query -> session.createNativeQuery(query).executeUpdate());
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            Bukkit.getLogger().warning("Error while executing queries!");
-        }
+        Session session = this.dbConnection.getSession();
+        session.getTransaction().begin();
+        Arrays.stream(this.repository.queries())
+                .forEach(query -> session.createNativeQuery(query).executeUpdate());
+        session.getTransaction().commit();
     }
 
     /**
