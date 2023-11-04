@@ -9,6 +9,7 @@ import com.hakan.spinjection.database.connection.query.DbQuery;
 import com.hakan.spinjection.database.connection.result.DbResult;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.utils.ProxyUtils;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -91,7 +92,13 @@ public class DatabaseExecutor implements SpigotExecutor {
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
         this.dbConnection = new DbConnection(DbCredential.of(bootstrap, this.repository));
-        Arrays.stream(this.repository.queries()).forEach(query -> this.dbConnection.executeUpdate(query));
+
+        try {
+            Arrays.stream(this.repository.queries())
+                    .forEach(query -> this.dbConnection.executeUpdate(query));
+        } catch (Exception e) {
+            Bukkit.getLogger().warning("error while executing queries!");
+        }
     }
 
     /**
