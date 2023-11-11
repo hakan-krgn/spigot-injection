@@ -45,6 +45,7 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
             DatabaseExecutor databaseExecutor = new DatabaseExecutor(clazz);
 
             super.bind(clazz).withInstance(databaseExecutor.getInstance());
+            super.bind(DatabaseExecutor.class).withInstance(databaseExecutor);
             super.executors.add(databaseExecutor);
         }
     }
