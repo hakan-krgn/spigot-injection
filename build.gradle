@@ -9,6 +9,10 @@ version '0.1.4.9'
 sourceCompatibility = 8
 compileJava.options.encoding = 'UTF-8'
 
+tasks.jar {
+    enabled = false
+}
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
@@ -49,8 +53,4 @@ subprojects {
     tasks.shadowJar {
         archiveFileName.set("${project.name}-${project.version}.jar")
     }
-}
-
-tasks.jar {
-    enabled = false
 }
