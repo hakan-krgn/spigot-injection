@@ -119,7 +119,7 @@ public class DbConnection {
      * @return single result
      */
     public synchronized @Nullable Object getSingleResult(@Nonnull DbQuery dbQuery) {
-        return dbQuery.getQuery().getSingleResult();
+        return dbQuery.getQuery().uniqueResult();
     }
 
     /**
