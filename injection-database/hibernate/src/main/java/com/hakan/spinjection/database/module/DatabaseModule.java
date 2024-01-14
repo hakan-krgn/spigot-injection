@@ -3,6 +3,7 @@ package com.hakan.spinjection.database.module;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.database.annotations.Repository;
+import com.hakan.spinjection.database.connection.DbConnectionHolder;
 import com.hakan.spinjection.database.executor.DatabaseExecutor;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.module.SpigotModule;
@@ -37,16 +38,18 @@ public class DatabaseModule extends SpigotModule<Class, Repository> {
      */
     @Override
     public void load(@Nonnull Set<Class> classes) {
+        DbConnectionHolder connections = new DbConnectionHolder();
         for (Class clazz : classes) {
             if (!clazz.isInterface())
                 throw new RuntimeException("repository class must be interface!");
-
 
             DatabaseExecutor databaseExecutor = new DatabaseExecutor(clazz);
 
             super.bind(clazz).withInstance(databaseExecutor.getInstance());
             super.executors.add(databaseExecutor);
+            connections.add(databaseExecutor);
         }
+        super.bind(DbConnectionHolder.class).withInstance(connections);
     }
 
     /**
