@@ -66,7 +66,8 @@ to use it. Then you can create your main class and start the injection process.
         <groupId>com.github.hakan-krgn.spigot-injection</groupId>
         <artifactId>injection-scheduler</artifactId>
         <version>0.1.5.0</version>
-    <scope>compile</scope>
+        <scope>compile</scope>
+    </dependency>
 
     <!-- Native database support -->
     <dependency>
