@@ -176,7 +176,7 @@ command parameters. We can use `@Executor` annotation to specify the executor of
         name = "mycommand",
         aliases = {"mc"},
         description = "My command",
-        usage = "/mycommand <target> <message> <amount>",
+        usage = "/mycommand <target> <message> <amount>"
 )
 public class MyCommand {
 
@@ -189,7 +189,7 @@ public class MyCommand {
 
     @Subcommand(
             permission = "mycommand.use",
-            permissionMessage = "You don't have permission to use this command!",
+            permissionMessage = "You don't have permission to use this command!"
     )
     public void execute(@Executor CommandSender executor,
                         @CommandParam Player target,
@@ -254,7 +254,7 @@ to specify the credentials in the @Repository annotation.
         url = "jdbc:mysql://localhost:3306",
 
         queries = {
-                "create database hakan;",
+                "create database hakan;"
         }
 )
 public interface MyRepository extends JpaRepository<Integer, User> {
