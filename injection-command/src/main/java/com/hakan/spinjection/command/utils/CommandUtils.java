@@ -1,14 +1,14 @@
 package com.hakan.spinjection.command.utils;
 
-import com.hakan.spinjection.command.exceptions.TabCompleterException;
 import com.hakan.spinjection.command.executor.CommandExecutor;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
-import org.bukkit.command.*;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 /**
@@ -34,27 +34,7 @@ public class CommandUtils {
         if (command != null && command.isRegistered())
             return;
 
-        // Creation of PluginCommand (Command doesn't have #setTabCompleter)
-        Constructor<PluginCommand> constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
-        constructor.setAccessible(true);
-        PluginCommand pluginCommand = constructor.newInstance(executor.getName(), executor.getPlugin());
-
-        pluginCommand.setExecutor(null);
-
-        // Registration of tab completer
-        com.hakan.spinjection.command.annotations.Command annotation = executor.getDeclaringClass().getAnnotation(com.hakan.spinjection.command.annotations.Command.class);
-        Class<?> tabCompleterClazz = annotation.tabCompleter();
-
-        if (tabCompleterClazz != null) {
-            Object tabCompleter = tabCompleterClazz.getConstructor().newInstance();
-            if (tabCompleter instanceof TabCompleter) {
-                pluginCommand.setTabCompleter((TabCompleter) tabCompleter);
-            } else {
-                throw new TabCompleterException(executor.getDeclaringClass() + "'s tabcompleter must implement TabCompleter.class");
-            }
-        }
-
-        commandMap.register(executor.getPlugin().getName(), pluginCommand);
+        commandMap.register(executor.getName(), executor);
     }
 
     /**

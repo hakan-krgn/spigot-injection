@@ -86,6 +86,7 @@ public class DatabaseExecutor implements SpigotExecutor {
     }
 
 
+
     /**
      * Executes the database queries which are
      * saved in {@link Repository#queries()} and

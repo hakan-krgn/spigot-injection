@@ -16,7 +16,6 @@ import com.hakan.spinjection.command.utils.CommandUtils;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.filter.FilterEngine;
 import com.hakan.spinjection.utils.ReflectionUtils;
-import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -38,7 +37,6 @@ public class CommandExecutor extends BukkitCommand implements SpigotExecutor {
 
     private Object instance;
     private FilterEngine filterEngine;
-    @Getter
     private final Plugin plugin;
     private final Class<?> clazz;
     private final Set<Method> methods;

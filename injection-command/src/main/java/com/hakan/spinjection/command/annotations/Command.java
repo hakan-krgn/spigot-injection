@@ -1,10 +1,11 @@
 package com.hakan.spinjection.command.annotations;
 
-import com.hakan.spinjection.command.utils.NoTabCompleter;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Command annotation to
@@ -48,19 +49,9 @@ public @interface Command {
     String[] aliases() default "";
 
     /**
-     * <b>NO REALIZATION FOR THIS. ALWAYS TRUE</b>
-     *
-     * <p> Gets auto tab complete of command.
+     * Gets auto tab complete of command.
      *
      * @return Auto tab complete of command.
      */
     boolean tabComplete() default true;
-
-    /**
-     * A class that implements the {@link org.bukkit.command.TabCompleter} interface for this command.
-     * The class must have an empty constructor!
-     *
-     */
-    @Nullable
-    Class<?> tabCompleter() default NoTabCompleter.class;
 }
