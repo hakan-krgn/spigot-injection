@@ -34,7 +34,7 @@ subprojects {
 
         compileOnly 'org.projectlombok:lombok:1.18.30'
         compileOnly 'org.spigotmc:spigot:1.16.4-R0.1-SNAPSHOT'
-        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.0.5.4'
+        implementation 'com.github.hakan-krgn:basic-dependency-injection:0.4.0.6'
 
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
