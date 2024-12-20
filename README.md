@@ -208,6 +208,8 @@ public class MyCommand {
 Now we can create our configuration class. We can use `@ConfigFile` annotation to create configurations. We can use
 `@ConfigValue` annotation to get values from the configuration.
 
+> **Remember:** Always create the file in the /src/main/resources directory, or errors will occur! 
+> 
 ```java
 @ConfigFile(
         type = ContainerType.YAML,
