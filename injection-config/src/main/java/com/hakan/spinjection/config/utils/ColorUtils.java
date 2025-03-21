@@ -25,7 +25,7 @@ public class ColorUtils {
      * @return colored message
      */
     public static @Nonnull String colored(@Nonnull String message) {
-        if (ProtocolVersion.isNewerOrEqual(ProtocolVersion.v1_16_R1)) {
+        if (ProtocolVersion.isNewerOrEqual(ProtocolVersion.v1_16)) {
             Matcher matcher = HEX_PATTERN.matcher(message);
 
             while (matcher.find()) {
