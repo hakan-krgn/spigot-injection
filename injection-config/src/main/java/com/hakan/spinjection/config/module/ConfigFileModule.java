@@ -3,7 +3,7 @@ package com.hakan.spinjection.config.module;
 import com.hakan.spinjection.SpigotBootstrap;
 import com.hakan.spinjection.annotations.ExecutorOrder;
 import com.hakan.spinjection.config.annotations.ConfigFile;
-import com.hakan.spinjection.config.executor.ConfigExecutor;
+import com.hakan.spinjection.config.executor.ConfigFileExecutor;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.module.SpigotModule;
 
@@ -17,20 +17,20 @@ import java.util.Set;
  */
 @ExecutorOrder(1)
 @SuppressWarnings({"rawtypes"})
-public class ConfigModule extends SpigotModule<Class, ConfigFile> {
+public class ConfigFileModule extends SpigotModule<Class, ConfigFile> {
 
     /**
      * Constructor of ConfigModule.
      *
      * @param bootstrap bootstrap
      */
-    public ConfigModule(@Nonnull SpigotBootstrap bootstrap) {
+    public ConfigFileModule(@Nonnull SpigotBootstrap bootstrap) {
         super(bootstrap, Class.class, ConfigFile.class);
     }
 
     /**
      * Loads classes which are annotated with {@link ConfigFile}.
-     * And creates {@link ConfigExecutor} for each class to
+     * And creates {@link ConfigFileExecutor} for each class to
      * handle configuration processes.
      *
      * @param classes classes that are annotated with {@link ConfigFile}.
@@ -42,10 +42,10 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
                 throw new RuntimeException("configuration class must be interface!");
 
 
-            ConfigExecutor configExecutor = new ConfigExecutor(clazz);
+            ConfigFileExecutor configFileExecutor = new ConfigFileExecutor(clazz);
 
-            super.bind(clazz).withInstance(configExecutor.getInstance());
-            super.executors.add(configExecutor);
+            super.bind(clazz).withInstance(configFileExecutor.getInstance());
+            super.executors.add(configFileExecutor);
         }
     }
 
@@ -58,8 +58,8 @@ public class ConfigModule extends SpigotModule<Class, ConfigFile> {
     @Override
     public void execute() {
         for (SpigotExecutor executor : super.executors) {
-            ConfigExecutor configExecutor = (ConfigExecutor) executor;
-            configExecutor.execute(super.bootstrap, configExecutor.getInstance());
+            ConfigFileExecutor configFileExecutor = (ConfigFileExecutor) executor;
+            configFileExecutor.execute(super.bootstrap, configFileExecutor.getInstance());
         }
     }
 }

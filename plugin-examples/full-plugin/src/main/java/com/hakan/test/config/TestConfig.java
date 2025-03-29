@@ -1,33 +1,14 @@
 package com.hakan.test.config;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
-import com.hakan.spinjection.config.annotations.ConfigTimer;
 import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.configuration.BaseConfiguration;
 import com.hakan.spinjection.config.container.ContainerType;
 
-import java.util.concurrent.TimeUnit;
-
 @ConfigFile(
         type = ContainerType.YAML,
         resource = "config.yml",
-        path = "plugins/TestPlugin/config.yml",
-
-        reloadTimer = @ConfigTimer(
-                enabled = true,
-                delay = 10,
-                period = 10,
-                async = true,
-                timeUnit = TimeUnit.SECONDS
-        ),
-
-        saveTimer = @ConfigTimer(
-                enabled = true,
-                delay = 10,
-                period = 10,
-                async = true,
-                timeUnit = TimeUnit.SECONDS
-        )
+        path = "plugins/TestPlugin/config.yml"
 )
 public interface TestConfig extends BaseConfiguration {
 

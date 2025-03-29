@@ -5,8 +5,6 @@ import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
 import com.hakan.spinjection.config.container.Container;
 import com.hakan.spinjection.config.container.ContainerFactory;
-import com.hakan.spinjection.config.schedulers.ConfigReloadScheduler;
-import com.hakan.spinjection.config.schedulers.ConfigSaveScheduler;
 import com.hakan.spinjection.executor.SpigotExecutor;
 import com.hakan.spinjection.utils.ProxyUtils;
 
@@ -18,7 +16,7 @@ import java.lang.reflect.Method;
  * ConfigExecutor is an executor class
  * that is used to execute ConfigValue methods.
  */
-public class ConfigExecutor implements SpigotExecutor {
+public class ConfigFileExecutor implements SpigotExecutor {
 
     private Container container;
     private final Object instance;
@@ -26,11 +24,11 @@ public class ConfigExecutor implements SpigotExecutor {
     private final ConfigFile annotation;
 
     /**
-     * Constructor of {@link ConfigExecutor}.
+     * Constructor of {@link ConfigFileExecutor}.
      *
      * @param clazz class
      */
-    public ConfigExecutor(@Nonnull Class<?> clazz) {
+    public ConfigFileExecutor(@Nonnull Class<?> clazz) {
         this.clazz = clazz;
         this.annotation = clazz.getAnnotation(ConfigFile.class);
         this.instance = ProxyUtils.create(this.clazz, this::preCall);
@@ -73,9 +71,6 @@ public class ConfigExecutor implements SpigotExecutor {
     public void execute(@Nonnull SpigotBootstrap bootstrap,
                         @Nonnull Object instance) {
         this.container = ContainerFactory.of(this.annotation);
-
-        new ConfigReloadScheduler(bootstrap.getPlugin(), this.container, this.annotation).start();
-        new ConfigSaveScheduler(bootstrap.getPlugin(), this.container, this.annotation).start();
     }
 
     /**

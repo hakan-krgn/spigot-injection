@@ -43,21 +43,4 @@ public @interface ConfigFile {
      */
     @Nonnull
     ContainerType type() default ContainerType.YAML;
-
-
-    /**
-     * Save timer settings
-     * for the config file.
-     *
-     * @return save timer settings
-     */
-    ConfigTimer saveTimer() default @ConfigTimer;
-
-    /**
-     * Reload timer settings
-     * for the config file.
-     *
-     * @return reload timer settings
-     */
-    ConfigTimer reloadTimer() default @ConfigTimer;
 }
