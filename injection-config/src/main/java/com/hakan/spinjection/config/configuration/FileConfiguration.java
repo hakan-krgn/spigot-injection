@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * BaseConfiguration interface to
+ * FileConfiguration interface to
  * define base configuration methods.
  */
 public interface FileConfiguration {

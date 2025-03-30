@@ -10,11 +10,21 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 
+/**
+ * MapperConfiguration class to
+ * define base configuration methods
+ * like reload
+ */
 public abstract class MapperConfiguration {
 
     private final ObjectMapper jsonMapper = new ObjectMapper();
     private final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
+    /**
+     * Reloads the mapped configuration
+     * objects fields from the specified
+     * path using ConfigMapper annotation
+     */
     @SneakyThrows
     public final void reload() {
         ConfigMapper annotation = this.getClass().getAnnotation(ConfigMapper.class);
