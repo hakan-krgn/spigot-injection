@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
  * BaseConfiguration interface to
  * define base configuration methods.
  */
-public interface BaseConfiguration {
+public interface FileConfiguration {
 
     /**
      * Gets value from the config file.

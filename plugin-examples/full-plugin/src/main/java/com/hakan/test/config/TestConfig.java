@@ -2,7 +2,7 @@ package com.hakan.test.config;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
-import com.hakan.spinjection.config.configuration.BaseConfiguration;
+import com.hakan.spinjection.config.configuration.FileConfiguration;
 import com.hakan.spinjection.config.container.ContainerType;
 
 @ConfigFile(
@@ -10,7 +10,7 @@ import com.hakan.spinjection.config.container.ContainerType;
         resource = "config.yml",
         path = "plugins/TestPlugin/config.yml"
 )
-public interface TestConfig extends BaseConfiguration {
+public interface TestConfig extends FileConfiguration {
 
     @ConfigValue("settings.message")
     String getMessage();

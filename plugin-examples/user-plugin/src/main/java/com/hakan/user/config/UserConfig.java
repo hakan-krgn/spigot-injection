@@ -2,7 +2,7 @@ package com.hakan.user.config;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
 import com.hakan.spinjection.config.annotations.ConfigValue;
-import com.hakan.spinjection.config.configuration.BaseConfiguration;
+import com.hakan.spinjection.config.configuration.FileConfiguration;
 import com.hakan.spinjection.config.container.ContainerType;
 
 @ConfigFile(
@@ -10,7 +10,7 @@ import com.hakan.spinjection.config.container.ContainerType;
         resource = "config.yml",
         path = "plugins/UserPlugin/config.yml"
 )
-public interface UserConfig extends BaseConfiguration {
+public interface UserConfig extends FileConfiguration {
 
     @ConfigValue("settings.welcome-message")
     String getWelcomeMessage();

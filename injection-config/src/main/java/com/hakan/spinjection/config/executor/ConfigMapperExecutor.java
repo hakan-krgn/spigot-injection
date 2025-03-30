@@ -87,10 +87,8 @@ public class ConfigMapperExecutor implements SpigotExecutor {
                 this.annotation.resource()
         );
 
-        if (this.annotation.type() == ContainerType.YAML) {
-            this.instance = this.yamlMapper.readValue(file, this.clazz);
-        } else if (this.annotation.type() == ContainerType.JSON) {
-            this.instance = this.jsonMapper.readValue(file, this.clazz);
-        }
+        this.instance = (this.annotation.type() == ContainerType.YAML) ?
+                this.yamlMapper.readValue(file, this.clazz) :
+                this.jsonMapper.readValue(file, this.clazz);
     }
 }
