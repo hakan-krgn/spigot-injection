@@ -1,13 +1,18 @@
 package com.hakan.spinjection.config.configuration;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.hakan.spinjection.config.annotations.ConfigMapper;
+import com.hakan.spinjection.config.container.Container;
+import com.hakan.spinjection.config.container.ContainerFactory;
 import com.hakan.spinjection.config.container.ContainerType;
 import com.hakan.spinjection.config.utils.FileUtils;
 import lombok.SneakyThrows;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 
 /**
@@ -17,8 +22,72 @@ import java.io.File;
  */
 public abstract class MapperConfiguration {
 
-    private final ObjectMapper jsonMapper = new ObjectMapper();
-    private final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+    private final Container container;
+    private final ObjectMapper objectMapper;
+    private final ConfigMapper configMapper;
+
+    public MapperConfiguration() {
+        this.configMapper = this.getClass().getAnnotation(ConfigMapper.class);
+        this.objectMapper = (this.configMapper.type() == ContainerType.YAML) ?
+                new ObjectMapper(new YAMLFactory()) :
+                new ObjectMapper(new JsonFactory());
+        this.container = ContainerFactory.of(this.configMapper);
+    }
+
+    /**
+     * Gets value from the config file.
+     *
+     * @param key key of the value.
+     * @param <T> type of the value.
+     * @return value.
+     */
+    @Nullable
+    public final <T> T get(@Nonnull String key) {
+        return this.container.get(key);
+    }
+
+    /**
+     * Gets value from the config file.
+     *
+     * @param key   key of the value.
+     * @param clazz type of the value.
+     * @param <T>   type of the value.
+     * @return value.
+     */
+    @Nullable
+    public final <T> T get(@Nonnull String key, @Nonnull Class<T> clazz) {
+        return this.container.get(key, clazz);
+    }
+
+    /**
+     * Sets value to the config file.
+     *
+     * @param key   key of the value.
+     * @param value value.
+     */
+    public final void set(@Nonnull String key, @Nonnull Object value) {
+        this.container.set(key, value);
+    }
+
+    /**
+     * Sets value to the config file.
+     *
+     * @param key   key of the value.
+     * @param value value.
+     * @param save  if true, it will save the config file.
+     */
+    public final void set(@Nonnull String key, @Nonnull Object value, boolean save) {
+        this.container.set(key, value, save);
+    }
+
+    /**
+     * Saves the mapped configuration
+     * objects fields from the specified
+     * path using ConfigMapper annotation
+     */
+    public final void save() {
+        this.container.save();
+    }
 
     /**
      * Reloads the mapped configuration
@@ -27,16 +96,14 @@ public abstract class MapperConfiguration {
      */
     @SneakyThrows
     public final void reload() {
-        ConfigMapper annotation = this.getClass().getAnnotation(ConfigMapper.class);
+        this.container.reload();
 
         File file = FileUtils.createFile(
-                annotation.path(),
-                annotation.resource()
+                this.configMapper.path(),
+                this.configMapper.resource()
         );
 
-        ObjectReader reader = (annotation.type() == ContainerType.YAML) ?
-                this.yamlMapper.readerForUpdating(this) :
-                this.jsonMapper.readerForUpdating(this);
+        ObjectReader reader = this.objectMapper.readerForUpdating(this);
         reader.readValue(file);
     }
 }

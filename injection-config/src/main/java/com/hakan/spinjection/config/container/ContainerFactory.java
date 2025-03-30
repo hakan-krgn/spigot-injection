@@ -1,6 +1,7 @@
 package com.hakan.spinjection.config.container;
 
 import com.hakan.spinjection.config.annotations.ConfigFile;
+import com.hakan.spinjection.config.annotations.ConfigMapper;
 import com.hakan.spinjection.config.container.impl.JsonContainer;
 import com.hakan.spinjection.config.container.impl.YamlContainer;
 import com.hakan.spinjection.config.utils.FileUtils;
@@ -20,6 +21,16 @@ public class ContainerFactory {
      * @return new instance of ConfigContainer
      */
     public static @Nonnull Container of(@Nonnull ConfigFile annotation) {
+        return of(annotation.path(), annotation.resource(), annotation.type());
+    }
+
+    /**
+     * Create a new ConfigContainer.
+     *
+     * @param annotation configFile annotation
+     * @return new instance of ConfigContainer
+     */
+    public static @Nonnull Container of(@Nonnull ConfigMapper annotation) {
         return of(annotation.path(), annotation.resource(), annotation.type());
     }
 
